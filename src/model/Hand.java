@@ -22,4 +22,29 @@ class Hand {
 
     this.points = sum;
   }
+
+  public void addCard(Card c) {
+    cards.add(c);
+    updatePoints();
+  }
+
+  public boolean isBlackjack() {
+    return points == 21 && cards.size() == 2;
+  }
+
+  public boolean isBust() {
+    return points > 21;
+  }
+
+  // To decide if the hand can split
+  public boolean isPair() {
+    if (cards.size() == 2) {
+      return cards.get(0).getValue() == cards.get(1).getValue();
+    }
+    return false;
+  }
+
+  public int getPoints() {
+    return points;
+  }
 }
