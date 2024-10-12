@@ -35,6 +35,7 @@ class Deck {
     }
   }
 
+  // called after every round to check if we need to reshuffle
   public void tryReshuffle() {
     if (deck.size() <= TOTAL_CARDS - DRAW_LIMIT) {
       createNewDeck();

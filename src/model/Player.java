@@ -28,6 +28,7 @@ class Player {
   public boolean incrementBet(ChipColor chipColor) {
     for (Chip chip : balanceChips) {
       if (chip.value == Chip.getColorValue(chipColor)) {
+        System.out.println("Adding " + chipColor + " chip to bet.");
         betChips.add(chip);
         balanceChips.remove(chip);
 
@@ -39,5 +40,25 @@ class Player {
     }
 
     return false;
+  }
+
+  public void stand() {
+    // a
+  }
+
+  public void hit() {
+    // a
+  }
+
+  public void doubleBet() {
+    // a
+  }
+
+  public void split() {
+    // TODO: Next iteration
+  }
+
+  public void surrender() {
+    // TODO: Ask Ivan how this should work
   }
 }
