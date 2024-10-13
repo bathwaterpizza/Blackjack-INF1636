@@ -166,17 +166,14 @@ class Game {
 
     assert success;
 
-    // TODO: redo below
-    // check game status
-
-    if (player.currentHand.points == 21) {
-      // dealer plays
-      dealerPlay();
-    } else if (player.currentHand.isBust()) {
-      // player loses
+    if (player.currentHand.isBust()) {
+      // bust, player loses
       roundOver = true;
       won = false;
       handleRoundOver();
+    } else {
+      // player didn't bust, dealer plays
+      dealerPlay();
     }
 
     return true;
@@ -185,8 +182,15 @@ class Game {
   // called when the player presses stand,
   // returns whether it was successful
   public boolean choiceStand() {
-    // dealer does what it needs to, then game ends
-    return false;
+    // check if can stand
+    if (roundOver || !betPlaced) {
+      System.out.println("Can't stand now.");
+      return false;
+    }
+
+    dealerPlay();
+
+    return true;
   }
 
   // called when the player presses surrender,
