@@ -12,10 +12,10 @@ class Game {
   public static boolean won = false;
   public static boolean tied = false;
 
-  // remember to tryShuffle on new round
-
   // called when the player presses deal
   public void makeBet() {
+    assert betPlaced == false;
+
     // can't place a bet of less than 50
     if (player.bet < 50) {
       System.out.println("Bet needs to be > 50.");
@@ -29,7 +29,6 @@ class Game {
 
   // internal function to deal the first hand for the player and the dealer
   private void initialHand() {
-    // deal initial two cards for player and dealer
     player.currentHand = new Hand();
     dealer.currentHand = new Hand();
 
@@ -41,7 +40,29 @@ class Game {
     dealer.currentHand.addCard(deck.getCard());
     dealer.currentHand.addCard(deck.getCard());
 
-    // TODO: check if either hand isBlackjack()
+    // check if either the player or the dealer won on initial hand
+    if (player.currentHand.isBlackjack() && dealer.currentHand.isBlackjack()) {
+      // both blackjacks, tie
+      won = false;
+      tied = true;
+      roundOver = true;
+
+      handleRoundOver();
+    } else if (player.currentHand.isBlackjack()) {
+      // player blackjack, player wins
+      won = true;
+      tied = false;
+      roundOver = true;
+
+      handleRoundOver();
+    } else if (dealer.currentHand.isBlackjack()) {
+      // dealer blackjack, player loses
+      won = false;
+      tied = false;
+      roundOver = true;
+
+      handleRoundOver();
+    }
   }
 
   // called when the player presses hit,
@@ -54,8 +75,7 @@ class Game {
 
     boolean success = player.hit();
 
-    if (!success)
-      return false;
+    assert success;
 
     // check game status
     if (player.currentHand.points == 21) {
@@ -65,13 +85,26 @@ class Game {
       // player loses
       roundOver = true;
       won = false;
+      handleRoundOver();
     }
 
     return true;
   }
 
+  // called after the game is over to pay the player, or flush his bet
+  private void handleRoundOver() {
+    if (!roundOver)
+      return;
+
+  }
+
+  // makes the dealer plays after the player stands.
+  // calls handleRoundOver at the end
   private void dealerPlay() {
     // dealer hits until 17
+
+    assert !roundOver;
+
     while (dealer.currentHand.points < 17) {
       dealer.hit();
     }
@@ -94,10 +127,12 @@ class Game {
     }
 
     roundOver = true;
+    handleRoundOver();
   }
 
   public void choiceNewRound() {
-    // TODO: Player clicked on new round
+    // TODO: Player clicked on new round, reset everything
+    // dont forget to tryShuffle
   }
 
   // called when the player presses double,
