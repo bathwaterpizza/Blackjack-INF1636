@@ -1,7 +1,7 @@
 package model;
 
 class Dealer {
-  public Hand currentHand = new Hand();
+  public Hand currentHand;
 
   public void hit() {
     Card newCard = Game.deck.getCard();

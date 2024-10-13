@@ -93,9 +93,9 @@ class Game {
 
   // called after the game is over to pay the player, or flush his bet
   private void handleRoundOver() {
-    if (!roundOver)
-      return;
+    assert roundOver;
 
+    // TODO: use payout functions from player
   }
 
   // makes the dealer plays after the player stands.

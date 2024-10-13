@@ -29,9 +29,11 @@ class Player {
     for (Chip chip : balanceChips) {
       if (chip.value == Chip.getColorValue(chipColor)) {
         System.out.println("Adding " + chipColor + " chip to bet.");
+        // increment chips
         betChips.add(chip);
         balanceChips.remove(chip);
 
+        // increment value
         balance -= chip.value;
         bet += chip.value;
 
@@ -78,6 +80,33 @@ class Player {
     this.hit();
 
     return true;
+  }
+
+  // put the value in bet back to balance, and clear bet.
+  // called when game ties
+  public void receiveTiePayout() {
+    assert bet > 0;
+
+    // transfer chips to balance
+    for (Chip c : betChips) {
+      balanceChips.add(c);
+    }
+
+    // transfer value to balance
+    balance += bet;
+
+    this.clearBet();
+  }
+
+  public void receiveWinPayout() {
+    // copy twice of bet to balance
+
+    betChips.clear();
+  }
+
+  public void clearBet() {
+    betChips.clear();
+    bet = 0;
   }
 
   public void split() {
