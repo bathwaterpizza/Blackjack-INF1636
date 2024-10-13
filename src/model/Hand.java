@@ -6,7 +6,7 @@ class Hand {
   public ArrayList<Card> cards = new ArrayList<>();
   public int points = 0;
 
-  void updatePoints() {
+  private void updatePoints() {
     int sum = 0;
     boolean hasAce = false;
     for (Card c : cards) {
@@ -39,12 +39,8 @@ class Hand {
   // To decide if the hand can split
   public boolean isPair() {
     if (cards.size() == 2) {
-      return cards.get(0).getValue() == cards.get(1).getValue();
+      return cards.get(0) == cards.get(1);
     }
     return false;
-  }
-
-  public int getPoints() {
-    return points;
   }
 }

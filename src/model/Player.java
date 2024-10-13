@@ -10,7 +10,7 @@ class Player {
   public ArrayList<Chip> betChips = new ArrayList<>();
 
   public Player() {
-    // populate chips equivalent to 2400 as instructed
+    // start game with $2400 in chips
     for (int i = 0; i < 10; i++) {
       balanceChips.add(new Chip(ChipColor.GOLD));
       balanceChips.add(new Chip(ChipColor.GREEN));
@@ -24,7 +24,7 @@ class Player {
   }
 
   // adds a chip to the pending bet value.
-  // returns true if there was a chip in our balanced to add, false otherwise
+  // returns true if there was a chip in our balance to add, false otherwise
   public boolean incrementBet(ChipColor chipColor) {
     for (Chip chip : balanceChips) {
       if (chip.value == Chip.getColorValue(chipColor)) {
@@ -39,19 +39,41 @@ class Player {
       }
     }
 
+    // chip not available in player's balance
+    System.out.println("You don't have any " + chipColor + " chips to bet.");
     return false;
   }
 
-  public void stand() {
-    // a
+  // returns whether hit was successful
+  public boolean hit() {
+    // check if can hit
+    if (!Game.betPlaced || Game.roundOver) {
+      return false;
+    }
+
+    Card newCard = Game.deck.getCard();
+    currentHand.addCard(newCard);
+
+    return true;
   }
 
-  public void hit() {
-    // a
-  }
+  // returns whether double was successful
+  public boolean doubleBet() {
+    // check if can double
+    if (!Game.betPlaced || Game.roundOver) {
+      return false;
+    }
 
-  public void doubleBet() {
-    // a
+    // duplicate bet value and hit
+    var betCopy = new ArrayList<>(betChips);
+
+    for (Chip c : betCopy) {
+      this.incrementBet(c.color);
+    }
+
+    this.hit();
+
+    return true;
   }
 
   public void split() {

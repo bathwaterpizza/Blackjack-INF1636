@@ -54,8 +54,4 @@ class Deck {
 
     return deck.pop();
   }
-
-  public void putCard(Card card) {
-    deck.push(card);
-  }
 }
