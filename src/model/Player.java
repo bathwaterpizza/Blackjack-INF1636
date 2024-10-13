@@ -107,15 +107,13 @@ class Player {
     // copy bet chips to balance twice
     for (Chip c : betChips) {
       balanceChips.add(c);
-    }
-    for (Chip c : betChips) {
       balanceChips.add(c);
     }
 
     // copy double the bet value to balance
     balance += 2 * bet;
 
-    betChips.clear();
+    this.clearBet();
   }
 
   // put half the value in bet back to balance, and clear bet.
@@ -126,7 +124,10 @@ class Player {
 
     // TODO: Ask Ivan about chips
 
-    betChips.clear();
+    // copy half the bet value
+    balance += bet / 2;
+
+    this.clearBet();
   }
 
   public void clearBet() {
