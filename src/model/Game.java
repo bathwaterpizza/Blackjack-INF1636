@@ -162,9 +162,12 @@ class Game {
     }
 
     boolean success = player.doubleBet(Game.deck.getCard());
-    doubled = true;
+    if (!success) {
+      System.out.println("No money to double.");
+      return false;
+    }
 
-    assert success;
+    doubled = true;
 
     if (player.currentHand.isBust()) {
       // bust, player loses
