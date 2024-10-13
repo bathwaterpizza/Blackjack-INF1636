@@ -1,11 +1,5 @@
 package model;
 
-class UnknownCardException extends RuntimeException {
-  public UnknownCardException(String message) {
-    super(message);
-  }
-}
-
 class Card {
   public Suit suit;
   public Rank rank;
@@ -43,7 +37,8 @@ class Card {
       case KING:
         return 10;
       default:
-        throw new UnknownCardException("Unknown card rank: " + rank);
+        System.out.println("Should not happen! unknown card.");
+        return -1;
     }
   }
 

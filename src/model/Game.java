@@ -10,6 +10,7 @@ class Game {
   public static boolean roundOver = false;
   public static boolean doubled = false;
   public static boolean won = false;
+  public static boolean tied = false;
 
   // remember to tryShuffle on new round
 
@@ -47,7 +48,7 @@ class Game {
   // returns whether it was successful
   public boolean choiceHit() {
     // check if can hit
-    if (roundOver) {
+    if (roundOver || !betPlaced) {
       return false;
     }
 
@@ -58,13 +59,45 @@ class Game {
 
     // check game status
     if (player.currentHand.points == 21) {
-      // win
-
+      // dealer plays
+      dealerPlay();
     } else if (player.currentHand.isBust()) {
-      // lose
+      // player loses
+      roundOver = true;
+      won = false;
     }
 
     return true;
+  }
+
+  private void dealerPlay() {
+    // dealer hits until 17
+    while (dealer.currentHand.points < 17) {
+      dealer.hit();
+    }
+
+    // dealer finished playing, check results
+    // at this point, player hand <= 21
+    if (dealer.currentHand.isBust()) {
+      // dealer bust, player wins
+      won = true;
+    } else if (dealer.currentHand.points > player.currentHand.points) {
+      // dealer wins
+      won = false;
+    } else if (dealer.currentHand.points == player.currentHand.points) {
+      // round draw
+      won = false;
+      tied = true;
+    } else {
+      // player wins
+      won = true;
+    }
+
+    roundOver = true;
+  }
+
+  public void choiceNewRound() {
+    // TODO: Player clicked on new round
   }
 
   // called when the player presses double,
