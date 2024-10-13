@@ -39,7 +39,7 @@ class Hand {
   // To decide if the hand can split
   public boolean isPair() {
     if (cards.size() == 2) {
-      return cards.get(0) == cards.get(1);
+      return cards.get(0).getValue() == cards.get(1).getValue();
     }
     return false;
   }
