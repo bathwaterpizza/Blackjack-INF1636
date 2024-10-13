@@ -42,6 +42,12 @@ public class CardTest {
         Card card2 = new Card(Suit.DIAMONDS, Rank.SEVEN);
         assertTrue(card1.equals(card2));
     }
+    
+    @Test
+    public void testEqualItself() {
+        Card card1 = new Card(Suit.DIAMONDS, Rank.SEVEN);
+        assertTrue(card1.equals(card1));
+    }
 
     @Test
     public void testDifferentSuit() {
@@ -56,4 +62,20 @@ public class CardTest {
         Card card2 = new Card(Suit.DIAMONDS, Rank.EIGHT);
         assertFalse(card1.equals(card2));
     }
+    
+    @Test
+    public void testDifferentNull() {
+        Card card1 = new Card(Suit.DIAMONDS, Rank.SEVEN);
+        Card card2 = null;
+        assertFalse(card1.equals(card2));
+    }
+    
+    @Test
+    public void testDifferentClass() {
+        Card card1 = new Card(Suit.DIAMONDS, Rank.SEVEN);
+        Deck deck = new Deck(true);
+        assertFalse(card1.equals(deck));
+    }
+    
+    
 }
