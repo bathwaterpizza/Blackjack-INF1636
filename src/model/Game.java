@@ -8,10 +8,9 @@ class Game {
   // state properties
   public static boolean betPlaced = false;
   public static boolean roundOver = false;
+  public static boolean doubled = false;
 
-  public Game() {
-    // a
-  }
+  // remember to tryShuffle on new round
 
   public void makeBet() {
     // can't place a bet of less than 50
@@ -22,6 +21,42 @@ class Game {
 
     betPlaced = true;
 
-    // dealFirstCards
+    initialHand();
+  }
+
+  private void initialHand() {
+    // deal initial two cards for player and dealer
+    player.currentHand = new Hand();
+    dealer.currentHand = new Hand();
+
+    // 2 cards for the player
+    player.currentHand.addCard(deck.getCard());
+    player.currentHand.addCard(deck.getCard());
+
+    // 2 cards for the dealer
+    dealer.currentHand.addCard(deck.getCard());
+    dealer.currentHand.addCard(deck.getCard());
+  }
+
+  public boolean choiceHit() {
+    return false;
+  }
+
+  public boolean choiceDouble() {
+    return false;
+  }
+
+  public boolean choiceStand() {
+    return false;
+  }
+
+  public boolean choiceSurrender() {
+    // TODO: Ask Ivan about chips
+    return false;
+  }
+
+  public boolean choiceSplit() {
+    // TODO: Next iterations
+    return false;
   }
 }

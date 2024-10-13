@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 class Player {
-  public Hand currentHand = new Hand();
+  public Hand currentHand;
   public int balance = 2400;
   public int bet = 0;
   public ArrayList<Chip> balanceChips = new ArrayList<>();
@@ -60,7 +60,11 @@ class Player {
   // returns whether double was successful
   public boolean doubleBet() {
     // check if can double
-    if (!Game.betPlaced || Game.roundOver) {
+    if (!Game.betPlaced || Game.roundOver || Game.doubled) {
+      return false;
+    }
+    // check if there's enough balance to double
+    if (balance - bet < 0) {
       return false;
     }
 
@@ -81,6 +85,6 @@ class Player {
   }
 
   public void surrender() {
-    // TODO: Ask Ivan how this should work
+    // TODO: Ask Ivan about chips
   }
 }
