@@ -3,8 +3,9 @@ package model;
 class Dealer {
   public Hand currentHand;
 
-  public void hit() {
-    Card newCard = Game.deck.getCard();
+  public boolean hit(Card newCard) {
     currentHand.addCard(newCard);
+
+    return true;
   }
 }

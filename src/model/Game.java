@@ -65,32 +65,6 @@ class Game {
     }
   }
 
-  // called when the player presses hit,
-  // returns whether it was successful
-  public boolean choiceHit() {
-    // check if can hit
-    if (roundOver || !betPlaced) {
-      return false;
-    }
-
-    boolean success = player.hit();
-
-    assert success;
-
-    // check game status
-    if (player.currentHand.points == 21) {
-      // dealer plays
-      dealerPlay();
-    } else if (player.currentHand.isBust()) {
-      // player loses
-      roundOver = true;
-      won = false;
-      handleRoundOver();
-    }
-
-    return true;
-  }
-
   // called after the game is over to pay the player and clear his bet
   private void handleRoundOver() {
     assert roundOver;
@@ -112,7 +86,8 @@ class Game {
     assert !roundOver;
 
     while (dealer.currentHand.points < 17) {
-      dealer.hit();
+      boolean success = dealer.hit(Game.deck.getCard());
+      assert success;
     }
 
     // dealer finished playing, check results
@@ -136,16 +111,75 @@ class Game {
     handleRoundOver();
   }
 
+  // resets state properties and reshuffles deck if needed.
+  // called when player presses new round
   public void choiceNewRound() {
-    // TODO: Player clicked on new round, reset everything
-    // dont forget to tryShuffle
+    // state properties
+    betPlaced = false;
+    roundOver = false;
+    doubled = false;
+    won = false;
+    tied = false;
+
+    // reset and shuffle if >10% of deck is gone
+    deck.tryReshuffle();
+  }
+
+  // called when the player presses hit,
+  // returns whether it was successful
+  public boolean choiceHit() {
+    // check if can hit
+    if (roundOver || !betPlaced) {
+      System.out.println("Can't hit now.");
+      return false;
+    }
+
+    boolean success = player.hit(Game.deck.getCard());
+
+    assert success;
+
+    // check game status
+    if (player.currentHand.points == 21) {
+      // dealer plays
+      dealerPlay();
+    } else if (player.currentHand.isBust()) {
+      // player loses
+      roundOver = true;
+      won = false;
+      handleRoundOver();
+    }
+
+    return true;
   }
 
   // called when the player presses double,
   // returns whether it was successful
   public boolean choiceDouble() {
-    // check if can double, other than the player checks
-    return false;
+    // check if can double
+    if (roundOver || !betPlaced || doubled) {
+      System.out.println("Can't double now.");
+      return false;
+    }
+
+    boolean success = player.doubleBet(Game.deck.getCard());
+    doubled = true;
+
+    assert success;
+
+    // TODO: redo below
+    // check game status
+
+    if (player.currentHand.points == 21) {
+      // dealer plays
+      dealerPlay();
+    } else if (player.currentHand.isBust()) {
+      // player loses
+      roundOver = true;
+      won = false;
+      handleRoundOver();
+    }
+
+    return true;
   }
 
   // called when the player presses stand,

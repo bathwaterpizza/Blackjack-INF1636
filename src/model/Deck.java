@@ -19,8 +19,9 @@ class Deck {
     // create a deck with eight sets of 52 cards
     createNewDeck();
 
-    if (shouldShuffle)
-      shuffle();
+    if (shouldShuffle) {
+      Collections.shuffle(deck);
+    }
   }
 
   private void createNewDeck() {
@@ -39,12 +40,8 @@ class Deck {
   public void tryReshuffle() {
     if (deck.size() <= TOTAL_CARDS - DRAW_LIMIT) {
       createNewDeck();
-      shuffle();
+      Collections.shuffle(deck);
     }
-  }
-
-  public void shuffle() {
-    Collections.shuffle(deck);
   }
 
   public Card getCard() {

@@ -47,24 +47,14 @@ class Player {
   }
 
   // returns whether hit was successful
-  public boolean hit() {
-    // check if can hit
-    if (!Game.betPlaced || Game.roundOver) {
-      return false;
-    }
-
-    Card newCard = Game.deck.getCard();
+  public boolean hit(Card newCard) {
     currentHand.addCard(newCard);
 
     return true;
   }
 
   // returns whether double was successful
-  public boolean doubleBet() {
-    // check if can double
-    if (!Game.betPlaced || Game.roundOver || Game.doubled) {
-      return false;
-    }
+  public boolean doubleBet(Card newCard) {
     // check if there's enough balance to double
     if (balance - bet < 0) {
       return false;
@@ -77,7 +67,7 @@ class Player {
       this.incrementBet(c.color);
     }
 
-    this.hit();
+    this.hit(newCard);
 
     return true;
   }
