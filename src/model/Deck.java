@@ -52,6 +52,10 @@ class Deck {
     return deck.pop();
   }
 
+  public void putCard(Card card) {
+    deck.push(card);
+  }
+
   public int getDeckSize() {
     return deck.size();
   }

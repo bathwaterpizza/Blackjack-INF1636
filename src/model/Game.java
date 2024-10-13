@@ -161,8 +161,11 @@ class Game {
       return false;
     }
 
-    boolean success = player.doubleBet(Game.deck.getCard());
+    Card newCard = Game.deck.getCard();
+    boolean success = player.doubleBet(newCard);
     if (!success) {
+      // cannot double. return card to the top of the deck
+      deck.putCard(newCard);
       System.out.println("No money to double.");
       return false;
     }
