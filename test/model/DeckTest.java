@@ -48,12 +48,11 @@ public class DeckTest {
 		
 		for(int i=0; i<42;i++) {
 			deck1.getCard();
-			deck2.getCard();
 		}
 		
 		deck1.tryReshuffle();
 		
-		for(int j= 0; j < 416;j++) {
+		for(int j= 0; j < 417;j++) {
 			Card deckCard1= deck1.getCard();
 			Card deckCard2= deck2.getCard();
 			if(!(deckCard1.equals(deckCard2))) {
