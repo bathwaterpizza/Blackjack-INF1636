@@ -13,7 +13,7 @@ class Game {
   public static boolean tied = false;
 
   // called when the player presses deal
-  public void makeBet() {
+  public static void makeBet() {
     assert betPlaced == false;
 
     // can't place a bet of less than 50
@@ -28,7 +28,7 @@ class Game {
   }
 
   // internal function to deal the first hand for the player and the dealer
-  private void initialHand() {
+  private static void initialHand() {
     player.currentHand = new Hand();
     dealer.currentHand = new Hand();
 
@@ -66,7 +66,7 @@ class Game {
   }
 
   // called after the game is over to pay the player and clear his bet
-  private void handleRoundOver() {
+  private static void handleRoundOver() {
     assert roundOver;
 
     if (tied) {
@@ -80,7 +80,7 @@ class Game {
 
   // makes the dealer plays after the player stands.
   // calls handleRoundOver at the end
-  private void dealerPlay() {
+  private static void dealerPlay() {
     // dealer hits until 17
 
     assert !roundOver;
@@ -113,7 +113,7 @@ class Game {
 
   // resets state properties and reshuffles deck if needed.
   // called when player presses new round
-  public void choiceNewRound() {
+  public static void choiceNewRound() {
     // state properties
     betPlaced = false;
     roundOver = false;
@@ -127,7 +127,7 @@ class Game {
 
   // called when the player presses hit,
   // returns whether it was successful
-  public boolean choiceHit() {
+  public static boolean choiceHit() {
     // check if can hit
     if (roundOver || !betPlaced) {
       System.out.println("Can't hit now.");
@@ -154,7 +154,7 @@ class Game {
 
   // called when the player presses double,
   // returns whether it was successful
-  public boolean choiceDouble() {
+  public static boolean choiceDouble() {
     // check if can double
     if (roundOver || !betPlaced || doubled) {
       System.out.println("Can't double now.");
@@ -184,7 +184,7 @@ class Game {
 
   // called when the player presses stand,
   // returns whether it was successful
-  public boolean choiceStand() {
+  public static boolean choiceStand() {
     // check if can stand
     if (roundOver || !betPlaced) {
       System.out.println("Can't stand now.");
@@ -198,14 +198,14 @@ class Game {
 
   // called when the player presses surrender,
   // returns whether it was successful
-  public boolean choiceSurrender() {
+  public static boolean choiceSurrender() {
     // TODO: Ask Ivan about chips
     return false;
   }
 
   // called when the player presses split,
   // returns whether it was successful
-  public boolean choiceSplit() {
+  public static boolean choiceSplit() {
     // TODO: Next iterations
     return false;
   }
