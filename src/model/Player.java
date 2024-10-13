@@ -98,8 +98,33 @@ class Player {
     this.clearBet();
   }
 
+  // put twice the value in bet back to balance, and clear bet.
+  // called when the player wins
   public void receiveWinPayout() {
     // copy twice of bet to balance
+    assert bet > 0;
+
+    // copy bet chips to balance twice
+    for (Chip c : betChips) {
+      balanceChips.add(c);
+    }
+    for (Chip c : betChips) {
+      balanceChips.add(c);
+    }
+
+    // copy double the bet value to balance
+    balance += 2 * bet;
+
+    betChips.clear();
+  }
+
+  // put half the value in bet back to balance, and clear bet.
+  // called when the player surrenders
+  public void receiveHalfPayout() {
+    // copy half of bet to balance
+    assert bet > 0;
+
+    // TODO: Ask Ivan about chips
 
     betChips.clear();
   }

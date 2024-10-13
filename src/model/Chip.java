@@ -16,6 +16,10 @@ class Chip {
   }
 
   public static int getColorValue(ChipColor color) {
+    if (color == null) {
+      throw new UnknownChipException("Unknown chip color");
+    }
+
     switch (color) {
       case BLACK:
         return 1;
