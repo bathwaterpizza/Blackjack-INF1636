@@ -81,7 +81,7 @@ class Player {
   }
 
   public void split() {
-    // TODO: Next iteration
+    // TODO: Next iterations
   }
 
   public void surrender() {
