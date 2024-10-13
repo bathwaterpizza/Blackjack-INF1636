@@ -91,11 +91,17 @@ class Game {
     return true;
   }
 
-  // called after the game is over to pay the player, or flush his bet
+  // called after the game is over to pay the player and clear his bet
   private void handleRoundOver() {
     assert roundOver;
 
-    // TODO: use payout functions from player
+    if (tied) {
+      player.receiveTiePayout();
+    } else if (won) {
+      player.receiveWinPayout();
+    } else {
+      player.clearBet();
+    }
   }
 
   // makes the dealer plays after the player stands.

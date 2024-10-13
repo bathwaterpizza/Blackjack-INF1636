@@ -130,6 +130,8 @@ class Player {
     this.clearBet();
   }
 
+  // clear bet value and chips.
+  // called when player loses, and within the other payout methods
   public void clearBet() {
     betChips.clear();
     bet = 0;
