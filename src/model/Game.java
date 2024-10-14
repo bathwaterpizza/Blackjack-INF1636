@@ -18,7 +18,7 @@ class Game {
 
     // can't place a bet of less than 50
     if (player.bet < 50) {
-      System.out.println("Bet needs to be > 50.");
+      System.out.println("Bet needs to be >= 50.");
       return;
     }
 
@@ -123,6 +123,7 @@ class Game {
 
     // reset and shuffle if >10% of deck is gone
     deck.tryReshuffle();
+    player.clearBet();
   }
 
   // called when the player presses hit,
