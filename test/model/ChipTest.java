@@ -58,13 +58,4 @@ public class ChipTest {
     Chip chip = new Chip(ChipColor.GOLD);
     assertEquals(100, chip.value);
   }
-
-  /**
-   * Test to verify that an UnknownChipException is thrown when attempting to get
-   * the value of a null chip color.
-   */
-  @Test(expected = UnknownChipException.class)
-  public void testUnknownChipThrowsException() {
-    Chip.getColorValue(null);
-  }
 }

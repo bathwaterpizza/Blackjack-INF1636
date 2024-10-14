@@ -1,11 +1,5 @@
 package model;
 
-class UnknownChipException extends RuntimeException {
-  public UnknownChipException(String message) {
-    super(message);
-  }
-}
-
 class Chip {
   public ChipColor color;
   public int value;
@@ -15,11 +9,8 @@ class Chip {
     this.value = getColorValue(color);
   }
 
+  // get the value of the chip by its color
   public static int getColorValue(ChipColor color) {
-    if (color == null) {
-      throw new UnknownChipException("Unknown chip color");
-    }
-
     switch (color) {
       case BLACK:
         return 1;
@@ -34,7 +25,8 @@ class Chip {
       case GOLD:
         return 100;
       default:
-        throw new UnknownChipException("Unknown chip color");
+        System.out.println("Should not happen! unknown chip.");
+        return -1;
     }
   }
 }

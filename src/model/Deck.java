@@ -3,6 +3,7 @@ package model;
 import java.util.Collections;
 import java.util.Stack;
 
+// thrown when the deck is empty, should never happen
 class EmptyDeckException extends RuntimeException {
   public EmptyDeckException(String message) {
     super(message);
@@ -24,6 +25,7 @@ class Deck {
     }
   }
 
+  // creates a new deck with 8 sets of 52 cards
   private void createNewDeck() {
     deck = new Stack<>();
 
@@ -44,6 +46,7 @@ class Deck {
     }
   }
 
+  // returns the card at the top of the deck, also removing it from the deck
   public Card getCard() {
     if (deck.isEmpty()) {
       throw new EmptyDeckException("Deck is empty");
@@ -52,10 +55,12 @@ class Deck {
     return deck.pop();
   }
 
+  // inserts a card at the top of the deck
   public void putCard(Card card) {
     deck.push(card);
   }
 
+  // returns the amount of cards in the deck
   public int getDeckSize() {
     return deck.size();
   }

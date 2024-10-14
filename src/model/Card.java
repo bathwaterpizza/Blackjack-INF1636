@@ -9,6 +9,7 @@ class Card {
     this.rank = rank;
   }
 
+  // get the value of the card according to the blackjack rules
   public int getValue() {
     switch (rank) {
       case ACE:
@@ -42,6 +43,7 @@ class Card {
     }
   }
 
+  // making sure that == works as expected
   @Override
   public boolean equals(Object obj) {
     if (this == obj) {
