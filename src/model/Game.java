@@ -123,6 +123,7 @@ class Game {
 
     // reset and shuffle if >10% of deck is gone
     deck.tryReshuffle();
+    player.clearBet();
   }
 
   // called when the player presses hit,
