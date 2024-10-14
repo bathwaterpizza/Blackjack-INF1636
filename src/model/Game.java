@@ -18,7 +18,7 @@ class Game {
 
     // can't place a bet of less than 50
     if (player.bet < 50) {
-      System.out.println("Bet needs to be > 50.");
+      System.out.println("Bet needs to be >= 50.");
       return;
     }
 
