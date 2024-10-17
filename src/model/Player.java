@@ -1,48 +1,42 @@
 package model;
 
-import java.util.ArrayList;
-
 class Player {
   public Hand currentHand;
-  public int balance = 2400;
+  public double balance = 2400.0;
   public int bet = 0;
-  public ArrayList<Chip> balanceChips = new ArrayList<>();
-  public ArrayList<Chip> betChips = new ArrayList<>();
 
-  public Player() {
-    // start game with $2400 in chips
-    for (int i = 0; i < 10; i++) {
-      balanceChips.add(new Chip(ChipColor.GOLD));
-      balanceChips.add(new Chip(ChipColor.GREEN));
-    }
-    for (int i = 0; i < 20; i++) {
-      balanceChips.add(new Chip(ChipColor.RED));
-    }
-    for (int i = 0; i < 50; i++) {
-      balanceChips.add(new Chip(ChipColor.BLUE));
-    }
-  }
-
-  // adds a chip to the pending bet value.
+  // adds a chip's value to the bet, removing it from balance
   // returns true if there was a chip in our balance to add, false otherwise
   public boolean incrementBet(ChipColor chipColor) {
-    for (Chip chip : balanceChips) {
-      if (chip.value == Chip.getColorValue(chipColor)) {
-        System.out.println("Adding " + chipColor + " chip to bet.");
-        // increment chips
-        betChips.add(chip);
-        balanceChips.remove(chip);
+    int betValue = chipColor.toInt();
 
-        // increment value
-        balance -= chip.value;
-        bet += chip.value;
+    // check if chip is available in player's balance
+    if (balance >= betValue) {
+      balance -= betValue;
+      bet += betValue;
 
-        return true;
-      }
+      System.out.println("Added " + betValue + " to bet.");
+      return true;
     }
 
     // chip not available in player's balance
-    System.out.println("You don't have any " + chipColor + " chips to bet.");
+    System.out.println("Not enough balance to bet.");
+    return false;
+  }
+
+  // overload for an int parameter
+  public boolean incrementBet(int betValue) {
+    // check if chip is available in player's balance
+    if (balance >= betValue) {
+      balance -= betValue;
+      bet += betValue;
+
+      System.out.println("Added " + betValue + " to bet.");
+      return true;
+    }
+
+    // chip not available in player's balance
+    System.out.println("Not enough balance to bet.");
     return false;
   }
 
@@ -56,31 +50,26 @@ class Player {
   // returns whether double was successful
   public boolean doubleBet(Card newCard) {
     // check if there's enough balance to double
-    if (balance - bet < 0) {
+    if (balance < bet) {
       return false;
     }
 
-    // duplicate bet value and hit
-    var betCopy = new ArrayList<>(betChips);
-
-    for (Chip c : betCopy) {
-      this.incrementBet(c.color);
-    }
-
+    // double bet and hit
+    balance -= bet;
+    bet *= 2;
     this.hit(newCard);
 
     return true;
+  }
+
+  public void surrender() {
+    // TODO: Ask Ivan about chips
   }
 
   // put the value in bet back to balance, and clear bet.
   // called when game ties
   public void receiveTiePayout() {
     assert bet > 0;
-
-    // transfer chips to balance
-    for (Chip c : betChips) {
-      balanceChips.add(c);
-    }
 
     // transfer value to balance
     balance += bet;
@@ -94,12 +83,6 @@ class Player {
     // copy twice of bet to balance
     assert bet > 0;
 
-    // copy bet chips to balance twice
-    for (Chip c : betChips) {
-      balanceChips.add(c);
-      balanceChips.add(c);
-    }
-
     // copy double the bet value to balance
     balance += 2 * bet;
 
@@ -112,8 +95,6 @@ class Player {
     // copy half of bet to balance
     assert bet > 0;
 
-    // TODO: Ask Ivan about chips
-
     // copy half the bet value
     balance += bet / 2;
 
@@ -123,15 +104,10 @@ class Player {
   // clear bet value and chips.
   // called when player loses, and within the other payout methods
   public void clearBet() {
-    betChips.clear();
     bet = 0;
   }
 
   public void split() {
     // TODO: Next iterations
-  }
-
-  public void surrender() {
-    // TODO: Ask Ivan about chips
   }
 }
