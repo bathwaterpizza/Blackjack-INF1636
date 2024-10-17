@@ -75,7 +75,6 @@ public class PlayerTest {
   @Test
   public void testBalanceAfterWin() {
     Player player = new Player();
-    double balanceBefore = player.balance;
     player.incrementBet(ChipColor.GREEN);
     int betValue = ChipColor.GREEN.toInt();
     player.receiveWinPayout();
@@ -103,7 +102,7 @@ public class PlayerTest {
     Player player = new Player();
     player.incrementBet(ChipColor.BLUE);
     assertFalse(player.bet == 0);
-    player.clearBet();
+    player.bet = 0;
     assertTrue(player.bet == 0);
   }
 

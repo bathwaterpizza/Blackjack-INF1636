@@ -40,6 +40,8 @@ class Player {
     return false;
   }
 
+  // TODO: decrementBet
+
   // returns whether hit was successful
   public boolean hit(Card newCard) {
     currentHand.addCard(newCard);
@@ -62,10 +64,6 @@ class Player {
     return true;
   }
 
-  public void surrender() {
-    // TODO: Ask Ivan about chips
-  }
-
   // put the value in bet back to balance, and clear bet.
   // called when game ties
   public void receiveTiePayout() {
@@ -73,8 +71,7 @@ class Player {
 
     // transfer value to balance
     balance += bet;
-
-    this.clearBet();
+    bet = 0;
   }
 
   // put twice the value in bet back to balance, and clear bet.
@@ -85,8 +82,7 @@ class Player {
 
     // copy double the bet value to balance
     balance += 2 * bet;
-
-    this.clearBet();
+    bet = 0;
   }
 
   // put half the value in bet back to balance, and clear bet.
@@ -97,13 +93,6 @@ class Player {
 
     // copy half the bet value
     balance += bet / 2;
-
-    this.clearBet();
-  }
-
-  // clear bet value and chips.
-  // called when player loses, and within the other payout methods
-  public void clearBet() {
     bet = 0;
   }
 

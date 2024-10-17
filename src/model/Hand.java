@@ -43,4 +43,9 @@ class Hand {
     }
     return false;
   }
+
+  public void clear() {
+    cards.clear();
+    points = 0;
+  }
 }

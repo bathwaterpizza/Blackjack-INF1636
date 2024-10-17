@@ -73,7 +73,7 @@ class Game {
     } else if (surrendered) {
       player.receiveHalfPayout();
     } else {
-      player.clearBet();
+      player.bet = 0;
     }
   }
 
@@ -122,7 +122,8 @@ class Game {
 
     // reset and shuffle if >10% of deck is gone
     deck.tryReshuffle();
-    player.clearBet();
+    player.bet = 0;
+    player.currentHand.clear();
   }
 
   // called when the player presses hit,
@@ -145,7 +146,6 @@ class Game {
     } else if (player.currentHand.isBust()) {
       // player loses
       roundOver = true;
-      won = false;
       payout();
     }
 
@@ -175,7 +175,6 @@ class Game {
     if (player.currentHand.isBust()) {
       // bust, player loses
       roundOver = true;
-      won = false;
       payout();
     } else {
       // player didn't bust, dealer plays
@@ -202,8 +201,17 @@ class Game {
   // called when the player presses surrender,
   // returns whether it was successful
   public static boolean choiceSurrender() {
-    // TODO: Ask Ivan about chips
-    return false;
+    // check if can surrender
+    if (roundOver || !betPlaced) {
+      System.out.println("Can't surrender now.");
+      return false;
+    }
+
+    roundOver = true;
+    surrendered = true;
+    payout();
+
+    return true;
   }
 
   // called when the player presses split,
