@@ -11,6 +11,7 @@ class Game {
   public static boolean doubled = false;
   public static boolean won = false;
   public static boolean tied = false;
+  public static boolean surrendered = false;
 
   // called when the player presses deal
   public static void makeBet() {
@@ -43,36 +44,34 @@ class Game {
     // check if either the player or the dealer won on initial hand
     if (player.currentHand.isBlackjack() && dealer.currentHand.isBlackjack()) {
       // both blackjacks, tie
-      won = false;
       tied = true;
       roundOver = true;
 
-      handleRoundOver();
+      payout();
     } else if (player.currentHand.isBlackjack()) {
       // player blackjack, player wins
       won = true;
-      tied = false;
       roundOver = true;
 
-      handleRoundOver();
+      payout();
     } else if (dealer.currentHand.isBlackjack()) {
       // dealer blackjack, player loses
-      won = false;
-      tied = false;
       roundOver = true;
 
-      handleRoundOver();
+      payout();
     }
   }
 
   // called after the game is over to pay the player and clear his bet
-  private static void handleRoundOver() {
+  private static void payout() {
     assert roundOver;
 
     if (tied) {
       player.receiveTiePayout();
     } else if (won) {
       player.receiveWinPayout();
+    } else if (surrendered) {
+      player.receiveHalfPayout();
     } else {
       player.clearBet();
     }
@@ -81,10 +80,9 @@ class Game {
   // makes the dealer plays after the player stands.
   // calls handleRoundOver at the end
   private static void dealerPlay() {
-    // dealer hits until 17
-
     assert !roundOver;
 
+    // dealer hits until 17
     while (dealer.currentHand.points < 17) {
       boolean success = dealer.hit(Game.deck.getCard());
       assert success;
@@ -108,7 +106,7 @@ class Game {
     }
 
     roundOver = true;
-    handleRoundOver();
+    payout();
   }
 
   // resets state properties and reshuffles deck if needed.
@@ -120,6 +118,7 @@ class Game {
     doubled = false;
     won = false;
     tied = false;
+    surrendered = false;
 
     // reset and shuffle if >10% of deck is gone
     deck.tryReshuffle();
@@ -147,7 +146,7 @@ class Game {
       // player loses
       roundOver = true;
       won = false;
-      handleRoundOver();
+      payout();
     }
 
     return true;
@@ -177,7 +176,7 @@ class Game {
       // bust, player loses
       roundOver = true;
       won = false;
-      handleRoundOver();
+      payout();
     } else {
       // player didn't bust, dealer plays
       dealerPlay();
