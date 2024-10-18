@@ -15,7 +15,10 @@ class Game {
 
   // called when the player presses deal
   public static void makeBet() {
-    assert betPlaced == false;
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return;
+    }
 
     // can't place a bet of less than 50
     if (player.bet < 50) {
@@ -124,6 +127,7 @@ class Game {
     deck.tryReshuffle();
     player.bet = 0;
     player.currentHand.clear();
+    dealer.currentHand.clear();
   }
 
   // called when the player presses hit,
