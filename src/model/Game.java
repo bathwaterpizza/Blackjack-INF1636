@@ -8,7 +8,6 @@ class Game {
   // state properties
   public static boolean betPlaced = false;
   public static boolean roundOver = false;
-  public static boolean doubled = false;
   public static boolean won = false;
   public static boolean tied = false;
   public static boolean surrendered = false;
@@ -115,7 +114,6 @@ class Game {
     // state properties
     betPlaced = false;
     roundOver = false;
-    doubled = false;
     won = false;
     tied = false;
     surrendered = false;
@@ -157,7 +155,7 @@ class Game {
   // returns whether it was successful
   public static boolean choiceDouble() {
     // check if can double
-    if (roundOver || !betPlaced || doubled || player.currentHand.size() > 2) {
+    if (roundOver || !betPlaced || player.currentHand.size() > 2) {
       System.out.println("Can't double now.");
       return false;
     }
@@ -170,8 +168,6 @@ class Game {
       System.out.println("No money to double.");
       return false;
     }
-
-    doubled = true;
 
     if (player.currentHand.isBust()) {
       // bust, player loses
