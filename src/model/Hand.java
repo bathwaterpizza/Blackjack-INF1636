@@ -48,4 +48,27 @@ class Hand {
     cards.clear();
     points = 0;
   }
+
+  // amount of cards in the hand
+  public int size() {
+    return cards.size();
+  }
+
+  // tostring for debug
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    for (Card card : cards) {
+      sb.append(card.toString()).append(", ");
+    }
+
+    if (sb.length() > 0) {
+      sb.setLength(sb.length() - 2); // remove trailing comma and space
+    }
+
+    sb.append(" (" + points + ")");
+
+    return sb.toString();
+  }
 }

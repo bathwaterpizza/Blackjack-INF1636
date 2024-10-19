@@ -55,4 +55,10 @@ class Card {
     Card card = (Card) obj;
     return suit == card.suit && rank == card.rank;
   }
+
+  // tostring for debug
+  @Override
+  public String toString() {
+    return rank.toString() + " of " + suit.toString();
+  }
 }

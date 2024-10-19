@@ -1,7 +1,7 @@
 package model;
 
 class Player {
-  public Hand currentHand;
+  public Hand currentHand = new Hand();
   public double balance = 2400.0;
   public int bet = 0;
 

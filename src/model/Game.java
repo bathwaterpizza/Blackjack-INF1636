@@ -33,9 +33,6 @@ class Game {
 
   // internal function to deal the first hand for the player and the dealer
   private static void initialHand() {
-    player.currentHand = new Hand();
-    dealer.currentHand = new Hand();
-
     // 2 cards for the player
     player.currentHand.addCard(deck.getCard());
     player.currentHand.addCard(deck.getCard());
@@ -160,7 +157,7 @@ class Game {
   // returns whether it was successful
   public static boolean choiceDouble() {
     // check if can double
-    if (roundOver || !betPlaced || doubled) {
+    if (roundOver || !betPlaced || doubled || player.currentHand.size() > 2) {
       System.out.println("Can't double now.");
       return false;
     }
