@@ -33,7 +33,7 @@ public class PlayerTest {
     Player player = new Player();
     Card placeholder_card = new Card(Suit.HEARTS, Rank.ACE);
     Hand placeholder_hand = new Hand();
-    player.currentHand = placeholder_hand;
+    player.hand = placeholder_hand;
     player.incrementBet(ChipColor.BLUE);
     boolean status = player.doubleBet(placeholder_card);
     assertTrue("Doublet Bet Sucessful", status);
@@ -44,7 +44,7 @@ public class PlayerTest {
     Player player = new Player();
     Card placeholder_card = new Card(Suit.HEARTS, Rank.ACE);
     Hand placeholder_hand = new Hand();
-    player.currentHand = placeholder_hand;
+    player.hand = placeholder_hand;
 
     // creates a bet that is half of his balance + 5 (unable to double it)
     for (int i = 0; i < 6; i++) {

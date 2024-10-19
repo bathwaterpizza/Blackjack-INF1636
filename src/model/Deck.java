@@ -13,6 +13,7 @@ class EmptyDeckException extends RuntimeException {
 class Deck {
   private static final int DRAW_LIMIT = 41;
   private static final int TOTAL_CARDS = 416;
+
   private Stack<Card> deck;
 
   // shouldShuffle: true to shuffle on creation

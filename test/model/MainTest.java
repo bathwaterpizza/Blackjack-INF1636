@@ -15,7 +15,7 @@ public class MainTest {
       Game.player.incrementBet(ChipColor.GOLD);
       Game.player.incrementBet(ChipColor.BLUE);
 
-      Game.makeBet();
+      Game.choiceDeal();
 
       System.out.println("Player initial bet: " + Game.player.bet);
       System.out.println("Player hand: " + Game.player.hand.toString());

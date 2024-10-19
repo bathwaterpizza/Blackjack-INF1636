@@ -1,8 +1,10 @@
 package model;
 
 class Player {
+  private static final double START_BALANCE = 2400.0;
+
   public Hand hand = new Hand();
-  public double balance = 2400.0;
+  public double balance = START_BALANCE;
   public int bet = 0;
 
   // adds a chip's value to the bet, removing it from balance
@@ -18,7 +20,6 @@ class Player {
       balance -= betValue;
       bet += betValue;
 
-      System.out.println("Added " + betValue + " to bet.");
       return true;
     }
 
@@ -39,7 +40,6 @@ class Player {
       balance += betValue;
       bet -= betValue;
 
-      System.out.println("Removed " + betValue + " from bet.");
       return true;
     }
 

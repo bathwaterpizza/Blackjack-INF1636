@@ -9,7 +9,7 @@ public class GameTest {
   @Test
   public void testBetUnaccepted() {
     Game.player.bet = 25;
-    Game.makeBet();
+    Game.choiceDeal();
     assertFalse("The bet wasn't high enough to be placed", Game.betPlaced);
 
   }
@@ -17,7 +17,7 @@ public class GameTest {
   @Test
   public void testBetAccepted() {
     Game.player.bet = 50;
-    Game.makeBet();
+    Game.choiceDeal();
     assertTrue("The bet was placed", Game.betPlaced);
 
   }

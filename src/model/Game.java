@@ -2,6 +2,8 @@ package model;
 
 // static class that contains the game state and player objects
 class Game {
+  private static final int MIN_BET = 50;
+
   public static Deck deck = new Deck(true);
   public static Player player = new Player();
   public static Dealer dealer = new Dealer();
@@ -13,33 +15,15 @@ class Game {
   public static boolean tied = false;
   public static boolean surrendered = false;
 
-  // called when the player presses deal
-  public static void makeBet() {
-    if (betPlaced) {
-      System.out.println("Bet already placed.");
-      return;
-    }
-
-    // can't place a bet of less than 50
-    if (player.bet < 50) {
-      System.out.println("Bet needs to be >= 50.");
-      return;
-    }
-
-    betPlaced = true;
-
-    initialHand();
-  }
-
   // internal function to deal the first hand for the player and the dealer
-  private static void initialHand() {
+  private static void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     // 2 cards for the player
-    player.hand.addCard(deck.getCard());
-    player.hand.addCard(deck.getCard());
+    player.hand.addCard(playerCard1);
+    player.hand.addCard(playerCard2);
 
     // 2 cards for the dealer
-    dealer.hand.addCard(deck.getCard());
-    dealer.hand.addCard(deck.getCard());
+    dealer.hand.addCard(dealerCard1);
+    dealer.hand.addCard(dealerCard2);
 
     // check if either the player or the dealer won on initial hand
     if (player.hand.isBlackjack() && dealer.hand.isBlackjack()) {
@@ -107,6 +91,47 @@ class Game {
 
     roundOver = true;
     payout();
+  }
+
+  // called when the player presses deal
+  public static void choiceDeal() {
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return;
+    }
+
+    // can't place a bet of less than MIN_BET
+    if (player.bet < MIN_BET) {
+      System.out.println("Bet needs to be >= 50.");
+      return;
+    }
+
+    betPlaced = true;
+
+    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
+  }
+
+  // overloaded version for testing with specific hands
+  public static void choiceDeal(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return;
+    }
+
+    // can't place a bet of less than MIN_BET
+    if (player.bet < MIN_BET) {
+      System.out.println("Bet needs to be >= 50.");
+      return;
+    }
+
+    betPlaced = true;
+
+    assert playerCard1 != null;
+    assert playerCard2 != null;
+    assert dealerCard1 != null;
+    assert dealerCard2 != null;
+
+    dealInitialHand(playerCard1, playerCard2, dealerCard1, dealerCard2);
   }
 
   // resets state properties and reshuffles deck if needed.

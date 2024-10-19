@@ -9,6 +9,7 @@ class Hand {
   private void updatePoints() {
     int sum = 0;
     boolean hasAce = false;
+
     for (Card c : cards) {
       if (c.rank == Rank.ACE) {
         hasAce = true;
@@ -41,6 +42,7 @@ class Hand {
     if (cards.size() == 2) {
       return cards.get(0).getValue() == cards.get(1).getValue();
     }
+
     return false;
   }
 

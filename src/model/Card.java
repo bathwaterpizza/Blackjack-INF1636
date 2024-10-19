@@ -38,7 +38,7 @@ class Card {
       case KING:
         return 10;
       default:
-        System.out.println("Should not happen! unknown card.");
+        System.out.println("Unknown card rank.");
         return -1;
     }
   }
