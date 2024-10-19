@@ -1,6 +1,6 @@
 package model;
 
-enum Rank {
+public enum Rank {
   ACE, // Represents the Ace rank
   TWO, // Represents the Two rank
   THREE, // Represents the Three rank

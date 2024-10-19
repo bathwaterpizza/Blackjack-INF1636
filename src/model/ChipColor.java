@@ -1,7 +1,7 @@
 package model;
 
 // this enum contains the chips' colors and their respective values
-enum ChipColor {
+public enum ChipColor {
   BLACK(1),
   PINK(5),
   BLUE(10),
