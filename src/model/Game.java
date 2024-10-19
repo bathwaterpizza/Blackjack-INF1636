@@ -1,5 +1,6 @@
 package model;
 
+// static class that contains the game state and player objects
 class Game {
   public static Deck deck = new Deck(true);
   public static Player player = new Player();
@@ -199,7 +200,7 @@ class Game {
   // returns whether it was successful
   public static boolean choiceSurrender() {
     // check if can surrender
-    if (roundOver || !betPlaced) {
+    if (roundOver || !betPlaced || player.hand.size() > 2) {
       System.out.println("Can't surrender now.");
       return false;
     }

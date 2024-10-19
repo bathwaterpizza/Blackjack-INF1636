@@ -6,22 +6,9 @@ class Player {
   public int bet = 0;
 
   // adds a chip's value to the bet, removing it from balance
-  // returns true if there was a chip in our balance to add, false otherwise
+  // returns true if there are enough chips in our balance to add, false otherwise
   public boolean incrementBet(ChipColor chipColor) {
-    int betValue = chipColor.toInt();
-
-    // check if chip is available in player's balance
-    if (balance >= betValue) {
-      balance -= betValue;
-      bet += betValue;
-
-      System.out.println("Added " + betValue + " to bet.");
-      return true;
-    }
-
-    // chip not available in player's balance
-    System.out.println("Not enough balance to bet.");
-    return false;
+    return incrementBet(chipColor.toInt());
   }
 
   // overload for an int parameter
@@ -36,11 +23,30 @@ class Player {
     }
 
     // chip not available in player's balance
-    System.out.println("Not enough balance to bet.");
+    System.out.println("Not enough balance to increment bet.");
     return false;
   }
 
-  // TODO: decrementBet
+  // removes a chip's value from the bet, adding it to balance
+  // returns true if there are enough chips in our bet to remove, false otherwise
+  public boolean decrementBet(ChipColor chipColor) {
+    return decrementBet(chipColor.toInt());
+  }
+
+  public boolean decrementBet(int betValue) {
+    // check if chip is available in player's balance
+    if (bet >= betValue) {
+      balance += betValue;
+      bet -= betValue;
+
+      System.out.println("Removed " + betValue + " from bet.");
+      return true;
+    }
+
+    // chip not available in player's balance
+    System.out.println("Not enough bet to decrement balance.");
+    return false;
+  }
 
   // returns whether hit was successful
   public boolean hit(Card newCard) {

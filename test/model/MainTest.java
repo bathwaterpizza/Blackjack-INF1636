@@ -22,7 +22,7 @@ public class MainTest {
       System.out.println("Dealer hand: " + Game.dealer.hand.toString());
 
       while (!Game.roundOver) {
-        System.out.print("Choose (hit, dou, sur, sta, quit): ");
+        System.out.print("Choice (hit, dou, sur, sta, quit): ");
         String action = scanner.nextLine().trim().toLowerCase();
 
         switch (action) {
