@@ -18,8 +18,8 @@ public class MainTest {
       Game.makeBet();
 
       System.out.println("Player initial bet: " + Game.player.bet);
-      System.out.println("Player hand: " + Game.player.currentHand.toString());
-      System.out.println("Dealer hand: " + Game.dealer.currentHand.toString());
+      System.out.println("Player hand: " + Game.player.hand.toString());
+      System.out.println("Dealer hand: " + Game.dealer.hand.toString());
 
       while (!Game.roundOver) {
         System.out.print("Choose (hit, dou, sur, sta, quit): ");
@@ -57,13 +57,13 @@ public class MainTest {
         if (!playing)
           break;
 
-        System.out.println("Current player hand: " + Game.player.currentHand.toString());
-        System.out.println("Current dealer hand: " + Game.dealer.currentHand.toString());
+        System.out.println("Current player hand: " + Game.player.hand.toString());
+        System.out.println("Current dealer hand: " + Game.dealer.hand.toString());
       }
 
       System.out.println("Game over.");
-      System.out.println("Final player hand: " + Game.player.currentHand.toString());
-      System.out.println("Final dealer hand: " + Game.dealer.currentHand.toString());
+      System.out.println("Final player hand: " + Game.player.hand.toString());
+      System.out.println("Final dealer hand: " + Game.dealer.hand.toString());
 
       if (Game.won) {
         System.out.println("You won!");

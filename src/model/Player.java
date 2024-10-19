@@ -1,7 +1,7 @@
 package model;
 
 class Player {
-  public Hand currentHand = new Hand();
+  public Hand hand = new Hand();
   public double balance = 2400.0;
   public int bet = 0;
 
@@ -44,7 +44,7 @@ class Player {
 
   // returns whether hit was successful
   public boolean hit(Card newCard) {
-    currentHand.addCard(newCard);
+    hand.addCard(newCard);
 
     return true;
   }

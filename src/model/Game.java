@@ -33,27 +33,27 @@ class Game {
   // internal function to deal the first hand for the player and the dealer
   private static void initialHand() {
     // 2 cards for the player
-    player.currentHand.addCard(deck.getCard());
-    player.currentHand.addCard(deck.getCard());
+    player.hand.addCard(deck.getCard());
+    player.hand.addCard(deck.getCard());
 
     // 2 cards for the dealer
-    dealer.currentHand.addCard(deck.getCard());
-    dealer.currentHand.addCard(deck.getCard());
+    dealer.hand.addCard(deck.getCard());
+    dealer.hand.addCard(deck.getCard());
 
     // check if either the player or the dealer won on initial hand
-    if (player.currentHand.isBlackjack() && dealer.currentHand.isBlackjack()) {
+    if (player.hand.isBlackjack() && dealer.hand.isBlackjack()) {
       // both blackjacks, tie
       tied = true;
       roundOver = true;
 
       payout();
-    } else if (player.currentHand.isBlackjack()) {
+    } else if (player.hand.isBlackjack()) {
       // player blackjack, player wins
       won = true;
       roundOver = true;
 
       payout();
-    } else if (dealer.currentHand.isBlackjack()) {
+    } else if (dealer.hand.isBlackjack()) {
       // dealer blackjack, player loses
       roundOver = true;
 
@@ -82,20 +82,20 @@ class Game {
     assert !roundOver;
 
     // dealer hits until 17
-    while (dealer.currentHand.points < 17) {
+    while (dealer.hand.points < 17) {
       boolean success = dealer.hit(Game.deck.getCard());
       assert success;
     }
 
     // dealer finished playing, check results
     // at this point, player hand <= 21
-    if (dealer.currentHand.isBust()) {
+    if (dealer.hand.isBust()) {
       // dealer bust, player wins
       won = true;
-    } else if (dealer.currentHand.points > player.currentHand.points) {
+    } else if (dealer.hand.points > player.hand.points) {
       // dealer wins
       won = false;
-    } else if (dealer.currentHand.points == player.currentHand.points) {
+    } else if (dealer.hand.points == player.hand.points) {
       // round draw
       won = false;
       tied = true;
@@ -121,8 +121,8 @@ class Game {
     // reset and shuffle if >10% of deck is gone
     deck.tryReshuffle();
     player.bet = 0;
-    player.currentHand.clear();
-    dealer.currentHand.clear();
+    player.hand.clear();
+    dealer.hand.clear();
   }
 
   // called when the player presses hit,
@@ -139,10 +139,10 @@ class Game {
     assert success;
 
     // check game status
-    if (player.currentHand.points == 21) {
+    if (player.hand.points == 21) {
       // dealer plays
       dealerPlay();
-    } else if (player.currentHand.isBust()) {
+    } else if (player.hand.isBust()) {
       // player loses
       roundOver = true;
       payout();
@@ -155,7 +155,7 @@ class Game {
   // returns whether it was successful
   public static boolean choiceDouble() {
     // check if can double
-    if (roundOver || !betPlaced || player.currentHand.size() > 2) {
+    if (roundOver || !betPlaced || player.hand.size() > 2) {
       System.out.println("Can't double now.");
       return false;
     }
@@ -169,7 +169,7 @@ class Game {
       return false;
     }
 
-    if (player.currentHand.isBust()) {
+    if (player.hand.isBust()) {
       // bust, player loses
       roundOver = true;
       payout();

@@ -1,10 +1,10 @@
 package model;
 
 class Dealer {
-  public Hand currentHand = new Hand();
+  public Hand hand = new Hand();
 
   public boolean hit(Card newCard) {
-    currentHand.addCard(newCard);
+    hand.addCard(newCard);
 
     return true;
   }
