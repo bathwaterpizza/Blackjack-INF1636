@@ -1,8 +1,5 @@
 package model;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 class Player {
   private static final double START_BALANCE = 2400.0;
 
@@ -16,12 +13,6 @@ class Player {
   // split hand properties
   public Hand splitHand;
   public int splitBet;
-
-  // round balance to 2 decimal places, representing real world money
-  private void roundBalance() {
-    BigDecimal bd = new BigDecimal(balance).setScale(2, RoundingMode.HALF_UP);
-    balance = bd.doubleValue();
-  }
 
   // adds a chip's value to the bet, removing it from balance
   // returns true if there are enough chips in our balance to add, false otherwise
@@ -148,8 +139,6 @@ class Player {
       balance += bet / 2;
       bet = 0;
     }
-
-    roundBalance();
   }
 
   // should prob return bool
