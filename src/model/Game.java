@@ -89,8 +89,7 @@ class Game {
     }
   }
 
-  // makes the dealer plays after the player stands.
-  // calls handleRoundOver at the end
+  // plays for the dealer after all players' hands stand
   private static void dealerPlay() {
     assert !roundOver;
 
@@ -99,25 +98,49 @@ class Game {
       dealer.hit(Game.deck.getCard());
     }
 
-    // dealer finished playing, check results
-    // at this point, player hand <= 21
-    if (dealer.hand.isBust()) {
-      // dealer bust, player wins
-      won = true;
-    } else if (dealer.hand.points > player.hand.points) {
-      // dealer wins
-      won = false;
-    } else if (dealer.hand.points == player.hand.points) {
-      // round draw
-      won = false;
-      tied = true;
-    } else {
-      // player wins
-      won = true;
+    if (!surrendered) {
+      // dealer finished playing, check main hand results
+      if (player.hand.isBust()) {
+        // player bust, dealer wins
+        won = false;
+      } else if (dealer.hand.isBust()) {
+        // dealer bust, player wins
+        won = true;
+      } else if (dealer.hand.points > player.hand.points) {
+        // dealer has more points, dealer wins
+        won = false;
+      } else if (dealer.hand.points == player.hand.points) {
+        // player and dealer have the same points, tie
+        won = false;
+        tied = true;
+      } else {
+        // player has more points, player wins
+        won = true;
+      }
+    }
+
+    if (split && !splitSurrendered) {
+      // check split hand results
+      if (player.splitHand.isBust()) {
+        // player bust, dealer wins
+        splitWon = false;
+      } else if (dealer.hand.isBust()) {
+        // dealer bust, player wins
+        splitWon = true;
+      } else if (dealer.hand.points > player.splitHand.points) {
+        // dealer has more points, dealer wins
+        splitWon = false;
+      } else if (dealer.hand.points == player.splitHand.points) {
+        // player and dealer have the same points, tie
+        splitWon = false;
+        splitTied = true;
+      } else {
+        // player has more points, player wins
+        splitWon = true;
+      }
     }
 
     roundOver = true;
-    payout();
   }
 
   // called when the player presses deal
@@ -222,6 +245,7 @@ class Game {
     if (player.hand.points == 21) {
       // dealer plays
       dealerPlay();
+      payout();
     } else if (player.hand.isBust()) {
       // player loses
       roundOver = true;
@@ -257,11 +281,12 @@ class Game {
     if (player.hand.isBust()) {
       // bust, player loses
       roundOver = true;
-      payout();
     } else {
       // player didn't bust, dealer plays
       dealerPlay();
     }
+
+    payout();
 
     return true;
   }
@@ -276,6 +301,7 @@ class Game {
     }
 
     dealerPlay();
+    payout();
 
     return true;
   }
