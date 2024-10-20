@@ -11,9 +11,9 @@ public class PlayerTest {
     Player player = new Player();
 
     for (int i = 0; i < 25; i++) {
-      player.incrementBet(ChipColor.GOLD);
+      player.incrementBet(Chip.GOLD);
     }
-    boolean status = player.incrementBet(ChipColor.GOLD);
+    boolean status = player.incrementBet(Chip.GOLD);
     assertFalse("Insufficient Balance", status);
   }
 
@@ -22,9 +22,9 @@ public class PlayerTest {
     Player player = new Player();
 
     for (int i = 0; i < 5; i++) {
-      player.incrementBet(ChipColor.GOLD);
+      player.incrementBet(Chip.GOLD);
     }
-    boolean status = player.incrementBet(ChipColor.GOLD);
+    boolean status = player.incrementBet(Chip.GOLD);
     assertTrue("Sufficient Balance", status);
   }
 
@@ -34,7 +34,7 @@ public class PlayerTest {
     Card placeholder_card = new Card(Suit.HEARTS, Rank.ACE);
     Hand placeholder_hand = new Hand();
     player.hand = placeholder_hand;
-    player.incrementBet(ChipColor.BLUE);
+    player.incrementBet(Chip.BLUE);
     boolean status = player.doubleBet(false, placeholder_card);
     assertTrue("Doublet Bet Sucessful", status);
   }
@@ -48,14 +48,14 @@ public class PlayerTest {
 
     // creates a bet that is half of his balance + 5 (unable to double it)
     for (int i = 0; i < 6; i++) {
-      player.incrementBet(ChipColor.GREEN);
-      player.incrementBet(ChipColor.GOLD);
+      player.incrementBet(Chip.GREEN);
+      player.incrementBet(Chip.GOLD);
     }
     for (int i = 0; i < 11; i++) {
-      player.incrementBet(ChipColor.RED);
+      player.incrementBet(Chip.RED);
     }
     for (int i = 0; i < 26; i++) {
-      player.incrementBet(ChipColor.BLUE);
+      player.incrementBet(Chip.BLUE);
     }
 
     boolean status = player.doubleBet(false, placeholder_card);
@@ -66,7 +66,7 @@ public class PlayerTest {
   public void testBalanceAfterTie() {
     Player player = new Player();
     double balanceBefore = player.balance;
-    player.incrementBet(ChipColor.GREEN);
+    player.incrementBet(Chip.GREEN);
     player.receiveTiePayout(false);
     double balanceAfter = player.balance;
     assertEquals("The player had his bet returned to the balance", balanceBefore, balanceAfter);
@@ -75,8 +75,8 @@ public class PlayerTest {
   @Test
   public void testBalanceAfterWin() {
     Player player = new Player();
-    player.incrementBet(ChipColor.GREEN);
-    int betValue = ChipColor.GREEN.toInt();
+    player.incrementBet(Chip.GREEN);
+    int betValue = Chip.GREEN.toInt();
     player.receiveWinPayout(false);
     double balanceAfter = player.balance;
     assertEquals("The player had his bet doubled", 2400 - betValue + (2 * betValue), balanceAfter);
@@ -87,8 +87,8 @@ public class PlayerTest {
   public void testBalanceAfter() {
     Player player = new Player();
     double balanceBefore = player.balance;
-    player.incrementBet(ChipColor.GOLD);
-    int betValue = ChipColor.GOLD.toInt();
+    player.incrementBet(Chip.GOLD);
+    int betValue = Chip.GOLD.toInt();
     player.receiveHalfPayout(false);
     double balanceAfter = player.balance;
 
@@ -100,7 +100,7 @@ public class PlayerTest {
   @Test
   public void testBetIsClear() {
     Player player = new Player();
-    player.incrementBet(ChipColor.BLUE);
+    player.incrementBet(Chip.BLUE);
     assertFalse(player.bet == 0);
     player.bet = 0;
     assertTrue(player.bet == 0);

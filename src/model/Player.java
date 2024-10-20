@@ -16,8 +16,8 @@ class Player {
 
   // adds a chip's value to the bet, removing it from balance
   // returns true if there are enough chips in our balance to add, false otherwise
-  public boolean incrementBet(ChipColor chipColor) {
-    return incrementBet(chipColor.toInt());
+  public boolean incrementBet(Chip chip) {
+    return incrementBet(chip.toInt());
   }
 
   // overload for an int parameter
@@ -37,8 +37,8 @@ class Player {
 
   // removes a chip's value from the bet, adding it to balance
   // returns true if there are enough chips in our bet to remove, false otherwise
-  public boolean decrementBet(ChipColor chipColor) {
-    return decrementBet(chipColor.toInt());
+  public boolean decrementBet(Chip chip) {
+    return decrementBet(chip.toInt());
   }
 
   public boolean decrementBet(int betValue) {

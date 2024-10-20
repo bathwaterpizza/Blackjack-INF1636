@@ -1,7 +1,7 @@
 package model;
 
 // this enum contains the chips' colors and their respective values
-public enum ChipColor {
+public enum Chip {
   BLACK(1),
   PINK(5),
   BLUE(10),
@@ -11,7 +11,7 @@ public enum ChipColor {
 
   private final int value;
 
-  ChipColor(int value) {
+  Chip(int value) {
     this.value = value;
   }
 
