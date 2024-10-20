@@ -8,54 +8,69 @@ public class MainTest {
 
     while (true) {
       boolean success;
-      System.out.println("\n--- NEW GAME ---\n");
+      System.out.println("\n-------- NEW ROUND --------\n");
 
       Game.choiceClear();
 
-      success = Game.player.incrementBet(ChipColor.GOLD);
+      System.out.print("Enter bet amount: ");
+      int betAmount = scanner.nextInt();
+      scanner.nextLine(); // consume newline
+
+      success = Game.player.incrementBet(betAmount);
       if (!success) {
+        System.out.print("No money to bet. Exiting.");
         scanner.close();
         System.exit(0);
       }
 
-      Game.choiceDeal();
+      success = Game.choiceDeal();
+      if (!success) {
+        System.out.print("Deal failed. Exiting.");
+        scanner.close();
+        System.exit(0);
+      }
 
-      System.out.println("Player initial bet: " + Game.player.bet);
       System.out.println("Initial player hand: " + Game.player.hand.toString());
       System.out.println("Initial dealer hand: " + Game.dealer.hand.toString());
       System.out.println();
 
       while (!Game.roundOver) {
-        System.out.print("Choice (hit, dou, sur, sta, spl, exi): ");
+        System.out.print("Choice (hit, double, surrender, stand, split, exit): ");
         String action = scanner.nextLine().trim().toLowerCase();
 
         switch (action) {
           case "hit":
-            // Implement hit logic
             System.out.println("You chose to hit.");
             Game.choiceHit();
             break;
-          case "dou":
-            // Implement double logic
+          case "double":
             System.out.println("You chose to double.");
             Game.choiceDouble();
+
+            System.out.println("Main bet is now " + Game.player.bet + ".");
+            if (Game.split) {
+              System.out.println("Split bet is now " + Game.player.splitBet + ".");
+            }
             break;
-          case "sur":
-            // Implement surrender logic
+          case "surrender":
             System.out.println("You chose to surrender.");
             Game.choiceSurrender();
             break;
-          case "sta":
-            // Implement stand logic
+          case "stand":
             System.out.println("You chose to stand.");
             Game.choiceStand();
             break;
-          case "exi":
+          case "exit":
             scanner.close();
             Game.choiceExit();
-          case "spl":
+          case "split":
             System.out.println("You chose to split.");
             Game.choiceSplit();
+
+            System.out.println("Main bet is now " + Game.player.bet + ".");
+            if (Game.split) {
+              System.out.println("Split bet is now " + Game.player.splitBet + ".");
+            }
             break;
           default:
             System.out.println("Invalid action, try again.");
@@ -71,9 +86,9 @@ public class MainTest {
 
         if (Game.split) {
           if (Game.splitPlaying) {
-            System.out.println("Now playing split hand.");
+            System.out.println("Now playing SPLIT hand!");
           } else {
-            System.out.println("Now playing main hand.");
+            System.out.println("Now playing MAIN hand!");
           }
         }
       }
@@ -104,7 +119,8 @@ public class MainTest {
         }
       }
 
-      System.out.println("Player balance: " + Game.player.balance);
+      System.out.println();
+      System.out.println("Final player balance: " + Game.player.balance);
     }
   }
 }
