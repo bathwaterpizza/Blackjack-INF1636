@@ -84,7 +84,7 @@ public class MainTest {
         }
         System.out.println("Current dealer hand: " + Game.dealer.hand.toString());
 
-        if (Game.split) {
+        if (Game.split && !Game.roundOver) {
           if (Game.splitPlaying) {
             System.out.println("Now playing SPLIT hand!");
           } else {
