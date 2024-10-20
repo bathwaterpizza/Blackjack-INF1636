@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class MainTest {
   public static void main(String[] args) {
-    boolean playing = true;
     Scanner scanner = new Scanner(System.in);
 
-    while (playing) {
+    while (true) {
       System.out.println("--- NEW GAME ---");
 
       Game.choiceClear();
@@ -22,7 +21,7 @@ public class MainTest {
       System.out.println("Dealer hand: " + Game.dealer.hand.toString());
 
       while (!Game.roundOver) {
-        System.out.print("Choice (hit, dou, sur, sta, quit): ");
+        System.out.print("Choice (hit, dou, sur, sta, exi): ");
         String action = scanner.nextLine().trim().toLowerCase();
 
         switch (action) {
@@ -46,22 +45,19 @@ public class MainTest {
             System.out.println("You chose to stand.");
             Game.choiceStand();
             break;
-          case "quit":
-            playing = false;
-            break;
+          case "exi":
+            scanner.close();
+            Game.choiceExit();
           default:
             System.out.println("Invalid action, try again.");
             break;
         }
 
-        if (!playing)
-          break;
-
         System.out.println("Current player hand: " + Game.player.hand.toString());
         System.out.println("Current dealer hand: " + Game.dealer.hand.toString());
       }
 
-      System.out.println("Game over.");
+      System.out.println("Round over.");
       System.out.println("Final player hand: " + Game.player.hand.toString());
       System.out.println("Final dealer hand: " + Game.dealer.hand.toString());
 
@@ -75,9 +71,5 @@ public class MainTest {
 
       System.out.println("Player balance: " + Game.player.balance);
     }
-
-    System.out.println("Quitting.");
-
-    scanner.close();
   }
 }

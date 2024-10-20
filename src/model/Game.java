@@ -91,13 +91,14 @@ class Game {
   }
 
   // plays for the dealer after all players' hands stand
-  private static void dealerPlay() {
+  private static void playDealerHand() {
     assert !roundOver;
 
     // check if dealer should play
-    if ((!split && player.hand.isBust()) || (player.hand.isBust() && player.splitHand.isBust())) {
-      // if the player busts on all available hands,
-      // it's an instant loss and the dealer doesn't play
+    if ((!split && player.hand.isBust()) || (player.hand.isBust() && player.splitHand.isBust())
+        || (surrendered && splitSurrendered)) {
+      // if the player busts on all available hands, or both hands surrendered,
+      // it's an instant player loss and the dealer doesn't play
 
       won = false;
       if (split)
@@ -157,6 +158,19 @@ class Game {
     }
 
     roundOver = true;
+  }
+
+  // called once main hand is done playing,
+  // checks wheher to play the split hand or the dealer hand
+  private static void playSplitHand() {
+    if (split) {
+      // main hand finished, split hand plays
+      splitPlaying = true;
+    } else {
+      // no split hand, dealer plays
+      playDealerHand();
+      payout();
+    }
   }
 
   // called when the player presses deal
@@ -255,7 +269,7 @@ class Game {
       // check if round is over
       if (player.splitHand.points == 21 || player.splitHand.isBust()) {
         // dealer plays
-        dealerPlay();
+        playDealerHand();
         payout();
       }
 
@@ -271,14 +285,7 @@ class Game {
 
       // check if main hand play is over
       if (player.hand.points == 21 || player.hand.isBust()) {
-        if (split) {
-          // main hand finished, split hand plays
-          splitPlaying = true;
-        } else {
-          // dealer plays
-          dealerPlay();
-          payout();
-        }
+        playSplitHand();
       }
 
       return true;
@@ -308,7 +315,7 @@ class Game {
         return false;
       }
 
-      dealerPlay();
+      playDealerHand();
       payout();
 
       return true;
@@ -328,14 +335,7 @@ class Game {
         return false;
       }
 
-      if (split) {
-        // main hand finished, split hand plays
-        splitPlaying = true;
-      } else {
-        // dealer plays
-        dealerPlay();
-        payout();
-      }
+      playSplitHand();
 
       return true;
     }
@@ -344,32 +344,51 @@ class Game {
   // called when the player presses stand,
   // returns whether it was successful
   public static boolean choiceStand() {
-    // check if can stand
-    if (roundOver || !betPlaced) {
-      System.out.println("Can't stand now.");
-      return false;
+    if (splitPlaying) {
+      playDealerHand();
+      payout();
+
+      return true;
+    } else {
+      // check if can stand
+      if (roundOver || !betPlaced) {
+        System.out.println("Can't stand now.");
+        return false;
+      }
+
+      playSplitHand();
+
+      return true;
     }
-
-    dealerPlay();
-    payout();
-
-    return true;
   }
 
   // called when the player presses surrender,
   // returns whether it was successful
   public static boolean choiceSurrender() {
-    // check if can surrender
-    if (roundOver || !betPlaced || player.hand.size() > 2) {
-      System.out.println("Can't surrender now.");
-      return false;
+    if (splitPlaying) {
+      // check if can surrender
+      if (player.hand.size() > 2) {
+        System.out.println("Can't split surrender now.");
+        return false;
+      }
+
+      splitSurrendered = true;
+      playDealerHand();
+      payout();
+
+      return true;
+    } else {
+      // check if can surrender
+      if (roundOver || !betPlaced || player.hand.size() > 2) {
+        System.out.println("Can't surrender now.");
+        return false;
+      }
+
+      surrendered = true;
+      playSplitHand();
+
+      return true;
     }
-
-    roundOver = true;
-    surrendered = true;
-    payout();
-
-    return true;
   }
 
   // called when the player presses split,
