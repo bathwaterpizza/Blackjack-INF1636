@@ -272,7 +272,7 @@ class Game {
       // check if main hand play is over
       if (player.hand.points == 21 || player.hand.isBust()) {
         if (split) {
-          // split hand plays
+          // main hand finished, split hand plays
           splitPlaying = true;
         } else {
           // dealer plays
@@ -308,14 +308,7 @@ class Game {
         return false;
       }
 
-      if (player.splitHand.isBust()) {
-        // bust, player loses
-        roundOver = true;
-      } else {
-        // player didn't bust, dealer plays
-        dealerPlay();
-      }
-
+      dealerPlay();
       payout();
 
       return true;
@@ -335,15 +328,14 @@ class Game {
         return false;
       }
 
-      if (player.hand.isBust()) {
-        // bust, player loses
-        roundOver = true;
+      if (split) {
+        // main hand finished, split hand plays
+        splitPlaying = true;
       } else {
-        // player didn't bust, dealer plays
+        // dealer plays
         dealerPlay();
+        payout();
       }
-
-      payout();
 
       return true;
     }
@@ -400,6 +392,7 @@ class Game {
       return false;
     }
 
+    splitPlaying = false;
     split = true;
 
     return true;
