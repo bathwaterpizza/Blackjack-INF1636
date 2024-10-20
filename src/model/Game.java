@@ -413,8 +413,12 @@ class Game {
       return false;
     }
 
-    splitPlaying = false;
     split = true;
+
+    // when splitting from aces, only one card can be drawn
+    if (player.hand.cards.get(0).rank == Rank.ACE) {
+      playDealerHand();
+    }
 
     return true;
   }
