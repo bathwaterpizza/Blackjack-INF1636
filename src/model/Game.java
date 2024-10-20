@@ -370,7 +370,7 @@ class Game {
   public static boolean choiceSurrender() {
     if (splitPlaying) {
       // check if can surrender
-      if (player.hand.size() > 2) {
+      if (player.splitHand.size() > 2) {
         System.out.println("Can't split surrender now.");
         return false;
       }
