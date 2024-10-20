@@ -273,7 +273,7 @@ class Game {
       player.hit(true, Game.deck.getCard());
 
       // check if round is over
-      if (player.splitHand.points == 21 || player.splitHand.isBust()) {
+      if (player.splitHand.isBust()) {
         // dealer plays
         playDealerHand();
       }
@@ -289,7 +289,7 @@ class Game {
       player.hit(false, Game.deck.getCard());
 
       // check if main hand play is over
-      if (player.hand.points == 21 || player.hand.isBust()) {
+      if (player.hand.isBust()) {
         playSplitHand();
       }
 
