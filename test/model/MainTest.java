@@ -10,7 +10,7 @@ public class MainTest {
     while (playing) {
       System.out.println("--- NEW GAME ---");
 
-      Game.choiceNewRound();
+      Game.choiceClear();
 
       Game.player.incrementBet(ChipColor.GOLD);
       Game.player.incrementBet(ChipColor.BLUE);

@@ -80,6 +80,13 @@ class Game {
         player.splitBet = 0;
       }
     }
+
+    // check if player can still play the game
+    if (player.balance < MIN_BET) {
+      System.out.println("No more money to play, exiting.");
+
+      choiceExit();
+    }
   }
 
   // makes the dealer plays after the player stands.
@@ -160,7 +167,7 @@ class Game {
 
   // resets state properties and reshuffles deck if needed.
   // called when player presses new round
-  public static boolean choiceNewRound() {
+  public static boolean choiceClear() {
     if (betPlaced) {
       System.out.println("Can't start new round now.");
       return false;
@@ -222,6 +229,11 @@ class Game {
     }
 
     return true;
+  }
+
+  // called when the player presses exit
+  public static void choiceExit() {
+    System.exit(0);
   }
 
   // called when the player presses double,
