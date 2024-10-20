@@ -94,13 +94,27 @@ class Game {
   private static void dealerPlay() {
     assert !roundOver;
 
-    // dealer hits until 17
-    while (dealer.hand.points < 17) {
-      dealer.hit(Game.deck.getCard());
+    // check if dealer should play
+    if ((!split && player.hand.isBust()) || (player.hand.isBust() && player.splitHand.isBust())) {
+      // if the player busts on all available hands,
+      // it's an instant loss and the dealer doesn't play
+
+      won = false;
+      if (split)
+        splitWon = false;
+
+      roundOver = true;
+
+      return;
+    } else {
+      // dealer hits until 17
+      while (dealer.hand.points < 17) {
+        dealer.hit(Game.deck.getCard());
+      }
     }
 
+    // dealer versus main hand
     if (!surrendered) {
-      // dealer finished playing, check main hand results
       if (player.hand.isBust()) {
         // player bust, dealer wins
         won = false;
@@ -120,6 +134,7 @@ class Game {
       }
     }
 
+    // dealer versus split hand
     if (split && !splitSurrendered) {
       // check split hand results
       if (player.splitHand.isBust()) {
@@ -278,32 +293,60 @@ class Game {
   // called when the player presses double,
   // returns whether it was successful
   public static boolean choiceDouble() {
-    // check if can double
-    if (roundOver || !betPlaced || player.hand.size() > 2) {
-      System.out.println("Can't double now.");
-      return false;
+    if (splitPlaying) { // double on split hand
+      if (player.splitHand.size() > 2) {
+        System.out.println("Can't split double now.");
+        return false;
+      }
+
+      Card newCard = Game.deck.getCard();
+      boolean success = player.doubleBet(true, newCard);
+      if (!success) {
+        // cannot split double. return card to the top of the deck
+        deck.putCard(newCard);
+        System.out.println("No money to split double.");
+        return false;
+      }
+
+      if (player.splitHand.isBust()) {
+        // bust, player loses
+        roundOver = true;
+      } else {
+        // player didn't bust, dealer plays
+        dealerPlay();
+      }
+
+      payout();
+
+      return true;
+    } else { // double on main hand
+      // check if can double
+      if (roundOver || !betPlaced || player.hand.size() > 2) {
+        System.out.println("Can't double now.");
+        return false;
+      }
+
+      Card newCard = Game.deck.getCard();
+      boolean success = player.doubleBet(false, newCard);
+      if (!success) {
+        // cannot double. return card to the top of the deck
+        deck.putCard(newCard);
+        System.out.println("No money to double.");
+        return false;
+      }
+
+      if (player.hand.isBust()) {
+        // bust, player loses
+        roundOver = true;
+      } else {
+        // player didn't bust, dealer plays
+        dealerPlay();
+      }
+
+      payout();
+
+      return true;
     }
-
-    Card newCard = Game.deck.getCard();
-    boolean success = player.doubleBet(false, newCard);
-    if (!success) {
-      // cannot double. return card to the top of the deck
-      deck.putCard(newCard);
-      System.out.println("No money to double.");
-      return false;
-    }
-
-    if (player.hand.isBust()) {
-      // bust, player loses
-      roundOver = true;
-    } else {
-      // player didn't bust, dealer plays
-      dealerPlay();
-    }
-
-    payout();
-
-    return true;
   }
 
   // called when the player presses stand,
