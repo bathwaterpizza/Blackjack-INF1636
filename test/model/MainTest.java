@@ -47,7 +47,7 @@ public class MainTest {
             System.out.println("You chose to double.");
             success = Game.choiceDouble();
 
-            if (success) {
+            if (success && !Game.roundOver) {
               System.out.println("Main bet is now " + Game.player.bet + ".");
               if (Game.split) {
                 System.out.println("Split bet is now " + Game.player.splitBet + ".");
@@ -69,7 +69,7 @@ public class MainTest {
             System.out.println("You chose to split.");
             success = Game.choiceSplit();
 
-            if (success) {
+            if (success && !Game.roundOver) {
               System.out.println("Main bet is now " + Game.player.bet + ".");
               if (Game.split) {
                 System.out.println("Split bet is now " + Game.player.splitBet + ".");
@@ -81,12 +81,14 @@ public class MainTest {
             break;
         }
 
-        System.out.println();
-        System.out.println("Current player hand: " + Game.player.hand.toString());
-        if (Game.split) {
-          System.out.println("Current split hand: " + Game.player.splitHand.toString());
+        if (!Game.roundOver) {
+          System.out.println();
+          System.out.println("Current player hand: " + Game.player.hand.toString());
+          if (Game.split) {
+            System.out.println("Current split hand: " + Game.player.splitHand.toString());
+          }
+          System.out.println("Current dealer hand: " + Game.dealer.hand.toString());
         }
-        System.out.println("Current dealer hand: " + Game.dealer.hand.toString());
 
         if (Game.split && !Game.roundOver) {
           if (Game.splitPlaying) {
