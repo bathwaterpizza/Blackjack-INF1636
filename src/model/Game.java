@@ -109,6 +109,7 @@ class Game {
         splitWon = false;
 
       roundOver = true;
+      payout();
 
       return;
     } else {
@@ -162,6 +163,7 @@ class Game {
     }
 
     roundOver = true;
+    payout();
   }
 
   // called once main hand is done playing,
@@ -173,7 +175,6 @@ class Game {
     } else {
       // no split hand, dealer plays
       playDealerHand();
-      payout();
     }
   }
 
@@ -275,7 +276,6 @@ class Game {
       if (player.splitHand.points == 21 || player.splitHand.isBust()) {
         // dealer plays
         playDealerHand();
-        payout();
       }
 
       return true;
@@ -321,7 +321,6 @@ class Game {
       }
 
       playDealerHand();
-      payout();
 
       return true;
     } else { // double on main hand
@@ -351,7 +350,6 @@ class Game {
   public static boolean choiceStand() {
     if (splitPlaying) {
       playDealerHand();
-      payout();
 
       return true;
     } else {
@@ -379,7 +377,6 @@ class Game {
 
       splitSurrendered = true;
       playDealerHand();
-      payout();
 
       return true;
     } else {

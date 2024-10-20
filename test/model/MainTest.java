@@ -17,11 +17,6 @@ public class MainTest {
         scanner.close();
         System.exit(0);
       }
-      success = Game.player.incrementBet(ChipColor.BLUE);
-      if (!success) {
-        scanner.close();
-        System.exit(0);
-      }
 
       Game.choiceDeal();
 
