@@ -4,18 +4,19 @@ package model;
 class Game {
   private static final int MIN_BET = 50;
 
+  // global game properties
   public static Deck deck = new Deck(true);
   public static Player player = new Player();
   public static Dealer dealer = new Dealer();
 
-  // state properties
+  // main hand state properties
   public static boolean betPlaced = false;
   public static boolean roundOver = false;
   public static boolean won = false;
   public static boolean tied = false;
   public static boolean surrendered = false;
 
-  // split state properties
+  // split hand state properties
   public static boolean split = false;
   public static boolean splitPlaying = false;
   public static boolean splitWon = false;
@@ -233,26 +234,40 @@ class Game {
   // called when the player presses hit,
   // returns whether it was successful
   public static boolean choiceHit() {
-    // check if can hit
-    if (roundOver || !betPlaced) {
-      System.out.println("Can't hit now.");
-      return false;
+    if (splitPlaying) { // hit on split hand
+      player.hit(true, Game.deck.getCard());
+
+      // check if round is over
+      if (player.splitHand.points == 21 || player.splitHand.isBust()) {
+        // dealer plays
+        dealerPlay();
+        payout();
+      }
+
+      return true;
+    } else { // hit on main hand
+      // check if can hit
+      if (roundOver || !betPlaced) {
+        System.out.println("Can't hit now.");
+        return false;
+      }
+
+      player.hit(false, Game.deck.getCard());
+
+      // check if main hand play is over
+      if (player.hand.points == 21 || player.hand.isBust()) {
+        if (split) {
+          // split hand plays
+          splitPlaying = true;
+        } else {
+          // dealer plays
+          dealerPlay();
+          payout();
+        }
+      }
+
+      return true;
     }
-
-    player.hit(false, Game.deck.getCard());
-
-    // check game status
-    if (player.hand.points == 21) {
-      // dealer plays
-      dealerPlay();
-      payout();
-    } else if (player.hand.isBust()) {
-      // player loses
-      roundOver = true;
-      payout();
-    }
-
-    return true;
   }
 
   // called when the player presses exit
