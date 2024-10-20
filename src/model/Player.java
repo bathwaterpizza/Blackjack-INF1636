@@ -56,14 +56,12 @@ class Player {
   }
 
   // returns whether hit was successful
-  public boolean hit(boolean isSplit, Card newCard) {
+  public void hit(boolean isSplit, Card newCard) {
     if (isSplit) {
       splitHand.addCard(newCard);
     } else {
       hand.addCard(newCard);
     }
-
-    return true;
   }
 
   // returns whether double was successful
@@ -93,10 +91,30 @@ class Player {
     }
   }
 
+  // returns whether split was successful
+  public boolean splitBet(Card newCard1, Card newCard2) {
+    // check if there's enough balance to split
+    if (balance < bet) {
+      return false;
+    }
+
+    // create split bet
+    splitBet = bet;
+    balance -= splitBet;
+
+    // create split hand and add a new card to each hand
+    splitHand = new Hand();
+    splitHand.addCard(hand.cards.remove(1));
+    this.hit(false, newCard1);
+    this.hit(true, newCard2);
+
+    return true;
+  }
+
   // put the value in bet back to balance, and clear bet.
   // called when game ties
-  public void receiveTiePayout(boolean split) {
-    if (split) {
+  public void receiveTiePayout(boolean isSplit) {
+    if (isSplit) {
       assert splitBet > 0;
 
       balance += splitBet;
@@ -139,10 +157,5 @@ class Player {
       balance += bet / 2;
       bet = 0;
     }
-  }
-
-  // should prob return bool
-  public void split() {
-    // TODO: Next iterations
   }
 }

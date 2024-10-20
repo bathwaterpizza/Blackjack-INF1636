@@ -15,6 +15,9 @@ class Game {
   public static boolean tied = false;
   public static boolean surrendered = false;
 
+  // split state properties
+  public static boolean split = false;
+
   // internal function to deal the first hand for the player and the dealer
   private static void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     // 2 cards for the player
@@ -151,8 +154,12 @@ class Game {
     player.bet = 0;
     player.hand.clear();
 
-    player.splitBet = 0;
-    player.splitHand.clear();
+    if (split) {
+      split = false;
+
+      player.splitBet = 0;
+      player.splitHand.clear();
+    }
 
     dealer.hand.clear();
   }
@@ -166,9 +173,7 @@ class Game {
       return false;
     }
 
-    boolean success = player.hit(false, Game.deck.getCard());
-
-    assert success;
+    player.hit(false, Game.deck.getCard());
 
     // check game status
     if (player.hand.points == 21) {
@@ -246,7 +251,25 @@ class Game {
   // called when the player presses split,
   // returns whether it was successful
   public static boolean choiceSplit() {
-    // TODO: Next iterations
-    return false;
+    // check if can split
+    if (roundOver || !betPlaced || player.hand.size() > 2 || split || !player.hand.isPair()) {
+      System.out.println("Can't split now.");
+      return false;
+    }
+
+    Card newCard1 = Game.deck.getCard();
+    Card newCard2 = Game.deck.getCard();
+    boolean success = player.splitBet(newCard1, newCard2);
+    if (!success) {
+      // cannot split. return cards to the top of the deck
+      deck.putCard(newCard2);
+      deck.putCard(newCard1);
+      System.out.println("No money to split.");
+      return false;
+    }
+
+    split = true;
+
+    return true;
   }
 }
