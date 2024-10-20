@@ -11,7 +11,7 @@ class Game {
 
   // main hand state properties
   public static boolean betPlaced = false;
-  public static boolean roundOver = false;
+  public static boolean roundOver = true;
   public static boolean won = false;
   public static boolean tied = false;
   public static boolean surrendered = false;
@@ -36,6 +36,7 @@ class Game {
     // check if either the player or the dealer won on initial hand
     if (player.hand.isBlackjack() && dealer.hand.isBlackjack()) {
       // both blackjacks, tie
+      won = false;
       tied = true;
       roundOver = true;
 
@@ -43,11 +44,14 @@ class Game {
     } else if (player.hand.isBlackjack()) {
       // player blackjack, player wins
       won = true;
+      tied = false;
       roundOver = true;
 
       payout();
     } else if (dealer.hand.isBlackjack()) {
       // dealer blackjack, player loses
+      won = false;
+      tied = false;
       roundOver = true;
 
       payout();
@@ -96,8 +100,8 @@ class Game {
 
     // check if dealer should play
     if ((!split && player.hand.isBust()) || (player.hand.isBust() && player.splitHand.isBust())
-        || (surrendered && splitSurrendered)) {
-      // if the player busts on all available hands, or both hands surrendered,
+        || (!split && surrendered) || (surrendered && splitSurrendered)) {
+      // if the player busts or surrenders on all available hands,
       // it's an instant player loss and the dealer doesn't play
 
       won = false;
@@ -187,6 +191,7 @@ class Game {
     }
 
     betPlaced = true;
+    roundOver = false;
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
 
@@ -221,7 +226,7 @@ class Game {
   // resets state properties and reshuffles deck if needed.
   // called when player presses new round
   public static boolean choiceClear() {
-    if (betPlaced) {
+    if (!roundOver) {
       System.out.println("Can't start new round now.");
       return false;
     }
@@ -231,7 +236,7 @@ class Game {
 
     // reset game
     betPlaced = false;
-    roundOver = false;
+    roundOver = true;
     won = false;
     tied = false;
     surrendered = false;
