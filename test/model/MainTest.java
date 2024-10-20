@@ -7,12 +7,21 @@ public class MainTest {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
+      boolean success;
       System.out.println("--- NEW GAME ---");
 
       Game.choiceClear();
 
-      Game.player.incrementBet(ChipColor.GOLD);
-      Game.player.incrementBet(ChipColor.BLUE);
+      success = Game.player.incrementBet(ChipColor.GOLD);
+      if (!success) {
+        scanner.close();
+        System.exit(0);
+      }
+      success = Game.player.incrementBet(ChipColor.BLUE);
+      if (!success) {
+        scanner.close();
+        System.exit(0);
+      }
 
       Game.choiceDeal();
 
