@@ -45,11 +45,13 @@ public class MainTest {
             break;
           case "double":
             System.out.println("You chose to double.");
-            Game.choiceDouble();
+            success = Game.choiceDouble();
 
-            System.out.println("Main bet is now " + Game.player.bet + ".");
-            if (Game.split) {
-              System.out.println("Split bet is now " + Game.player.splitBet + ".");
+            if (success) {
+              System.out.println("Main bet is now " + Game.player.bet + ".");
+              if (Game.split) {
+                System.out.println("Split bet is now " + Game.player.splitBet + ".");
+              }
             }
             break;
           case "surrender":
@@ -65,11 +67,13 @@ public class MainTest {
             Game.choiceExit();
           case "split":
             System.out.println("You chose to split.");
-            Game.choiceSplit();
+            success = Game.choiceSplit();
 
-            System.out.println("Main bet is now " + Game.player.bet + ".");
-            if (Game.split) {
-              System.out.println("Split bet is now " + Game.player.splitBet + ".");
+            if (success) {
+              System.out.println("Main bet is now " + Game.player.bet + ".");
+              if (Game.split) {
+                System.out.println("Split bet is now " + Game.player.splitBet + ".");
+              }
             }
             break;
           default:
