@@ -14,6 +14,7 @@ class Hand {
       if (c.rank == Rank.ACE) {
         hasAce = true;
       }
+
       sum += c.getValue();
     }
 

@@ -17,6 +17,10 @@ class Game {
 
   // split state properties
   public static boolean split = false;
+  public static boolean splitPlaying = false;
+  public static boolean splitWon = false;
+  public static boolean splitTied = false;
+  public static boolean splitSurrendered = false;
 
   // internal function to deal the first hand for the player and the dealer
   private static void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
@@ -63,6 +67,19 @@ class Game {
       // main hand lost
       player.bet = 0;
     }
+
+    if (split) {
+      if (splitTied) {
+        player.receiveTiePayout(true);
+      } else if (splitWon) {
+        player.receiveWinPayout(true);
+      } else if (splitSurrendered) {
+        player.receiveHalfPayout(true);
+      } else {
+        // split hand lost
+        player.splitBet = 0;
+      }
+    }
   }
 
   // makes the dealer plays after the player stands.
@@ -72,8 +89,7 @@ class Game {
 
     // dealer hits until 17
     while (dealer.hand.points < 17) {
-      boolean success = dealer.hit(Game.deck.getCard());
-      assert success;
+      dealer.hit(Game.deck.getCard());
     }
 
     // dealer finished playing, check results
@@ -98,34 +114,36 @@ class Game {
   }
 
   // called when the player presses deal
-  public static void choiceDeal() {
+  public static boolean choiceDeal() {
     if (betPlaced) {
       System.out.println("Bet already placed.");
-      return;
+      return false;
     }
 
     // can't place a bet of less than MIN_BET
     if (player.bet < MIN_BET) {
-      System.out.println("Bet needs to be >= 50.");
-      return;
+      System.out.println("Bet needs to be at least " + MIN_BET + ".");
+      return false;
     }
 
     betPlaced = true;
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
+
+    return true;
   }
 
   // overloaded version for testing with specific hands
-  public static void choiceDeal(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
+  public static boolean choiceDeal(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     if (betPlaced) {
       System.out.println("Bet already placed.");
-      return;
+      return false;
     }
 
     // can't place a bet of less than MIN_BET
     if (player.bet < MIN_BET) {
-      System.out.println("Bet needs to be >= 50.");
-      return;
+      System.out.println("Bet needs to be at least " + MIN_BET + ".");
+      return false;
     }
 
     betPlaced = true;
@@ -136,11 +154,18 @@ class Game {
     assert dealerCard2 != null;
 
     dealInitialHand(playerCard1, playerCard2, dealerCard1, dealerCard2);
+
+    return true;
   }
 
   // resets state properties and reshuffles deck if needed.
   // called when player presses new round
-  public static void choiceNewRound() {
+  public static boolean choiceNewRound() {
+    if (betPlaced) {
+      System.out.println("Can't start new round now.");
+      return false;
+    }
+
     // shuffle if >10% of deck is gone
     deck.tryReshuffle();
 
@@ -151,17 +176,28 @@ class Game {
     tied = false;
     surrendered = false;
 
+    if (player.bet > 0) {
+      // refund unfinished bet to balance
+      player.refundBet();
+    }
+
     player.bet = 0;
     player.hand.clear();
 
     if (split) {
       split = false;
+      splitPlaying = false;
+      splitWon = false;
+      splitTied = false;
+      splitSurrendered = false;
 
       player.splitBet = 0;
       player.splitHand.clear();
     }
 
     dealer.hand.clear();
+
+    return true;
   }
 
   // called when the player presses hit,

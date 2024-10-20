@@ -64,6 +64,12 @@ class Player {
     }
   }
 
+  // puts an unfinished bet back into balance
+  public void refundBet() {
+    balance += bet;
+    bet = 0;
+  }
+
   // returns whether double was successful
   public boolean doubleBet(boolean isSplit, Card newCard) {
     if (isSplit) {
