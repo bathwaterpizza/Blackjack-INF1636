@@ -21,7 +21,7 @@ class Hand {
       sum += 10;
     }
 
-    this.points = sum;
+    points = sum;
   }
 
   public void addCard(Card c) {

@@ -6,9 +6,16 @@ import java.math.RoundingMode;
 class Player {
   private static final double START_BALANCE = 2400.0;
 
-  public Hand hand = new Hand();
+  // player properties
   public double balance = START_BALANCE;
+
+  // main hand properties
+  public Hand hand = new Hand();
   public int bet = 0;
+
+  // split hand properties
+  public Hand splitHand;
+  public int splitBet;
 
   // round balance to 2 decimal places, representing real world money
   private void roundBalance() {
@@ -58,61 +65,94 @@ class Player {
   }
 
   // returns whether hit was successful
-  public boolean hit(Card newCard) {
-    hand.addCard(newCard);
+  public boolean hit(boolean isSplit, Card newCard) {
+    if (isSplit) {
+      splitHand.addCard(newCard);
+    } else {
+      hand.addCard(newCard);
+    }
 
     return true;
   }
 
   // returns whether double was successful
-  public boolean doubleBet(Card newCard) {
-    // check if there's enough balance to double
-    if (balance < bet) {
-      return false;
+  public boolean doubleBet(boolean isSplit, Card newCard) {
+    if (isSplit) {
+      // check if there's enough balance to double
+      if (balance < splitBet) {
+        return false;
+      }
+
+      // double bet and hit
+      balance -= splitBet;
+      splitBet *= 2;
+      this.hit(true, newCard);
+
+      return true;
+    } else {
+      if (balance < bet) {
+        return false;
+      }
+
+      balance -= bet;
+      bet *= 2;
+      this.hit(false, newCard);
+
+      return true;
     }
-
-    // double bet and hit
-    balance -= bet;
-    bet *= 2;
-    this.hit(newCard);
-
-    return true;
   }
 
   // put the value in bet back to balance, and clear bet.
   // called when game ties
-  public void receiveTiePayout() {
-    assert bet > 0;
+  public void receiveTiePayout(boolean split) {
+    if (split) {
+      assert splitBet > 0;
 
-    // transfer value to balance
-    balance += bet;
-    bet = 0;
+      balance += splitBet;
+      splitBet = 0;
+    } else {
+      assert bet > 0;
+
+      balance += bet;
+      bet = 0;
+    }
   }
 
   // put twice the value in bet back to balance, and clear bet.
   // called when the player wins
-  public void receiveWinPayout() {
-    // copy twice of bet to balance
-    assert bet > 0;
+  public void receiveWinPayout(boolean isSplit) {
+    if (isSplit) {
+      assert splitBet > 0;
 
-    // copy double the bet value to balance
-    balance += 2 * bet;
-    bet = 0;
+      balance += 2 * splitBet;
+      splitBet = 0;
+    } else {
+      assert bet > 0;
+
+      balance += 2 * bet;
+      bet = 0;
+    }
   }
 
   // put half the value in bet back to balance, and clear bet.
   // called when the player surrenders
-  public void receiveHalfPayout() {
-    // copy half of bet to balance
-    assert bet > 0;
+  public void receiveHalfPayout(boolean isSplit) {
+    if (isSplit) {
+      assert splitBet > 0;
 
-    // copy half the bet value
-    balance += bet / 2;
-    bet = 0;
+      balance += splitBet / 2;
+      splitBet = 0;
+    } else {
+      assert bet > 0;
+
+      balance += bet / 2;
+      bet = 0;
+    }
 
     roundBalance();
   }
 
+  // should prob return bool
   public void split() {
     // TODO: Next iterations
   }

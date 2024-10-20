@@ -51,12 +51,13 @@ class Game {
     assert roundOver;
 
     if (tied) {
-      player.receiveTiePayout();
+      player.receiveTiePayout(false);
     } else if (won) {
-      player.receiveWinPayout();
+      player.receiveWinPayout(false);
     } else if (surrendered) {
-      player.receiveHalfPayout();
+      player.receiveHalfPayout(false);
     } else {
+      // main hand lost
       player.bet = 0;
     }
   }
@@ -137,17 +138,22 @@ class Game {
   // resets state properties and reshuffles deck if needed.
   // called when player presses new round
   public static void choiceNewRound() {
-    // state properties
+    // shuffle if >10% of deck is gone
+    deck.tryReshuffle();
+
+    // reset game
     betPlaced = false;
     roundOver = false;
     won = false;
     tied = false;
     surrendered = false;
 
-    // reset and shuffle if >10% of deck is gone
-    deck.tryReshuffle();
     player.bet = 0;
     player.hand.clear();
+
+    player.splitBet = 0;
+    player.splitHand.clear();
+
     dealer.hand.clear();
   }
 
@@ -160,7 +166,7 @@ class Game {
       return false;
     }
 
-    boolean success = player.hit(Game.deck.getCard());
+    boolean success = player.hit(false, Game.deck.getCard());
 
     assert success;
 
@@ -187,7 +193,7 @@ class Game {
     }
 
     Card newCard = Game.deck.getCard();
-    boolean success = player.doubleBet(newCard);
+    boolean success = player.doubleBet(false, newCard);
     if (!success) {
       // cannot double. return card to the top of the deck
       deck.putCard(newCard);

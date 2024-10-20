@@ -35,7 +35,7 @@ public class PlayerTest {
     Hand placeholder_hand = new Hand();
     player.hand = placeholder_hand;
     player.incrementBet(ChipColor.BLUE);
-    boolean status = player.doubleBet(placeholder_card);
+    boolean status = player.doubleBet(false, placeholder_card);
     assertTrue("Doublet Bet Sucessful", status);
   }
 
@@ -58,7 +58,7 @@ public class PlayerTest {
       player.incrementBet(ChipColor.BLUE);
     }
 
-    boolean status = player.doubleBet(placeholder_card);
+    boolean status = player.doubleBet(false, placeholder_card);
     assertFalse("Double Bet Uncessful", status);
   }
 
@@ -67,7 +67,7 @@ public class PlayerTest {
     Player player = new Player();
     double balanceBefore = player.balance;
     player.incrementBet(ChipColor.GREEN);
-    player.receiveTiePayout();
+    player.receiveTiePayout(false);
     double balanceAfter = player.balance;
     assertEquals("The player had his bet returned to the balance", balanceBefore, balanceAfter);
   }
@@ -77,7 +77,7 @@ public class PlayerTest {
     Player player = new Player();
     player.incrementBet(ChipColor.GREEN);
     int betValue = ChipColor.GREEN.toInt();
-    player.receiveWinPayout();
+    player.receiveWinPayout(false);
     double balanceAfter = player.balance;
     assertEquals("The player had his bet doubled", 2400 - betValue + (2 * betValue), balanceAfter);
 
@@ -89,7 +89,7 @@ public class PlayerTest {
     double balanceBefore = player.balance;
     player.incrementBet(ChipColor.GOLD);
     int betValue = ChipColor.GOLD.toInt();
-    player.receiveHalfPayout();
+    player.receiveHalfPayout(false);
     double balanceAfter = player.balance;
 
     assertEquals("The player had his bet returned to the balance", balanceBefore - betValue + (betValue / 2),
