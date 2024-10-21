@@ -65,7 +65,12 @@ class Game {
     if (tied) {
       player.receiveTiePayout(false);
     } else if (won) {
-      player.receiveWinPayout(false);
+      // check for blackjack win, pays 3:2
+      if (player.hand.isBlackjack() && !split) {
+        player.receiveBlackjackPayout();
+      } else {
+        player.receiveWinPayout(false);
+      }
     } else if (surrendered) {
       player.receiveHalfPayout(false);
     } else {

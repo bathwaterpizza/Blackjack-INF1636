@@ -149,6 +149,17 @@ class Player {
     }
   }
 
+  // put 2.5 times the value in bet back to balance, and clear bet.
+  // this is because blackjack pays 3:2.
+  // cannot happen after a split.
+  // called when the player gets a blackjack and the dealer doesn't
+  public void receiveBlackjackPayout() {
+    assert bet > 0;
+
+    balance += 2.5 * bet;
+    bet = 0;
+  }
+
   // put half the value in bet back to balance, and clear bet.
   // called when the player surrenders
   public void receiveHalfPayout(boolean isSplit) {
