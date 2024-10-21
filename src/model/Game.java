@@ -90,13 +90,6 @@ class Game {
         player.splitBet = 0;
       }
     }
-
-    // check if player can still play the game
-    if (player.balance < MIN_BET) {
-      System.out.println("No more money to play, exiting.");
-
-      choiceExit();
-    }
   }
 
   // plays for the dealer after all players' hands stand
@@ -267,6 +260,13 @@ class Game {
     }
 
     dealer.hand.clear();
+
+    // check if player can still play the game
+    if (player.balance < MIN_BET) {
+      System.out.println("No more money to play, exiting.");
+
+      System.exit(0);
+    }
 
     return true;
   }
