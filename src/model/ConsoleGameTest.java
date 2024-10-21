@@ -18,14 +18,14 @@ public class ConsoleGameTest {
 
       success = Game.player.incrementBet(betAmount);
       if (!success) {
-        System.out.print("No money to bet. Exiting.");
+        System.out.println("No money to bet. Exiting.");
         scanner.close();
         System.exit(0);
       }
 
       success = Game.choiceDeal();
       if (!success) {
-        System.out.print("Deal failed. Exiting.");
+        System.out.println("Deal failed. Exiting.");
         scanner.close();
         System.exit(0);
       }
