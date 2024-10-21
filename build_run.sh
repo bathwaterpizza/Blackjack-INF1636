@@ -30,7 +30,7 @@ fi
 echo "[BUILD] Compilation successful"
 
 # Find the main class (you need to update this with your actual main class)
-MAIN_CLASS="model.MainTest" # Replace with your actual main class
+MAIN_CLASS="main.Main" # Replace with your actual main class
 
 # Run the project
 echo "[BUILD] Running the project.."

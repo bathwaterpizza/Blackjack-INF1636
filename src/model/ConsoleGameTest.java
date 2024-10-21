@@ -2,8 +2,8 @@ package model;
 
 import java.util.Scanner;
 
-public class MainTest {
-  public static void main(String[] args) {
+public class ConsoleGameTest {
+  public static void run() {
     Scanner scanner = new Scanner(System.in);
 
     while (true) {
