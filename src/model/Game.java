@@ -2,29 +2,45 @@ package model;
 
 // static class that contains the game state and player objects
 class Game {
+  // minimum bet to play a hand
   private static final int MIN_BET = 50;
+  // singleton instance
+  private static Game instance = null;
 
   // global game properties
-  public static Deck deck = new Deck(true);
-  public static Player player = new Player();
-  public static Dealer dealer = new Dealer();
+  public Deck deck = new Deck(true);
+  public Player player = new Player();
+  public Dealer dealer = new Dealer();
 
   // main hand state properties
-  public static boolean betPlaced = false;
-  public static boolean roundOver = true;
-  public static boolean won = false;
-  public static boolean tied = false;
-  public static boolean surrendered = false;
+  public boolean betPlaced = false;
+  public boolean roundOver = true;
+  public boolean won = false;
+  public boolean tied = false;
+  public boolean surrendered = false;
 
   // split hand state properties
-  public static boolean split = false;
-  public static boolean splitPlaying = false;
-  public static boolean splitWon = false;
-  public static boolean splitTied = false;
-  public static boolean splitSurrendered = false;
+  public boolean split = false;
+  public boolean splitPlaying = false;
+  public boolean splitWon = false;
+  public boolean splitTied = false;
+  public boolean splitSurrendered = false;
+
+  // private constructor for singleton implementation
+  private Game() {
+  }
+
+  // returns an instance of the game class, to be used as an API by the controller
+  public static Game getAPI() {
+    if (instance == null) {
+      instance = new Game();
+    }
+
+    return instance;
+  }
 
   // internal function to deal the first hand for the player and the dealer
-  private static void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
+  private void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     // 2 cards for the player
     player.hand.addCard(playerCard1);
     player.hand.addCard(playerCard2);
@@ -59,7 +75,7 @@ class Game {
   }
 
   // called after the game is over to pay the player and clear his bet
-  private static void payout() {
+  private void payout() {
     assert roundOver;
 
     if (tied) {
@@ -93,7 +109,7 @@ class Game {
   }
 
   // plays for the dealer after all players' hands stand
-  private static void playDealerHand() {
+  private void playDealerHand() {
     assert !roundOver;
 
     // check if dealer should play
@@ -113,7 +129,7 @@ class Game {
     } else {
       // dealer hits until 17
       while (dealer.hand.points < 17) {
-        dealer.hit(Game.deck.getCard());
+        dealer.hit(instance.deck.getCard());
       }
     }
 
@@ -166,7 +182,7 @@ class Game {
 
   // called once main hand is done playing,
   // checks wheher to play the split hand or the dealer hand
-  private static void playSplitHand() {
+  private void playSplitHand() {
     if (split) {
       // main hand finished, split hand plays
       splitPlaying = true;
@@ -177,7 +193,7 @@ class Game {
   }
 
   // called when the player presses deal
-  public static boolean choiceDeal() {
+  public boolean choiceDeal() {
     if (betPlaced) {
       System.out.println("Bet already placed.");
       return false;
@@ -198,7 +214,7 @@ class Game {
   }
 
   // overloaded version for testing with specific hands
-  public static boolean choiceDeal(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
+  public boolean choiceDeal(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     if (betPlaced) {
       System.out.println("Bet already placed.");
       return false;
@@ -224,7 +240,7 @@ class Game {
 
   // resets state properties and reshuffles deck if needed.
   // called when player presses new round
-  public static boolean choiceClear() {
+  public boolean choiceClear() {
     if (!roundOver) {
       System.out.println("Can't start new round now.");
       return false;
@@ -273,9 +289,9 @@ class Game {
 
   // called when the player presses hit,
   // returns whether it was successful
-  public static boolean choiceHit() {
+  public boolean choiceHit() {
     if (splitPlaying) { // hit on split hand
-      player.hit(true, Game.deck.getCard());
+      player.hit(true, deck.getCard());
 
       // check if round is over
       if (player.splitHand.isBust()) {
@@ -291,7 +307,7 @@ class Game {
         return false;
       }
 
-      player.hit(false, Game.deck.getCard());
+      player.hit(false, deck.getCard());
 
       // check if main hand play is over
       if (player.hand.isBust()) {
@@ -303,20 +319,20 @@ class Game {
   }
 
   // called when the player presses exit
-  public static void choiceExit() {
+  public void choiceExit() {
     System.exit(0);
   }
 
   // called when the player presses double,
   // returns whether it was successful
-  public static boolean choiceDouble() {
+  public boolean choiceDouble() {
     if (splitPlaying) { // double on split hand
       if (player.splitHand.size() > 2) {
         System.out.println("Can't split double now.");
         return false;
       }
 
-      Card newCard = Game.deck.getCard();
+      Card newCard = deck.getCard();
       boolean success = player.doubleBet(true, newCard);
       if (!success) {
         // cannot split double. return card to the top of the deck
@@ -335,7 +351,7 @@ class Game {
         return false;
       }
 
-      Card newCard = Game.deck.getCard();
+      Card newCard = deck.getCard();
       boolean success = player.doubleBet(false, newCard);
       if (!success) {
         // cannot double. return card to the top of the deck
@@ -352,7 +368,7 @@ class Game {
 
   // called when the player presses stand,
   // returns whether it was successful
-  public static boolean choiceStand() {
+  public boolean choiceStand() {
     if (splitPlaying) {
       playDealerHand();
 
@@ -372,7 +388,7 @@ class Game {
 
   // called when the player presses surrender,
   // returns whether it was successful
-  public static boolean choiceSurrender() {
+  public boolean choiceSurrender() {
     if (splitPlaying) {
       // check if can surrender
       if (player.splitHand.size() > 2) {
@@ -400,15 +416,15 @@ class Game {
 
   // called when the player presses split,
   // returns whether it was successful
-  public static boolean choiceSplit() {
+  public boolean choiceSplit() {
     // check if can split
     if (roundOver || !betPlaced || player.hand.size() > 2 || split || !player.hand.isPair()) {
       System.out.println("Can't split now.");
       return false;
     }
 
-    Card newCard1 = Game.deck.getCard();
-    Card newCard2 = Game.deck.getCard();
+    Card newCard1 = deck.getCard();
+    Card newCard2 = deck.getCard();
     boolean success = player.splitBet(newCard1, newCard2);
     if (!success) {
       // cannot split. return cards to the top of the deck
