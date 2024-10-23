@@ -1,33 +1,54 @@
 package model;
 
-// static class that contains the game state and player objects
-class Game {
+// public class that contains the model API
+public class Game {
   // minimum bet to play a hand
   private static final int MIN_BET = 50;
   // singleton instance
   private static Game instance = null;
 
   // global game properties
-  public Deck deck = new Deck(true);
-  public Player player = new Player();
-  public Dealer dealer = new Dealer();
+  private Deck deck = new Deck(true);
+  private Player player = new Player();
+  private Dealer dealer = new Dealer();
 
   // main hand state properties
-  public boolean betPlaced = false;
-  public boolean roundOver = true;
-  public boolean won = false;
-  public boolean tied = false;
-  public boolean surrendered = false;
+  private boolean betPlaced = false;
+  private boolean roundOver = true;
+  private boolean won = false;
+  private boolean tied = false;
+  private boolean surrendered = false;
 
   // split hand state properties
-  public boolean split = false;
-  public boolean splitPlaying = false;
-  public boolean splitWon = false;
-  public boolean splitTied = false;
-  public boolean splitSurrendered = false;
+  private boolean split = false;
+  private boolean splitPlaying = false;
+  private boolean splitWon = false;
+  private boolean splitTied = false;
+  private boolean splitSurrendered = false;
 
   // private constructor for singleton implementation
   private Game() {
+  }
+
+  // getters for the API
+  public boolean isRoundOver() {
+    return roundOver;
+  }
+
+  public boolean hasSplit() {
+    return split;
+  }
+
+  public boolean isSplitTurn() {
+    return splitPlaying;
+  }
+
+  public Hand getPlayerHand() {
+    return player.hand;
+  }
+
+  public Hand getDealerHand() {
+    return dealer.hand;
   }
 
   // returns an instance of the game class, to be used as an API by the controller
