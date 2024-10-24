@@ -442,4 +442,24 @@ public class Game {
 
     return true;
   }
+
+  // called when the player clicks on a chip to increment the bet
+  public boolean choiceIncBet(Chip chip) {
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return false;
+    }
+
+    return player.incrementBet(chip);
+  }
+
+  // called when the player clicks on a chip to decrement the bet
+  public boolean choiceDecBet(Chip chip) {
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return false;
+    }
+
+    return player.decrementBet(chip);
+  }
 }
