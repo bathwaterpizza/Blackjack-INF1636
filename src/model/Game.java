@@ -7,48 +7,26 @@ public class Game {
   // singleton instance
   private static Game instance = null;
 
-  // global game properties
-  private Deck deck = new Deck(true);
-  private Player player = new Player();
-  private Dealer dealer = new Dealer();
+  // composition properties
+  Deck deck = new Deck(true);
+  Player player = new Player();
+  Dealer dealer = new Dealer();
 
   // main hand state properties
-  private boolean betPlaced = false;
-  private boolean roundOver = true;
-  private boolean won = false;
-  private boolean tied = false;
-  private boolean surrendered = false;
+  boolean betPlaced = false;
+  boolean roundOver = true;
+  boolean won = false;
+  boolean tied = false;
+  boolean surrendered = false;
 
   // split hand state properties
-  private boolean split = false;
-  private boolean splitPlaying = false;
-  private boolean splitWon = false;
-  private boolean splitTied = false;
-  private boolean splitSurrendered = false;
+  boolean split = false;
+  boolean splitPlaying = false;
+  boolean splitWon = false;
+  boolean splitTied = false;
+  boolean splitSurrendered = false;
 
-  // private constructor for singleton implementation
   private Game() {
-  }
-
-  // getters for the API
-  public boolean isRoundOver() {
-    return roundOver;
-  }
-
-  public boolean hasSplit() {
-    return split;
-  }
-
-  public boolean isSplitTurn() {
-    return splitPlaying;
-  }
-
-  public Hand getPlayerHand() {
-    return player.hand;
-  }
-
-  public Hand getDealerHand() {
-    return dealer.hand;
   }
 
   // returns an instance of the game class, to be used as an API by the controller
@@ -58,6 +36,15 @@ public class Game {
     }
 
     return instance;
+  }
+
+  // getters for the API
+  public Hand getPlayerHand() {
+    return player.hand;
+  }
+
+  public Hand getDealerHand() {
+    return dealer.hand;
   }
 
   // internal function to deal the first hand for the player and the dealer

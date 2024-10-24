@@ -35,7 +35,7 @@ public class ConsoleGameTest {
       System.out.println("Initial dealer hand: " + game.dealer.hand.toString());
       System.out.println();
 
-      while (!game.isRoundOver()) {
+      while (!game.roundOver) {
         System.out.print("Choice (hit, double, surrender, stand, split, exit): ");
         String action = scanner.nextLine().trim().toLowerCase();
 
@@ -48,9 +48,9 @@ public class ConsoleGameTest {
             System.out.println("You chose to double.");
             success = game.choiceDouble();
 
-            if (success && !game.isRoundOver()) {
+            if (success && !game.roundOver) {
               System.out.println("Main bet is now " + game.player.bet + ".");
-              if (game.hasSplit()) {
+              if (game.split) {
                 System.out.println("Split bet is now " + game.player.splitBet + ".");
               }
             }
@@ -70,9 +70,9 @@ public class ConsoleGameTest {
             System.out.println("You chose to split.");
             success = game.choiceSplit();
 
-            if (success && !game.isRoundOver()) {
+            if (success && !game.roundOver) {
               System.out.println("Main bet is now " + game.player.bet + ".");
-              if (game.hasSplit()) {
+              if (game.split) {
                 System.out.println("Split bet is now " + game.player.splitBet + ".");
               }
             }
@@ -82,17 +82,17 @@ public class ConsoleGameTest {
             break;
         }
 
-        if (!game.isRoundOver()) {
+        if (!game.roundOver) {
           System.out.println();
           System.out.println("Current player hand: " + game.player.hand.toString());
-          if (game.hasSplit()) {
+          if (game.split) {
             System.out.println("Current split hand: " + game.player.splitHand.toString());
           }
           System.out.println("Current dealer hand: " + game.dealer.hand.toString());
         }
 
-        if (game.hasSplit() && !game.isRoundOver()) {
-          if (game.isSplitTurn()) {
+        if (game.split && !game.roundOver) {
+          if (game.splitPlaying) {
             System.out.println("Now playing SPLIT hand!");
           } else {
             System.out.println("Now playing MAIN hand!");
@@ -103,7 +103,7 @@ public class ConsoleGameTest {
       System.out.println();
       System.out.println("Round over.");
       System.out.println("Final player hand: " + game.player.hand.toString());
-      if (game.hasSplit()) {
+      if (game.split) {
         System.out.println("Final split hand: " + game.player.splitHand.toString());
       }
       System.out.println("Final dealer hand: " + game.dealer.hand.toString());
@@ -116,7 +116,7 @@ public class ConsoleGameTest {
         System.out.println("Main hand: You lost.");
       }
 
-      if (game.hasSplit()) {
+      if (game.split) {
         if (game.splitWon) {
           System.out.println("Split hand: You won!");
         } else if (game.splitTied) {
