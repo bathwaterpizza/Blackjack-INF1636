@@ -1,16 +1,16 @@
 package model;
 
 class Card {
-  public Suit suit;
-  public Rank rank;
+  Suit suit;
+  Rank rank;
 
-  public Card(Suit suit, Rank rank) {
+  Card(Suit suit, Rank rank) {
     this.suit = suit;
     this.rank = rank;
   }
 
   // get the value of the card according to the blackjack rules
-  public int getValue() {
+  int getValue() {
     switch (rank) {
       case ACE:
         // Ace will always be 1, and the Hand class will decide whether it should be
@@ -60,5 +60,11 @@ class Card {
   @Override
   public String toString() {
     return rank.toString() + " of " + suit.toString();
+  }
+
+  // unique integer representation for each card considering rank and suit,
+  // used by the view when mapping cards to images
+  public int toInt() {
+    return suit.ordinal() * 13 + rank.ordinal();
   }
 }
