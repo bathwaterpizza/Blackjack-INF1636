@@ -17,7 +17,7 @@ class Deck {
   private Stack<Card> deck;
 
   // shouldShuffle: true to shuffle on creation
-  public Deck(boolean shouldShuffle) {
+  Deck(boolean shouldShuffle) {
     // create a deck with eight sets of 52 cards
     createNewDeck();
 
@@ -40,7 +40,7 @@ class Deck {
   }
 
   // called after every round to check if we need to reshuffle
-  public void tryReshuffle() {
+  void tryReshuffle() {
     if (deck.size() <= TOTAL_CARDS - DRAW_LIMIT) {
       createNewDeck();
       Collections.shuffle(deck);
@@ -48,7 +48,7 @@ class Deck {
   }
 
   // returns the card at the top of the deck, also removing it from the deck
-  public Card getCard() {
+  Card getCard() {
     if (deck.isEmpty()) {
       throw new EmptyDeckException("Deck is empty");
     }
@@ -57,12 +57,12 @@ class Deck {
   }
 
   // inserts a card at the top of the deck
-  public void putCard(Card card) {
+  void putCard(Card card) {
     deck.push(card);
   }
 
   // returns the amount of cards in the deck
-  public int getDeckSize() {
+  int getDeckSize() {
     return deck.size();
   }
 }

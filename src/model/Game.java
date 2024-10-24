@@ -38,15 +38,6 @@ public class Game {
     return instance;
   }
 
-  // getters for the API
-  public Hand getPlayerHand() {
-    return player.hand;
-  }
-
-  public Hand getDealerHand() {
-    return dealer.hand;
-  }
-
   // internal function to deal the first hand for the player and the dealer
   private void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     // 2 cards for the player

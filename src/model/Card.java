@@ -64,7 +64,7 @@ class Card {
 
   // unique integer representation for each card considering rank and suit,
   // used by the view when mapping cards to images
-  public int toInt() {
+  int toInt() {
     return suit.ordinal() * 13 + rank.ordinal();
   }
 }

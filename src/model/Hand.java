@@ -3,8 +3,8 @@ package model;
 import java.util.ArrayList;
 
 class Hand {
-  public ArrayList<Card> cards = new ArrayList<>();
-  public int points = 0;
+  ArrayList<Card> cards = new ArrayList<>();
+  int points = 0;
 
   private void updatePoints() {
     int sum = 0;
@@ -25,21 +25,21 @@ class Hand {
     points = sum;
   }
 
-  public void addCard(Card c) {
+  void addCard(Card c) {
     cards.add(c);
     updatePoints();
   }
 
-  public boolean isBlackjack() {
+  boolean isBlackjack() {
     return points == 21 && cards.size() == 2;
   }
 
-  public boolean isBust() {
+  boolean isBust() {
     return points > 21;
   }
 
   // To decide if the hand can split
-  public boolean isPair() {
+  boolean isPair() {
     if (cards.size() == 2) {
       return cards.get(0).getValue() == cards.get(1).getValue();
     }
@@ -47,13 +47,13 @@ class Hand {
     return false;
   }
 
-  public void clear() {
+  void clear() {
     cards.clear();
     points = 0;
   }
 
   // amount of cards in the hand
-  public int size() {
+  int size() {
     return cards.size();
   }
 
