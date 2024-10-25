@@ -20,8 +20,10 @@ public class GameUI {
   Image tableAsset;
 
   // UI properties
-  MenuFrame menu;
-  DealerFrame dealer;
+  public MenuFrame menu;
+  public DealerFrame dealerFrame;
+  public PlayerFrame playerFrame;
+  public PlayerFrame splitPlayerFrame;
 
   // singleton pattern
   private GameUI() {
@@ -111,7 +113,15 @@ public class GameUI {
   // opens the dealer window.
   // should only be called once per game instance
   public void openDealerWindow() {
-    dealer = new DealerFrame();
-    dealer.openWindow();
+    dealerFrame = new DealerFrame();
+    dealerFrame.openWindow();
+  }
+
+  public void setBalance(double value) {
+    dealerFrame.setBalance(value);
+  }
+
+  public void setBet(int value) {
+    dealerFrame.setBet(value);
   }
 }

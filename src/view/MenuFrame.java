@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import controller.GameController;
+import controller.*;
 
 // creates the main game menu
 class MenuFrame extends JFrame {

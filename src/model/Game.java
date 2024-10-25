@@ -462,4 +462,12 @@ public class Game {
 
     return player.decrementBet(chip);
   }
+
+  public double getBalance() {
+    return player.balance;
+  }
+
+  public int getBet() {
+    return player.bet;
+  }
 }
