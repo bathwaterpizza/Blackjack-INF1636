@@ -21,6 +21,11 @@ class MenuFrame extends JFrame {
     JButton newGameButton = new JButton("New Game");
     JButton continueButton = new JButton("Continue");
 
+    // Increase text size
+    Font buttonFont = new Font("Arial", Font.BOLD, 20);
+    newGameButton.setFont(buttonFont);
+    continueButton.setFont(buttonFont);
+
     // listeners
     newGameButton.addActionListener(new ActionListener() {
       @Override
@@ -34,7 +39,7 @@ class MenuFrame extends JFrame {
     continueButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO:Save/Continue game feature
+        // TODO: Save/Continue game feature
         System.out.println("Continue button clicked");
       }
     });

@@ -65,6 +65,7 @@ class DealerFrame extends JFrame implements MouseListener {
     addMouseListener(this);
   }
 
+  // handle mouse click events
   @Override
   public void mouseClicked(MouseEvent e) {
     int mouseX = e.getX();
