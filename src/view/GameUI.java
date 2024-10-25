@@ -6,6 +6,7 @@ public class GameUI {
 
   // frame properties
   MenuFrame menu;
+  DealerFrame dealer;
 
   // singleton pattern
   private GameUI() {
@@ -23,13 +24,19 @@ public class GameUI {
   // should only be called once per game instance
   public void openMenuWindow() {
     menu = new MenuFrame();
-    menu.openMenu();
+    menu.openWindow();
+  }
+
+  // closes the menu window.
+  // should only be called once per game instance
+  public void closeMenuWindow() {
+    menu.closeWindow();
   }
 
   // opens the dealer window.
   // should only be called once per game instance
   public void openDealerWindow() {
-    // DealerFrame dealer = new DealerFrame();
-    // dealer.spawnDealer();
+    dealer = new DealerFrame();
+    dealer.openWindow();
   }
 }

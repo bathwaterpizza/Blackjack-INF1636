@@ -47,12 +47,12 @@ class MenuFrame extends JFrame {
   }
 
   // Make the frame visible
-  void openMenu() {
+  void openWindow() {
     this.setVisible(true);
   }
 
   // Dispose of the frame
-  void closeMenu() {
+  void closeWindow() {
     this.dispose();
   }
 }

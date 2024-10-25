@@ -27,7 +27,9 @@ public class GameController {
   }
 
   // called by the view when the player clicks on new game in menu
+  // close menu, start game and open dealer window
   public void newGame() {
+    view.closeMenuWindow();
     model.choiceClear();
     view.openDealerWindow();
   }
