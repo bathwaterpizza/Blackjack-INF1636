@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // creates the main game menu
-public class MenuFrame extends JFrame {
-  public MenuFrame() {
+class MenuFrame extends JFrame {
+  MenuFrame() {
     // frame setup
     setTitle("Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,6 +29,7 @@ public class MenuFrame extends JFrame {
     continueButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
+        // TODO:Save/Continue game feature
         System.out.println("Continue button clicked");
       }
     });
@@ -41,12 +42,12 @@ public class MenuFrame extends JFrame {
   }
 
   // Make the frame visible
-  public void spawnMenu() {
+  void openMenu() {
     this.setVisible(true);
   }
 
   // Dispose of the frame
-  public void closeMenu() {
+  void closeMenu() {
     this.dispose();
   }
 }

@@ -26,10 +26,10 @@ public class Game {
   boolean splitTied = false;
   boolean splitSurrendered = false;
 
+  // singleton pattern
   private Game() {
   }
 
-  // returns an instance of the game class, to be used as an API by the controller
   public static Game getAPI() {
     if (instance == null) {
       instance = new Game();
