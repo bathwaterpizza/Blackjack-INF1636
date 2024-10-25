@@ -5,14 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.GameController;
+
 // creates the main game menu
 class MenuFrame extends JFrame {
-  // view instance
-  private GameUI view;
-
-  MenuFrame(GameUI view) {
-    this.view = view;
-
+  MenuFrame() {
     // frame setup
     setTitle("Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,7 +28,7 @@ class MenuFrame extends JFrame {
         System.out.println("New Game button clicked");
 
         // informs the controller we want to start a new game
-        view.controller.newGame();
+        GameController.getAPI().newGame();
       }
     });
     continueButton.addActionListener(new ActionListener() {

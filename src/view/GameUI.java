@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import model.Chip;
-import controller.*;
 
 // public class that contains the view API
 public class GameUI {
@@ -21,14 +20,11 @@ public class GameUI {
   Image tableAsset;
 
   // UI properties
-  GameController controller;
   MenuFrame menu;
   DealerFrame dealer;
 
   // singleton pattern
   private GameUI() {
-    controller = GameController.getAPI();
-
     // load assets on game initialization
     loadAssets();
   }
@@ -102,7 +98,7 @@ public class GameUI {
   // opens the menu window.
   // should only be called once per game instance
   public void openMenuWindow() {
-    menu = new MenuFrame(this);
+    menu = new MenuFrame();
     menu.openWindow();
   }
 
@@ -115,7 +111,7 @@ public class GameUI {
   // opens the dealer window.
   // should only be called once per game instance
   public void openDealerWindow() {
-    dealer = new DealerFrame(this);
+    dealer = new DealerFrame();
     dealer.openWindow();
   }
 }
