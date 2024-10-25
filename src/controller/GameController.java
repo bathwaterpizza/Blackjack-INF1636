@@ -6,6 +6,7 @@ import model.*;
 // called by Main to initialize the game,
 // contains an API for the view to interact with the model
 public class GameController {
+  // singleton instance
   private static GameController instance = null;
 
   // initialize model and view
@@ -27,10 +28,10 @@ public class GameController {
   }
 
   // called by the view when the player clicks on new game in menu
-  // close menu, start game and open dealer window
+  // close menu, open dealer window and start game
   public void newGame() {
     view.closeMenuWindow();
-    model.choiceClear();
     view.openDealerWindow();
+    model.choiceClear();
   }
 }

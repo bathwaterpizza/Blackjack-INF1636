@@ -67,4 +67,17 @@ class Card {
   int toInt() {
     return suit.ordinal() * 13 + rank.ordinal();
   }
+
+  // static method to create a Card from an integer
+  static Card fromInt(int cardNum) {
+    if (cardNum < 0 || cardNum > 51) {
+      System.out.println("Invalid card number in fromInt.");
+      return null;
+    }
+
+    Suit suit = Suit.values()[cardNum / 13];
+    Rank rank = Rank.values()[cardNum % 13];
+
+    return new Card(suit, rank);
+  }
 }

@@ -1,8 +1,8 @@
 package model;
 
 public enum Suit {
-  HEARTS, // Represents the Hearts suit (red)
-  DIAMONDS, // Represents the Diamonds suit (red)
   CLUBS, // Represents the Clubs suit (black)
+  DIAMONDS, // Represents the Diamonds suit (red)
+  HEARTS, // Represents the Hearts suit (red)
   SPADES // Represents the Spades suit (black)
 }
