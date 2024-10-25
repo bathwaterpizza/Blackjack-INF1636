@@ -70,4 +70,12 @@ public class GameController {
   public void requestSurrender() {
     model.choiceSurrender();
   }
+
+  public void requestRaiseBet(Chip chip) {
+    model.choiceIncBet(chip);
+  }
+
+  public void requestLowerBet(Chip chip) {
+    model.choiceDecBet(chip);
+  }
 }
