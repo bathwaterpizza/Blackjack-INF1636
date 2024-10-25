@@ -11,7 +11,7 @@ import controller.*;
 class MenuFrame extends JFrame {
   MenuFrame() {
     // frame setup
-    setTitle("Menu");
+    setTitle("Blackjack - Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(300, 200);
 
@@ -21,10 +21,14 @@ class MenuFrame extends JFrame {
     JButton newGameButton = new JButton("New Game");
     JButton continueButton = new JButton("Continue");
 
-    // Increase text size
+    // increase text size
     Font buttonFont = new Font("Arial", Font.BOLD, 20);
     newGameButton.setFont(buttonFont);
     continueButton.setFont(buttonFont);
+
+    // remove focus border
+    newGameButton.setFocusPainted(false);
+    continueButton.setFocusPainted(false);
 
     // listeners
     newGameButton.addActionListener(new ActionListener() {
@@ -44,7 +48,6 @@ class MenuFrame extends JFrame {
       }
     });
 
-    // panel setup
     panel.add(newGameButton);
     panel.add(continueButton);
 

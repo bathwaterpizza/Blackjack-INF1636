@@ -38,4 +38,36 @@ public class GameController {
     view.setBalance(model.getBalance());
     view.setBet(model.getBet());
   }
+
+  public void requestExit() {
+    model.choiceExit();
+  }
+
+  public void requestDouble() {
+    model.choiceDouble();
+  }
+
+  public void requestSplit() {
+    model.choiceSplit();
+  }
+
+  public void requestClear() {
+    model.choiceClear();
+  }
+
+  public void requestDeal() {
+    model.choiceDeal();
+  }
+
+  public void requestHit() {
+    model.choiceHit();
+  }
+
+  public void requestStand() {
+    model.choiceStand();
+  }
+
+  public void requestSurrender() {
+    model.choiceSurrender();
+  }
 }

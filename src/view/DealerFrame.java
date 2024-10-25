@@ -4,9 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import controller.*;
+
 class DealerFrame extends JFrame implements MouseListener {
   private static final int FRAME_WIDTH = 704;
   private static final int FRAME_HEIGHT = 532;
+
+  // references
+  GameUI view = GameUI.getAPI();
+  GameController controller = GameController.getAPI();
 
   // frame components
   private JLabel balanceLabel;
@@ -45,7 +51,7 @@ class DealerFrame extends JFrame implements MouseListener {
     // init frame
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setTitle("Dealer Window");
+    setTitle("Blackjack - Dealer");
     setLayout(null); // manual positioning
 
     // init labels
@@ -57,15 +63,14 @@ class DealerFrame extends JFrame implements MouseListener {
     betLabel.setFont(new Font("Arial", Font.BOLD, 16));
     betLabel.setBounds(3, FRAME_HEIGHT - 95, 120, 20);
 
-    // labels
     add(balanceLabel);
     add(betLabel);
 
-    // mouse click listener
+    // register mouse listener
     addMouseListener(this);
   }
 
-  // handle mouse click events
+  // called on mouse click to verify button events
   @Override
   public void mouseClicked(MouseEvent e) {
     int mouseX = e.getX();
@@ -73,28 +78,44 @@ class DealerFrame extends JFrame implements MouseListener {
 
     if (mouseX >= btnExitX && mouseX <= btnExitX + btnWidth &&
         mouseY >= btnExitY && mouseY <= btnExitY + btnHeight) {
-      System.out.println("Exit button clicked!");
+      // Exit button clicked
+
+      controller.requestExit();
     } else if (mouseX >= btnDoubleX && mouseX <= btnDoubleX + btnWidth &&
         mouseY >= btnDoubleY && mouseY <= btnDoubleY + btnHeight) {
-      System.out.println("Double button clicked!");
+      // Double button clicked
+
+      controller.requestDouble();
     } else if (mouseX >= btnSplitX && mouseX <= btnSplitX + btnWidth &&
         mouseY >= btnSplitY && mouseY <= btnSplitY + btnHeight) {
-      System.out.println("Split button clicked!");
+      // Split button clicked
+
+      controller.requestSplit();
     } else if (mouseX >= btnClearX && mouseX <= btnClearX + btnWidth &&
         mouseY >= btnClearY && mouseY <= btnClearY + btnHeight) {
-      System.out.println("Clear button clicked!");
+      // Clear button clicked
+
+      controller.requestClear();
     } else if (mouseX >= btnDealX && mouseX <= btnDealX + btnWidth &&
         mouseY >= btnDealY && mouseY <= btnDealY + btnHeight) {
-      System.out.println("Deal button clicked!");
+      // Deal button clicked
+
+      controller.requestDeal();
     } else if (mouseX >= btnHitX && mouseX <= btnHitX + btnWidth &&
         mouseY >= btnHitY && mouseY <= btnHitY + btnHeight) {
-      System.out.println("Hit button clicked!");
+      // Hit button clicked
+
+      controller.requestHit();
     } else if (mouseX >= btnStandX && mouseX <= btnStandX + btnWidth &&
         mouseY >= btnStandY && mouseY <= btnStandY + btnHeight) {
-      System.out.println("Stand button clicked!");
+      // Stand button clicked
+
+      controller.requestStand();
     } else if (mouseX >= btnSurrenderX && mouseX <= btnSurrenderX + btnWidth &&
         mouseY >= btnSurrenderY && mouseY <= btnSurrenderY + btnHeight) {
-      System.out.println("Surrender button clicked!");
+      // Surrender button clicked
+
+      controller.requestSurrender();
     }
   }
 
@@ -121,13 +142,14 @@ class DealerFrame extends JFrame implements MouseListener {
     super.paint(g);
 
     // paint table
-    g.drawImage(GameUI.getAPI().tableAsset, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(view.tableAsset, 0, 0, getWidth(), getHeight(), this);
 
     // paint labels
     balanceLabel.repaint();
     betLabel.repaint();
 
     // draw button areas for reference
+    // TODO: comment this out before final submission
     g.setColor(Color.RED);
     g.drawRect(btnExitX, btnExitY, btnWidth, btnHeight);
     g.drawRect(btnDoubleX, btnDoubleY, btnWidth, btnHeight);
