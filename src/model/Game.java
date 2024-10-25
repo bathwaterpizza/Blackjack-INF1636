@@ -38,15 +38,6 @@ public class Game {
     return instance;
   }
 
-  // getters for the API
-  public Hand getPlayerHand() {
-    return player.hand;
-  }
-
-  public Hand getDealerHand() {
-    return dealer.hand;
-  }
-
   // internal function to deal the first hand for the player and the dealer
   private void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     // 2 cards for the player
@@ -450,5 +441,25 @@ public class Game {
     }
 
     return true;
+  }
+
+  // called when the player clicks on a chip to increment the bet
+  public boolean choiceIncBet(Chip chip) {
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return false;
+    }
+
+    return player.incrementBet(chip);
+  }
+
+  // called when the player clicks on a chip to decrement the bet
+  public boolean choiceDecBet(Chip chip) {
+    if (betPlaced) {
+      System.out.println("Bet already placed.");
+      return false;
+    }
+
+    return player.decrementBet(chip);
   }
 }

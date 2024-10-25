@@ -4,24 +4,24 @@ class Player {
   private static final double START_BALANCE = 2400.0;
 
   // player properties
-  public double balance = START_BALANCE;
+  double balance = START_BALANCE;
 
   // main hand properties
-  public Hand hand = new Hand();
-  public int bet = 0;
+  Hand hand = new Hand();
+  int bet = 0;
 
   // split hand properties
-  public Hand splitHand;
-  public int splitBet;
+  Hand splitHand;
+  int splitBet;
 
   // adds a chip's value to the bet, removing it from balance
   // returns true if there are enough chips in our balance to add, false otherwise
-  public boolean incrementBet(Chip chip) {
+  boolean incrementBet(Chip chip) {
     return incrementBet(chip.toInt());
   }
 
   // overload for an int parameter
-  public boolean incrementBet(int betValue) {
+  boolean incrementBet(int betValue) {
     // check if chip is available in player's balance
     if (balance >= betValue) {
       balance -= betValue;
@@ -37,11 +37,11 @@ class Player {
 
   // removes a chip's value from the bet, adding it to balance
   // returns true if there are enough chips in our bet to remove, false otherwise
-  public boolean decrementBet(Chip chip) {
+  boolean decrementBet(Chip chip) {
     return decrementBet(chip.toInt());
   }
 
-  public boolean decrementBet(int betValue) {
+  boolean decrementBet(int betValue) {
     // check if chip is available in player's balance
     if (bet >= betValue) {
       balance += betValue;
@@ -56,7 +56,7 @@ class Player {
   }
 
   // returns whether hit was successful
-  public void hit(boolean isSplit, Card newCard) {
+  void hit(boolean isSplit, Card newCard) {
     if (isSplit) {
       splitHand.addCard(newCard);
     } else {
@@ -65,13 +65,13 @@ class Player {
   }
 
   // puts an unfinished bet back into balance
-  public void refundBet() {
+  void refundBet() {
     balance += bet;
     bet = 0;
   }
 
   // returns whether double was successful
-  public boolean doubleBet(boolean isSplit, Card newCard) {
+  boolean doubleBet(boolean isSplit, Card newCard) {
     if (isSplit) {
       // check if there's enough balance to double
       if (balance < splitBet) {
@@ -98,7 +98,7 @@ class Player {
   }
 
   // returns whether split was successful
-  public boolean splitBet(Card newCard1, Card newCard2) {
+  boolean splitBet(Card newCard1, Card newCard2) {
     // check if there's enough balance to split
     if (balance < bet) {
       return false;
@@ -119,7 +119,7 @@ class Player {
 
   // put the value in bet back to balance, and clear bet.
   // called when game ties
-  public void receiveTiePayout(boolean isSplit) {
+  void receiveTiePayout(boolean isSplit) {
     if (isSplit) {
       assert splitBet > 0;
 
@@ -135,7 +135,7 @@ class Player {
 
   // put twice the value in bet back to balance, and clear bet.
   // called when the player wins
-  public void receiveWinPayout(boolean isSplit) {
+  void receiveWinPayout(boolean isSplit) {
     if (isSplit) {
       assert splitBet > 0;
 
@@ -153,7 +153,7 @@ class Player {
   // this is because blackjack pays 3:2.
   // cannot happen after a split.
   // called when the player gets a blackjack and the dealer doesn't
-  public void receiveBlackjackPayout() {
+  void receiveBlackjackPayout() {
     assert bet > 0;
 
     balance += 2.5 * bet;
@@ -162,7 +162,7 @@ class Player {
 
   // put half the value in bet back to balance, and clear bet.
   // called when the player surrenders
-  public void receiveHalfPayout(boolean isSplit) {
+  void receiveHalfPayout(boolean isSplit) {
     if (isSplit) {
       assert splitBet > 0;
 
