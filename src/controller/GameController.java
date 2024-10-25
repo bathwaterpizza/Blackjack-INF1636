@@ -25,4 +25,10 @@ public class GameController {
 
     return instance;
   }
+
+  // called by the view when the player clicks on new game in menu
+  public void newGame() {
+    model.choiceClear();
+    view.openDealerWindow();
+  }
 }

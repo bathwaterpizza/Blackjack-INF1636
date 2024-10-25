@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.GameController;
+
 // creates the main game menu
 class MenuFrame extends JFrame {
   MenuFrame() {
@@ -24,6 +26,9 @@ class MenuFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         System.out.println("New Game button clicked");
+
+        // informs the controller we want to start a new game
+        GameController.getAPI().newGame();
       }
     });
     continueButton.addActionListener(new ActionListener() {
