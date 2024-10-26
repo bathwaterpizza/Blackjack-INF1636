@@ -88,6 +88,7 @@ class DealerFrame extends JFrame implements MouseListener {
     setTitle("Dealer");
     setLayout(null); // manual positioning
     setResizable(false);
+    setLocationRelativeTo(null); // appear on center
 
     // init labels
     balanceLabel = new JLabel("BAL: 0");

@@ -34,12 +34,16 @@ class PlayerFrame extends JFrame {
     this.split = isSplit;
 
     // init frame
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    // set title and location conditionally
     if (split) {
       setTitle("Split Hand");
+      setLocation(screenSize.width - FRAME_WIDTH, (screenSize.height / 2) - (FRAME_HEIGHT / 2));
     } else {
       setTitle("Main Hand");
+      setLocation(0, (screenSize.height / 2) - (FRAME_HEIGHT / 2));
     }
     setLayout(null); // manual positioning
     setResizable(false);

@@ -11,13 +11,14 @@ import controller.*;
 class MenuFrame extends JFrame {
   MenuFrame() {
     // frame setup
-    setTitle("Blackjack - Menu");
+    setTitle("Blackjack Menu");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(300, 200);
 
     JPanel panel = new JPanel();
     panel.setLayout(new GridLayout(2, 1, 10, 10));
     setResizable(false);
+    setLocationRelativeTo(null); // appear on center
 
     JButton newGameButton = new JButton("New Game");
     JButton continueButton = new JButton("Continue");
