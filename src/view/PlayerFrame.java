@@ -8,8 +8,8 @@ import controller.*;
 
 // represents an instance of the dealer's frame
 class PlayerFrame extends JFrame {
-  private static final int FRAME_WIDTH = 300;
-  private static final int FRAME_HEIGHT = 500;
+  private static final int FRAME_WIDTH = 250;
+  private static final int FRAME_HEIGHT = 450;
 
   // instances
   GameUI view = GameUI.getAPI();
@@ -24,8 +24,8 @@ class PlayerFrame extends JFrame {
 
   // cards
   private List<Integer> handCards = null;
-  private int cardCenterX = FRAME_WIDTH / 2;
-  private int cardCenterY = (FRAME_HEIGHT / 2) - 100;
+  private int cardCenterX = FRAME_WIDTH / 2 + 50;
+  private int cardCenterY = (FRAME_HEIGHT / 2) - 115;
   private int cardWidth = 95;
   private int cardHeight = 126;
   private int cardOffset = 40; // Y-space between stacked cards
@@ -51,11 +51,11 @@ class PlayerFrame extends JFrame {
     // init labels
     betLabel = new JLabel("HAND BET: 0");
     betLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    betLabel.setBounds(3, FRAME_HEIGHT - 95, 150, 20);
+    betLabel.setBounds(40, FRAME_HEIGHT - 60, 150, 20);
 
     pointsLabel = new JLabel("VALUE: 0");
     pointsLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    pointsLabel.setBounds(cardCenterX - 160, 74, 84, 20);
+    pointsLabel.setBounds(15, 70, 84, 20);
 
     add(betLabel);
     add(pointsLabel);
