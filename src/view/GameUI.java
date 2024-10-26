@@ -109,7 +109,7 @@ public class GameUI {
     menuFrame.closeWindow();
   }
 
-  // display a message in a simple dialog box within the dealer or menu window,
+  // display a dialog box message within the dealer or menu window,
   // whichever is active
   public void messageGame(String message) {
     if (dealerFrame == null) {
@@ -120,13 +120,12 @@ public class GameUI {
     JOptionPane.showMessageDialog(dealerFrame, message);
   }
 
-  public void messageHand(boolean isSplit) {
+  // display a dialog box message within the player hand window
+  public void messageHand(boolean isSplit, String message) {
     if (isSplit && splitPlayerFrame != null) {
-      JOptionPane.showMessageDialog(splitPlayerFrame, "You can't split your hand now");
-      return;
+      JOptionPane.showMessageDialog(splitPlayerFrame, message);
     } else if (!isSplit && playerFrame != null) {
-      JOptionPane.showMessageDialog(playerFrame, "You can't double your bet now");
-      return;
+      JOptionPane.showMessageDialog(playerFrame, message);
     }
   }
 

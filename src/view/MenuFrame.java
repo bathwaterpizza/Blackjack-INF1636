@@ -17,6 +17,7 @@ class MenuFrame extends JFrame {
 
     JPanel panel = new JPanel();
     panel.setLayout(new GridLayout(2, 1, 10, 10));
+    setResizable(false);
 
     JButton newGameButton = new JButton("New Game");
     JButton continueButton = new JButton("Continue");
