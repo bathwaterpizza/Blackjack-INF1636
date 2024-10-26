@@ -2,6 +2,7 @@ package view;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,10 +22,10 @@ public class GameUI {
   Image tableAsset;
 
   // UI properties
-  public MenuFrame menu;
-  public DealerFrame dealerFrame;
-  public PlayerFrame playerFrame;
-  public PlayerFrame splitPlayerFrame;
+  public MenuFrame menuFrame = null;
+  public DealerFrame dealerFrame = null;
+  public PlayerFrame playerFrame = null;
+  public PlayerFrame splitPlayerFrame = null;
 
   // singleton pattern
   private GameUI() {
@@ -101,14 +102,25 @@ public class GameUI {
   // opens the menu window.
   // should only be called once per game instance
   public void openMenuWindow() {
-    menu = new MenuFrame();
-    menu.openWindow();
+    menuFrame = new MenuFrame();
+    menuFrame.openWindow();
   }
 
   // closes the menu window.
   // should only be called once per game instance
   public void closeMenuWindow() {
-    menu.closeWindow();
+    menuFrame.closeWindow();
+  }
+
+  // display a message in a simple dialog box within the dealer or menu window,
+  // whichever is active
+  public void message(String message) {
+    if (dealerFrame == null) {
+      JOptionPane.showMessageDialog(menuFrame, message);
+      return;
+    }
+
+    JOptionPane.showMessageDialog(dealerFrame, message);
   }
 
   // opens the dealer window.
