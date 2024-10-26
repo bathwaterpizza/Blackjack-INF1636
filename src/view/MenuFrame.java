@@ -34,8 +34,6 @@ class MenuFrame extends JFrame {
     newGameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        System.out.println("New Game button clicked");
-
         // informs the controller we want to start a new game
         GameController.getAPI().newGame();
       }

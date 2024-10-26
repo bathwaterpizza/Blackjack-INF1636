@@ -110,6 +110,9 @@ public class Game {
         player.splitBet = 0;
       }
     }
+
+    // NOTE: Observer
+    GameController.getAPI().notifyMoney();
   }
 
   // plays for the dealer after all players' hands stand
@@ -362,6 +365,7 @@ public class Game {
 
       // NOTE: Observer
       GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyMoney();
 
       return true;
     } else { // double on main hand
@@ -384,6 +388,7 @@ public class Game {
 
       // NOTE: Observer
       GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyMoney();
 
       return true;
     }
@@ -478,6 +483,7 @@ public class Game {
 
     // NOTE: Observer
     GameController.getAPI().notifyHand();
+    GameController.getAPI().notifyMoney();
 
     return true;
   }
@@ -489,7 +495,13 @@ public class Game {
       return false;
     }
 
-    return player.incrementBet(chip);
+    boolean success = player.incrementBet(chip);
+    if (success) {
+      // NOTE: Observer
+      GameController.getAPI().notifyMoney();
+    }
+
+    return success;
   }
 
   // called when the player clicks on a chip to decrement the bet
@@ -499,7 +511,13 @@ public class Game {
       return false;
     }
 
-    return player.decrementBet(chip);
+    boolean success = player.decrementBet(chip);
+    if (success) {
+      // NOTE: Observer
+      GameController.getAPI().notifyMoney();
+    }
+
+    return success;
   }
 
   // returns the player's balance
