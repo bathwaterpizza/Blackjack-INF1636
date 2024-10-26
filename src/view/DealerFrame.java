@@ -74,11 +74,11 @@ class DealerFrame extends JFrame implements MouseListener {
 
   // cards
   private List<Integer> dealerCards = null;
-  private int centerX = getWidth() / 2;
-  private int centerY = getHeight() / 2;
-  private int cardWidth = 100;
-  private int cardHeight = 150;
-  private int cardOffset = 20; // Y-space between stacked cards
+  private int centerX = FRAME_WIDTH / 2;
+  private int centerY = (FRAME_HEIGHT / 2) - 150;
+  private int cardWidth = 95;
+  private int cardHeight = 126;
+  private int cardOffset = 40; // Y-space between stacked cards
 
   DealerFrame() {
     // init frame
@@ -86,6 +86,7 @@ class DealerFrame extends JFrame implements MouseListener {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setTitle("Blackjack - Dealer");
     setLayout(null); // manual positioning
+    setResizable(false);
 
     // init labels
     balanceLabel = new JLabel("BAL: 0");
@@ -227,8 +228,8 @@ class DealerFrame extends JFrame implements MouseListener {
       return;
 
     for (int i = 0; i < dealerCards.size(); i++) {
-      int posX = (centerX - (cardWidth / 2) + i) * cardOffset;
-      int posY = (centerY - (cardHeight / 2) + i) * cardOffset;
+      int posX = centerX - (cardWidth / 2);
+      int posY = centerY - (cardHeight / 2) + (i * cardOffset);
 
       g.drawImage(view.cardAssets.get(dealerCards.get(i)), posX, posY, cardWidth, cardHeight, this);
     }

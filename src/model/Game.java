@@ -12,9 +12,6 @@ public class Game {
   // singleton instance
   private static Game instance = null;
 
-  // instances
-  private GameController controller = GameController.getAPI();
-
   // composition properties
   Deck deck = new Deck(true);
   Player player = new Player();
@@ -217,7 +214,7 @@ public class Game {
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
     // NOTE: Observer
-    controller.notifyHand();
+    GameController.getAPI().notifyHand();
 
     return true;
   }
@@ -244,7 +241,7 @@ public class Game {
 
     dealInitialHand(playerCard1, playerCard2, dealerCard1, dealerCard2);
     // NOTE: Observer
-    controller.notifyHand();
+    GameController.getAPI().notifyHand();
 
     return true;
   }
@@ -296,7 +293,7 @@ public class Game {
     }
 
     // NOTE: Observer
-    controller.notifyHand();
+    GameController.getAPI().notifyHand();
 
     return true;
   }
@@ -314,7 +311,7 @@ public class Game {
       }
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     } else { // hit on main hand
@@ -332,7 +329,7 @@ public class Game {
       }
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     }
@@ -364,7 +361,7 @@ public class Game {
       playDealerHand();
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     } else { // double on main hand
@@ -386,7 +383,7 @@ public class Game {
       playSplitHand();
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     }
@@ -399,7 +396,7 @@ public class Game {
       playDealerHand();
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     } else {
@@ -412,7 +409,7 @@ public class Game {
       playSplitHand();
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     }
@@ -432,7 +429,7 @@ public class Game {
       playDealerHand();
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     } else {
@@ -446,7 +443,7 @@ public class Game {
       playSplitHand();
 
       // NOTE: Observer
-      controller.notifyHand();
+      GameController.getAPI().notifyHand();
 
       return true;
     }
@@ -480,7 +477,7 @@ public class Game {
     }
 
     // NOTE: Observer
-    controller.notifyHand();
+    GameController.getAPI().notifyHand();
 
     return true;
   }
