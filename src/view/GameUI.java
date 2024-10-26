@@ -10,7 +10,7 @@ import java.util.List;
 
 import model.Chip;
 
-// public class that contains the view API
+// public class that contains the view API and assets
 public class GameUI {
   // singleton instance
   private static GameUI instance = null;
@@ -21,7 +21,7 @@ public class GameUI {
   HashMap<Chip, Image> chipAssets = new HashMap<Chip, Image>();
   Image tableAsset;
 
-  // UI properties
+  // UI frame properties
   public MenuFrame menuFrame = null;
   public DealerFrame dealerFrame = null;
   public PlayerFrame playerFrame = null;
@@ -48,15 +48,12 @@ public class GameUI {
       tableAsset = ImageIO.read(new File(ASSETS_PATH + "table.png"));
 
       // chip assets
-      chipAssets.put(Chip.BLACK, ImageIO.read(new File(ASSETS_PATH + "chip1.png")));
-      chipAssets.put(Chip.PINK, ImageIO.read(new File(ASSETS_PATH + "chip5.png")));
-      chipAssets.put(Chip.BLUE, ImageIO.read(new File(ASSETS_PATH + "chip10.png")));
-      chipAssets.put(Chip.RED, ImageIO.read(new File(ASSETS_PATH + "chip20.png")));
-      chipAssets.put(Chip.GREEN, ImageIO.read(new File(ASSETS_PATH + "chip50.png")));
-      chipAssets.put(Chip.GOLD, ImageIO.read(new File(ASSETS_PATH + "chip100.png")));
+      for (Chip chip : Chip.values()) {
+        chipAssets.put(chip, ImageIO.read(new File(ASSETS_PATH + "chip" + chip.toInt() + ".png")));
+      }
 
       // card assets,
-      // these int values match the toInt and fromInt methods of the Card class
+      // these int values match the toInt and fromInt methods of the Card class.
 
       // clubs
       cardAssets.put(0, ImageIO.read(new File(ASSETS_PATH + "ac.gif")));

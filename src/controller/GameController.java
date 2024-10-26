@@ -52,7 +52,8 @@ public class GameController {
     view.setDealerPoints(model.getDealerPoints());
   }
 
-  // methods to update the model
+  // methods to update the model,
+  // and display error messages upon failure
   public void requestExit() {
     model.choiceExit();
   }
