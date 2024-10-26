@@ -136,19 +136,45 @@ public class GameUI {
     dealerFrame.openWindow();
   }
 
+  // set money labels displayed
   public void setBalance(double value) {
     dealerFrame.setBalance(value);
   }
 
-  public void setBet(int value) {
+  public void setTotalBet(int value) {
     dealerFrame.setBet(value);
   }
 
+  public void setHandBet(boolean isSplit, int value) {
+    if (isSplit) {
+      splitPlayerFrame.setBet(value);
+    } else {
+      playerFrame.setBet(value);
+    }
+  }
+
+  // set stacked cards displayed
   public void setDealerCards(List<Integer> cards) {
-    dealerFrame.setDealerCards(cards);
+    dealerFrame.setCards(cards);
   }
 
   public void setDealerPoints(int value) {
-    dealerFrame.setDealerPoints(value);
+    dealerFrame.setPoints(value);
+  }
+
+  public void setPlayerCards(boolean isSplit, List<Integer> cards) {
+    if (isSplit) {
+      splitPlayerFrame.setCards(cards);
+    } else {
+      playerFrame.setCards(cards);
+    }
+  }
+
+  public void setPlayerPoints(boolean isSplit, int value) {
+    if (isSplit) {
+      splitPlayerFrame.setPoints(value);
+    } else {
+      playerFrame.setPoints(value);
+    }
   }
 }

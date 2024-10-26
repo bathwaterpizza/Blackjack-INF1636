@@ -36,21 +36,26 @@ public class GameController {
 
     // initial value for the labels
     view.setBalance(model.getBalance());
-    view.setBet(0);
+    view.setTotalBet(0);
   }
 
   // methods to update the view
   // NOTE: Observer
-  public void notifyMoney() {
+  public void notifyMoneyUpdate() {
     view.setBalance(model.getBalance());
     // gets the total bet value, considering both hands
-    view.setBet(model.getBet(true) + model.getBet(false));
+    view.setTotalBet(model.getBet(true) + model.getBet(false));
   }
 
   // NOTE: Observer
-  public void notifyHand() {
+  public void notifyHandUpdate() {
     view.setDealerCards(model.getDealerCards());
     view.setDealerPoints(model.getDealerPoints());
+  }
+
+  // NOTE: Observer
+  public void notifyRoundOver(boolean isSplit, String message) {
+    view.messageHand(isSplit, message);
   }
 
   // methods to update the model,
@@ -64,6 +69,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't double your bet now");
+      return;
     }
   }
 
@@ -72,6 +78,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't split your hand now");
+      return;
     }
   }
 
@@ -80,6 +87,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't clear your bet now");
+      return;
     }
   }
 
@@ -88,7 +96,10 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't deal now");
+      return;
     }
+
+    // NOTE: Observer
   }
 
   public void requestHit() {
@@ -96,6 +107,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't hit now");
+      return;
     }
   }
 
@@ -104,6 +116,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't stand now");
+      return;
     }
   }
 
@@ -112,6 +125,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't surrender now");
+      return;
     }
   }
 
@@ -120,6 +134,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't raise your bet now");
+      return;
     }
   }
 
@@ -128,6 +143,7 @@ public class GameController {
 
     if (!success) {
       view.messageGame("You can't lower your bet now");
+      return;
     }
   }
 }

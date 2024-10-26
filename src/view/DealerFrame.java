@@ -12,7 +12,7 @@ class DealerFrame extends JFrame implements MouseListener {
   private static final int FRAME_WIDTH = 704;
   private static final int FRAME_HEIGHT = 532;
 
-  // references
+  // instances
   GameUI view = GameUI.getAPI();
   GameController controller = GameController.getAPI();
 
@@ -21,7 +21,7 @@ class DealerFrame extends JFrame implements MouseListener {
   private JLabel betLabel;
   private JLabel pointsLabel;
 
-  // button bounds
+  // button size and bounds
   private int btnWidth = 96;
   private int btnHeight = 34;
 
@@ -50,7 +50,7 @@ class DealerFrame extends JFrame implements MouseListener {
   private int btnSurrenderX = 591;
   private int btnSurrenderY = 489;
 
-  // chip bounds
+  // chip size and bounds
   private int chipWidth = 60;
   private int chipHeight = 60;
 
@@ -266,23 +266,23 @@ class DealerFrame extends JFrame implements MouseListener {
     drawStackedCards(g);
 
     // draw button areas for reference
-    g.setColor(Color.RED);
-    g.drawRect(btnExitX, btnExitY, btnWidth, btnHeight);
-    g.drawRect(btnDoubleX, btnDoubleY, btnWidth, btnHeight);
-    g.drawRect(btnSplitX, btnSplitY, btnWidth, btnHeight);
-    g.drawRect(btnClearX, btnClearY, btnWidth, btnHeight);
-    g.drawRect(btnDealX, btnDealY, btnWidth, btnHeight);
-    g.drawRect(btnHitX, btnHitY, btnWidth, btnHeight);
-    g.drawRect(btnStandX, btnStandY, btnWidth, btnHeight);
-    g.drawRect(btnSurrenderX, btnSurrenderY, btnWidth, btnHeight);
+    // g.setColor(Color.RED);
+    // g.drawRect(btnExitX, btnExitY, btnWidth, btnHeight);
+    // g.drawRect(btnDoubleX, btnDoubleY, btnWidth, btnHeight);
+    // g.drawRect(btnSplitX, btnSplitY, btnWidth, btnHeight);
+    // g.drawRect(btnClearX, btnClearY, btnWidth, btnHeight);
+    // g.drawRect(btnDealX, btnDealY, btnWidth, btnHeight);
+    // g.drawRect(btnHitX, btnHitY, btnWidth, btnHeight);
+    // g.drawRect(btnStandX, btnStandY, btnWidth, btnHeight);
+    // g.drawRect(btnSurrenderX, btnSurrenderY, btnWidth, btnHeight);
 
     // draw chip areas for reference
-    g.drawRect(chip1X, chip1Y, chipWidth, chipHeight);
-    g.drawRect(chip5X, chip5Y, chipWidth, chipHeight);
-    g.drawRect(chip10X, chip10Y, chipWidth, chipHeight);
-    g.drawRect(chip20X, chip20Y, chipWidth, chipHeight);
-    g.drawRect(chip50X, chip50Y, chipWidth, chipHeight);
-    g.drawRect(chip100X, chip100Y, chipWidth, chipHeight);
+    // g.drawRect(chip1X, chip1Y, chipWidth, chipHeight);
+    // g.drawRect(chip5X, chip5Y, chipWidth, chipHeight);
+    // g.drawRect(chip10X, chip10Y, chipWidth, chipHeight);
+    // g.drawRect(chip20X, chip20Y, chipWidth, chipHeight);
+    // g.drawRect(chip50X, chip50Y, chipWidth, chipHeight);
+    // g.drawRect(chip100X, chip100Y, chipWidth, chipHeight);
   }
 
   // update balance text
@@ -298,12 +298,12 @@ class DealerFrame extends JFrame implements MouseListener {
   }
 
   // update dealer hand
-  void setDealerCards(List<Integer> cards) {
+  void setCards(List<Integer> cards) {
     dealerCards = cards;
     repaint();
   }
 
-  void setDealerPoints(int value) {
+  void setPoints(int value) {
     pointsLabel.setText(String.format("VALUE: %d", value));
     repaint();
   }

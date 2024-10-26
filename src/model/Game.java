@@ -112,7 +112,7 @@ public class Game {
     }
 
     // NOTE: Observer
-    GameController.getAPI().notifyMoney();
+    GameController.getAPI().notifyMoneyUpdate();
   }
 
   // plays for the dealer after all players' hands stand
@@ -217,7 +217,7 @@ public class Game {
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
     // NOTE: Observer
-    GameController.getAPI().notifyHand();
+    GameController.getAPI().notifyHandUpdate();
 
     return true;
   }
@@ -244,7 +244,7 @@ public class Game {
 
     dealInitialHand(playerCard1, playerCard2, dealerCard1, dealerCard2);
     // NOTE: Observer
-    GameController.getAPI().notifyHand();
+    GameController.getAPI().notifyHandUpdate();
 
     return true;
   }
@@ -296,7 +296,7 @@ public class Game {
     }
 
     // NOTE: Observer
-    GameController.getAPI().notifyHand();
+    GameController.getAPI().notifyHandUpdate();
 
     return true;
   }
@@ -314,7 +314,7 @@ public class Game {
       }
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyHandUpdate();
 
       return true;
     } else { // hit on main hand
@@ -332,7 +332,7 @@ public class Game {
       }
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyHandUpdate();
 
       return true;
     }
@@ -364,8 +364,8 @@ public class Game {
       playDealerHand();
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
-      GameController.getAPI().notifyMoney();
+      GameController.getAPI().notifyHandUpdate();
+      GameController.getAPI().notifyMoneyUpdate();
 
       return true;
     } else { // double on main hand
@@ -387,8 +387,8 @@ public class Game {
       playSplitHand();
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
-      GameController.getAPI().notifyMoney();
+      GameController.getAPI().notifyHandUpdate();
+      GameController.getAPI().notifyMoneyUpdate();
 
       return true;
     }
@@ -401,7 +401,7 @@ public class Game {
       playDealerHand();
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyHandUpdate();
 
       return true;
     } else {
@@ -414,7 +414,7 @@ public class Game {
       playSplitHand();
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyHandUpdate();
 
       return true;
     }
@@ -434,7 +434,7 @@ public class Game {
       playDealerHand();
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyHandUpdate();
 
       return true;
     } else {
@@ -448,7 +448,7 @@ public class Game {
       playSplitHand();
 
       // NOTE: Observer
-      GameController.getAPI().notifyHand();
+      GameController.getAPI().notifyHandUpdate();
 
       return true;
     }
@@ -482,8 +482,8 @@ public class Game {
     }
 
     // NOTE: Observer
-    GameController.getAPI().notifyHand();
-    GameController.getAPI().notifyMoney();
+    GameController.getAPI().notifyHandUpdate();
+    GameController.getAPI().notifyMoneyUpdate();
 
     return true;
   }
@@ -498,7 +498,7 @@ public class Game {
     boolean success = player.incrementBet(chip);
     if (success) {
       // NOTE: Observer
-      GameController.getAPI().notifyMoney();
+      GameController.getAPI().notifyMoneyUpdate();
     }
 
     return success;
@@ -514,7 +514,7 @@ public class Game {
     boolean success = player.decrementBet(chip);
     if (success) {
       // NOTE: Observer
-      GameController.getAPI().notifyMoney();
+      GameController.getAPI().notifyMoneyUpdate();
     }
 
     return success;
