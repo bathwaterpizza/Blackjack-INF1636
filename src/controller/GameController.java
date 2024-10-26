@@ -36,14 +36,15 @@ public class GameController {
 
     // initial value for the labels
     view.setBalance(model.getBalance());
-    view.setBet(model.getBet());
+    view.setBet(0);
   }
 
   // methods to update the view
   // NOTE: Observer
   public void notifyMoney() {
     view.setBalance(model.getBalance());
-    view.setBet(model.getBet());
+    // gets the total bet value, considering both hands
+    view.setBet(model.getBet(true) + model.getBet(false));
   }
 
   // NOTE: Observer

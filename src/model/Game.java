@@ -528,8 +528,8 @@ public class Game {
 
   // returns the player's current bet
   // NOTE: Observer
-  public int getBet() {
-    return player.bet;
+  public int getBet(boolean isSplit) {
+    return isSplit ? player.splitBet : player.bet;
   }
 
   // NOTE: Observer
