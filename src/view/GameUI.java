@@ -129,4 +129,8 @@ public class GameUI {
   public void setDealerCards(List<Integer> cards) {
     dealerFrame.setDealerCards(cards);
   }
+
+  public void setDealerPoints(int value) {
+    dealerFrame.setDealerPoints(value);
+  }
 }

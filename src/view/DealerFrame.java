@@ -19,6 +19,7 @@ class DealerFrame extends JFrame implements MouseListener {
   // frame components
   private JLabel balanceLabel;
   private JLabel betLabel;
+  private JLabel pointsLabel;
 
   // button bounds
   private int btnWidth = 96;
@@ -74,8 +75,8 @@ class DealerFrame extends JFrame implements MouseListener {
 
   // cards
   private List<Integer> dealerCards = null;
-  private int centerX = FRAME_WIDTH / 2;
-  private int centerY = (FRAME_HEIGHT / 2) - 150;
+  private int cardCenterX = FRAME_WIDTH / 2;
+  private int cardCenterY = (FRAME_HEIGHT / 2) - 150;
   private int cardWidth = 95;
   private int cardHeight = 126;
   private int cardOffset = 40; // Y-space between stacked cards
@@ -97,8 +98,13 @@ class DealerFrame extends JFrame implements MouseListener {
     betLabel.setFont(new Font("Arial", Font.BOLD, 16));
     betLabel.setBounds(3, FRAME_HEIGHT - 95, 120, 20);
 
+    pointsLabel = new JLabel("VALUE: 0");
+    pointsLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    pointsLabel.setBounds(cardCenterX - 160, 74, 84, 20);
+
     add(balanceLabel);
     add(betLabel);
+    add(pointsLabel);
 
     // register mouse listener
     addMouseListener(this);
@@ -228,8 +234,8 @@ class DealerFrame extends JFrame implements MouseListener {
       return;
 
     for (int i = 0; i < dealerCards.size(); i++) {
-      int posX = centerX - (cardWidth / 2);
-      int posY = centerY - (cardHeight / 2) + (i * cardOffset);
+      int posX = cardCenterX - (cardWidth / 2);
+      int posY = cardCenterY - (cardHeight / 2) + (i * cardOffset);
 
       g.drawImage(view.cardAssets.get(dealerCards.get(i)), posX, posY, cardWidth, cardHeight, this);
     }
@@ -246,6 +252,7 @@ class DealerFrame extends JFrame implements MouseListener {
     // paint labels
     balanceLabel.repaint();
     betLabel.repaint();
+    pointsLabel.repaint();
 
     // draw chip images
     g.drawImage(view.chipAssets.get(Chip.BLACK), chip1X, chip1Y, chipWidth, chipHeight, this);
@@ -293,6 +300,11 @@ class DealerFrame extends JFrame implements MouseListener {
   // update dealer hand
   void setDealerCards(List<Integer> cards) {
     dealerCards = cards;
+    repaint();
+  }
+
+  void setDealerPoints(int value) {
+    pointsLabel.setText(String.format("VALUE: %d", value));
     repaint();
   }
 

@@ -49,6 +49,7 @@ public class GameController {
   // NOTE: Observer
   public void notifyHand() {
     view.setDealerCards(model.getDealerCards());
+    view.setDealerPoints(model.getDealerPoints());
   }
 
   // methods to update the model
