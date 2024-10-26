@@ -58,38 +58,74 @@ public class GameController {
   }
 
   public void requestDouble() {
-    model.choiceDouble();
+    boolean success = model.choiceDouble();
+
+    if (!success) {
+      view.message("You can't double your bet now");
+    }
   }
 
   public void requestSplit() {
-    model.choiceSplit();
+    boolean success = model.choiceSplit();
+
+    if (!success) {
+      view.message("You can't split your hand now");
+    }
   }
 
   public void requestClear() {
-    model.choiceClear();
+    boolean success = model.choiceClear();
+
+    if (!success) {
+      view.message("You can't clear your bet now");
+    }
   }
 
   public void requestDeal() {
-    model.choiceDeal();
+    boolean success = model.choiceDeal();
+
+    if (!success) {
+      view.message("You can't deal now");
+    }
   }
 
   public void requestHit() {
-    model.choiceHit();
+    boolean success = model.choiceHit();
+
+    if (!success) {
+      view.message("You can't hit now");
+    }
   }
 
   public void requestStand() {
-    model.choiceStand();
+    boolean success = model.choiceStand();
+
+    if (!success) {
+      view.message("You can't stand now");
+    }
   }
 
   public void requestSurrender() {
-    model.choiceSurrender();
+    boolean success = model.choiceSurrender();
+
+    if (!success) {
+      view.message("You can't surrender now");
+    }
   }
 
   public void requestRaiseBet(Chip chip) {
-    model.choiceIncBet(chip);
+    boolean success = model.choiceIncBet(chip);
+
+    if (!success) {
+      view.message("You can't raise your bet now");
+    }
   }
 
   public void requestLowerBet(Chip chip) {
-    model.choiceDecBet(chip);
+    boolean success = model.choiceDecBet(chip);
+
+    if (!success) {
+      view.message("You can't lower your bet now");
+    }
   }
 }
