@@ -39,6 +39,18 @@ public class GameController {
     view.setBet(model.getBet());
   }
 
+  // methods to update the view
+  // NOTE: Observer
+  public void notifyMoney() {
+    view.setBalance(model.getBalance());
+    view.setBet(model.getBet());
+  }
+
+  // NOTE: Observer
+  public void notifyHand() {
+    view.setDealerHand(model.getDealerHand());
+  }
+
   public void requestExit() {
     model.choiceExit();
   }

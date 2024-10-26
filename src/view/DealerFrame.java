@@ -3,6 +3,7 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 
 import controller.*;
 import model.Chip;
@@ -48,33 +49,36 @@ class DealerFrame extends JFrame implements MouseListener {
   private int btnSurrenderX = 591;
   private int btnSurrenderY = 489;
 
-  // chips
+  // chip bounds
   private int chipWidth = 60;
   private int chipHeight = 60;
 
   // 1
   private int chip1X = 150;
   private int chip1Y = 412;
-
   // 5
   private int chip5X = 222;
   private int chip5Y = 412;
-
   // 10
   private int chip10X = 294;
   private int chip10Y = 412;
-
   // 20
   private int chip20X = 366;
   private int chip20Y = 412;
-
   // 50
   private int chip50X = 438;
   private int chip50Y = 412;
-
   // 100
   private int chip100X = 510;
   private int chip100Y = 412;
+
+  // cards
+  private List<Integer> dealerCards = null;
+  private int centerX = getWidth() / 2;
+  private int centerY = getHeight() / 2;
+  private int cardWidth = 100;
+  private int cardHeight = 150;
+  private int cardOffset = 20; // Y-space between stacked cards
 
   DealerFrame() {
     // init frame
@@ -217,6 +221,19 @@ class DealerFrame extends JFrame implements MouseListener {
   public void mouseExited(MouseEvent e) {
   }
 
+  // draw the cards from a hand in a stacked layout
+  public void drawStackedCards(Graphics g) {
+    if (dealerCards == null)
+      return;
+
+    for (int i = 0; i < dealerCards.size(); i++) {
+      int posX = (centerX - (cardWidth / 2) + i) * cardOffset;
+      int posY = (centerY - (cardHeight / 2) + i) * cardOffset;
+
+      g.drawImage(view.cardAssets.get(dealerCards.get(i)), posX, posY, cardWidth, cardHeight, this);
+    }
+  }
+
   // render everything
   @Override
   public void paint(Graphics g) {
@@ -236,6 +253,9 @@ class DealerFrame extends JFrame implements MouseListener {
     g.drawImage(view.chipAssets.get(Chip.RED), chip20X, chip20Y, chipWidth, chipHeight, this);
     g.drawImage(view.chipAssets.get(Chip.GREEN), chip50X, chip50Y, chipWidth, chipHeight, this);
     g.drawImage(view.chipAssets.get(Chip.GOLD), chip100X, chip100Y, chipWidth, chipHeight, this);
+
+    // draw hand
+    drawStackedCards(g);
 
     // draw button areas for reference
     g.setColor(Color.RED);
@@ -260,11 +280,19 @@ class DealerFrame extends JFrame implements MouseListener {
   // update balance text
   void setBalance(double value) {
     balanceLabel.setText(String.format("BAL: %.2f", value));
+    repaint();
   }
 
   // update balance text
   void setBet(int value) {
     betLabel.setText(String.format("BET: %d", value));
+    repaint();
+  }
+
+  // update dealer hand
+  void setDealerCards(List<Integer> cards) {
+    dealerCards = cards;
+    repaint();
   }
 
   // Make the frame visible
