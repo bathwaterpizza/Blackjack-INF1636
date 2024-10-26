@@ -136,6 +136,38 @@ public class GameUI {
     dealerFrame.openWindow();
   }
 
+  public void openPlayerWindow(boolean isSplit) {
+    if (isSplit) {
+      if (splitPlayerFrame != null)
+        return;
+
+      splitPlayerFrame = new PlayerFrame(isSplit);
+      splitPlayerFrame.openWindow();
+    } else {
+      if (playerFrame != null)
+        return;
+
+      playerFrame = new PlayerFrame(isSplit);
+      playerFrame.openWindow();
+    }
+  }
+
+  public void closePlayerWindow(boolean isSplit) {
+    if (isSplit) {
+      if (splitPlayerFrame == null)
+        return;
+
+      splitPlayerFrame.closeWindow();
+      splitPlayerFrame = null;
+    } else {
+      if (playerFrame == null)
+        return;
+
+      playerFrame.closeWindow();
+      playerFrame = null;
+    }
+  }
+
   // set money labels displayed
   public void setBalance(double value) {
     dealerFrame.setBalance(value);
@@ -147,8 +179,14 @@ public class GameUI {
 
   public void setHandBet(boolean isSplit, int value) {
     if (isSplit) {
+      if (splitPlayerFrame == null)
+        return;
+
       splitPlayerFrame.setBet(value);
     } else {
+      if (playerFrame == null)
+        return;
+
       playerFrame.setBet(value);
     }
   }
@@ -164,16 +202,28 @@ public class GameUI {
 
   public void setPlayerCards(boolean isSplit, List<Integer> cards) {
     if (isSplit) {
+      if (splitPlayerFrame == null)
+        return;
+
       splitPlayerFrame.setCards(cards);
     } else {
+      if (playerFrame == null)
+        return;
+
       playerFrame.setCards(cards);
     }
   }
 
   public void setPlayerPoints(boolean isSplit, int value) {
     if (isSplit) {
+      if (splitPlayerFrame == null)
+        return;
+
       splitPlayerFrame.setPoints(value);
     } else {
+      if (playerFrame == null)
+        return;
+
       playerFrame.setPoints(value);
     }
   }

@@ -61,6 +61,9 @@ public class Game {
       roundOver = true;
 
       payout();
+
+      // NOTE: Observer
+      GameController.getAPI().notifyRoundOver(false, "You tied! Both Blackjacks!");
     } else if (player.hand.isBlackjack()) {
       // player blackjack, player wins
       won = true;
@@ -68,6 +71,9 @@ public class Game {
       roundOver = true;
 
       payout();
+
+      // NOTE: Observer
+      GameController.getAPI().notifyRoundOver(false, "You won! Blackjack!");
     } else if (dealer.hand.isBlackjack()) {
       // dealer blackjack, player loses
       won = false;
@@ -75,6 +81,9 @@ public class Game {
       roundOver = true;
 
       payout();
+
+      // NOTE: Observer
+      GameController.getAPI().notifyRoundOver(false, "You lost!");
     }
   }
 
@@ -132,6 +141,12 @@ public class Game {
       roundOver = true;
       payout();
 
+      // NOTE: Observer
+      GameController.getAPI().notifyRoundOver(false, "You lost!");
+      if (split) {
+        GameController.getAPI().notifyRoundOver(true, "You lost!");
+      }
+
       return;
     } else {
       // dealer hits until 17
@@ -145,19 +160,34 @@ public class Game {
       if (player.hand.isBust()) {
         // player bust, dealer wins
         won = false;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(false, "You lost!");
       } else if (dealer.hand.isBust()) {
         // dealer bust, player wins
         won = true;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(false, "You won!");
       } else if (dealer.hand.points > player.hand.points) {
         // dealer has more points, dealer wins
         won = false;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(false, "You lost!");
       } else if (dealer.hand.points == player.hand.points) {
         // player and dealer have the same points, tie
         won = false;
         tied = true;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(false, "You tied!");
       } else {
         // player has more points, player wins
         won = true;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(false, "You won!");
       }
     }
 
@@ -167,19 +197,34 @@ public class Game {
       if (player.splitHand.isBust()) {
         // player bust, dealer wins
         splitWon = false;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(true, "You lost!");
       } else if (dealer.hand.isBust()) {
         // dealer bust, player wins
         splitWon = true;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(true, "You won!");
       } else if (dealer.hand.points > player.splitHand.points) {
         // dealer has more points, dealer wins
         splitWon = false;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(true, "You lost!");
       } else if (dealer.hand.points == player.splitHand.points) {
         // player and dealer have the same points, tie
         splitWon = false;
         splitTied = true;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(true, "You tied!");
       } else {
         // player has more points, player wins
         splitWon = true;
+
+        // NOTE: Observer
+        GameController.getAPI().notifyRoundOver(true, "You won!");
       }
     }
 
@@ -557,12 +602,12 @@ public class Game {
   public List<Integer> getPlayerCards(boolean isSplit) {
     var list = new ArrayList<Integer>();
 
-    if (!isSplit) {
-      for (Card card : player.hand.cards) {
+    if (isSplit) {
+      for (Card card : player.splitHand.cards) {
         list.add(card.toInt());
       }
     } else {
-      for (Card card : player.splitHand.cards) {
+      for (Card card : player.hand.cards) {
         list.add(card.toInt());
       }
     }

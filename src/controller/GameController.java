@@ -42,15 +42,28 @@ public class GameController {
   // methods to update the view
   // NOTE: Observer
   public void notifyMoneyUpdate() {
+    // dealer window
     view.setBalance(model.getBalance());
-    // gets the total bet value, considering both hands
     view.setTotalBet(model.getBet(true) + model.getBet(false));
+
+    // player windows
+    view.setHandBet(false, model.getBet(false));
+    // split
+    view.setHandBet(true, model.getBet(true));
   }
 
   // NOTE: Observer
   public void notifyHandUpdate() {
+    // dealer window
     view.setDealerCards(model.getDealerCards());
     view.setDealerPoints(model.getDealerPoints());
+
+    // player windows
+    view.setPlayerCards(false, model.getPlayerCards(false));
+    view.setPlayerPoints(false, model.getPlayerPoints(false));
+    // split
+    view.setPlayerCards(true, model.getPlayerCards(true));
+    view.setPlayerPoints(true, model.getPlayerPoints(true));
   }
 
   // NOTE: Observer
@@ -80,6 +93,11 @@ public class GameController {
       view.messageGame("You can't split your hand now");
       return;
     }
+
+    // NOTE: Observer
+    view.openPlayerWindow(true);
+    notifyMoneyUpdate();
+    notifyHandUpdate();
   }
 
   public void requestClear() {
@@ -89,6 +107,10 @@ public class GameController {
       view.messageGame("You can't clear your bet now");
       return;
     }
+
+    // NOTE: Observer
+    view.closePlayerWindow(false);
+    view.closePlayerWindow(true);
   }
 
   public void requestDeal() {
@@ -100,6 +122,9 @@ public class GameController {
     }
 
     // NOTE: Observer
+    view.openPlayerWindow(false);
+    notifyMoneyUpdate();
+    notifyHandUpdate();
   }
 
   public void requestHit() {
