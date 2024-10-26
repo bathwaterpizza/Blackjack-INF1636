@@ -111,13 +111,23 @@ public class GameUI {
 
   // display a message in a simple dialog box within the dealer or menu window,
   // whichever is active
-  public void message(String message) {
+  public void messageGame(String message) {
     if (dealerFrame == null) {
       JOptionPane.showMessageDialog(menuFrame, message);
       return;
     }
 
     JOptionPane.showMessageDialog(dealerFrame, message);
+  }
+
+  public void messageHand(boolean isSplit) {
+    if (isSplit && splitPlayerFrame != null) {
+      JOptionPane.showMessageDialog(splitPlayerFrame, "You can't split your hand now");
+      return;
+    } else if (!isSplit && playerFrame != null) {
+      JOptionPane.showMessageDialog(playerFrame, "You can't double your bet now");
+      return;
+    }
   }
 
   // opens the dealer window.

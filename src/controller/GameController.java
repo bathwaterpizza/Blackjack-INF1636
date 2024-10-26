@@ -63,7 +63,7 @@ public class GameController {
     boolean success = model.choiceDouble();
 
     if (!success) {
-      view.message("You can't double your bet now");
+      view.messageGame("You can't double your bet now");
     }
   }
 
@@ -71,7 +71,7 @@ public class GameController {
     boolean success = model.choiceSplit();
 
     if (!success) {
-      view.message("You can't split your hand now");
+      view.messageGame("You can't split your hand now");
     }
   }
 
@@ -79,7 +79,7 @@ public class GameController {
     boolean success = model.choiceClear();
 
     if (!success) {
-      view.message("You can't clear your bet now");
+      view.messageGame("You can't clear your bet now");
     }
   }
 
@@ -87,7 +87,7 @@ public class GameController {
     boolean success = model.choiceDeal();
 
     if (!success) {
-      view.message("You can't deal now");
+      view.messageGame("You can't deal now");
     }
   }
 
@@ -95,7 +95,7 @@ public class GameController {
     boolean success = model.choiceHit();
 
     if (!success) {
-      view.message("You can't hit now");
+      view.messageGame("You can't hit now");
     }
   }
 
@@ -103,7 +103,7 @@ public class GameController {
     boolean success = model.choiceStand();
 
     if (!success) {
-      view.message("You can't stand now");
+      view.messageGame("You can't stand now");
     }
   }
 
@@ -111,7 +111,7 @@ public class GameController {
     boolean success = model.choiceSurrender();
 
     if (!success) {
-      view.message("You can't surrender now");
+      view.messageGame("You can't surrender now");
     }
   }
 
@@ -119,7 +119,7 @@ public class GameController {
     boolean success = model.choiceIncBet(chip);
 
     if (!success) {
-      view.message("You can't raise your bet now");
+      view.messageGame("You can't raise your bet now");
     }
   }
 
@@ -127,7 +127,7 @@ public class GameController {
     boolean success = model.choiceDecBet(chip);
 
     if (!success) {
-      view.message("You can't lower your bet now");
+      view.messageGame("You can't lower your bet now");
     }
   }
 }
