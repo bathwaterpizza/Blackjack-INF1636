@@ -92,11 +92,11 @@ class DealerFrame extends JFrame implements MouseListener {
     // init labels
     balanceLabel = new JLabel("BAL: 0");
     balanceLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    balanceLabel.setBounds(3, FRAME_HEIGHT - 63, 120, 20);
+    balanceLabel.setBounds(3, FRAME_HEIGHT - 63, 121, 20);
 
     betLabel = new JLabel("BET: 0");
     betLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    betLabel.setBounds(3, FRAME_HEIGHT - 95, 120, 20);
+    betLabel.setBounds(3, FRAME_HEIGHT - 95, 121, 20);
 
     pointsLabel = new JLabel("VALUE: 0");
     pointsLabel.setFont(new Font("Arial", Font.BOLD, 16));
