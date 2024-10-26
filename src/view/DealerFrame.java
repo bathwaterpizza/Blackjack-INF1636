@@ -85,7 +85,7 @@ class DealerFrame extends JFrame implements MouseListener {
     // init frame
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setTitle("Blackjack - Dealer");
+    setTitle("Dealer");
     setLayout(null); // manual positioning
     setResizable(false);
 

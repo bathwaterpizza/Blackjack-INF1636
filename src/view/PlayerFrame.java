@@ -37,9 +37,9 @@ class PlayerFrame extends JFrame {
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     if (split) {
-      setTitle("Blackjack - Split Hand");
+      setTitle("Split Hand");
     } else {
-      setTitle("Blackjack - Main Hand");
+      setTitle("Main Hand");
     }
     setLayout(null); // manual positioning
     setResizable(false);

@@ -11,8 +11,8 @@ class Player {
   int bet = 0;
 
   // split hand properties
-  Hand splitHand;
-  int splitBet;
+  Hand splitHand = new Hand();
+  int splitBet = 0;
 
   // adds a chip's value to the bet, removing it from balance
   // returns true if there are enough chips in our balance to add, false otherwise
