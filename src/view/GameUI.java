@@ -5,6 +5,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import model.Chip;
 
@@ -123,5 +124,9 @@ public class GameUI {
 
   public void setBet(int value) {
     dealerFrame.setBet(value);
+  }
+
+  public void setDealerCards(List<Integer> cards) {
+    dealerFrame.setDealerCards(cards);
   }
 }

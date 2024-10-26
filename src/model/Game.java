@@ -1,11 +1,19 @@
 package model;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import controller.*;
+
 // public class that contains the model API
 public class Game {
   // minimum bet to play a hand
   private static final int MIN_BET = 50;
   // singleton instance
   private static Game instance = null;
+
+  // instances
+  private GameController controller = GameController.getAPI();
 
   // composition properties
   Deck deck = new Deck(true);
@@ -208,6 +216,8 @@ public class Game {
     roundOver = false;
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
+    // NOTE: Observer
+    controller.notifyHand();
 
     return true;
   }
@@ -233,6 +243,8 @@ public class Game {
     assert dealerCard2 != null;
 
     dealInitialHand(playerCard1, playerCard2, dealerCard1, dealerCard2);
+    // NOTE: Observer
+    controller.notifyHand();
 
     return true;
   }
@@ -283,6 +295,9 @@ public class Game {
       System.exit(0);
     }
 
+    // NOTE: Observer
+    controller.notifyHand();
+
     return true;
   }
 
@@ -298,6 +313,9 @@ public class Game {
         playDealerHand();
       }
 
+      // NOTE: Observer
+      controller.notifyHand();
+
       return true;
     } else { // hit on main hand
       // check if can hit
@@ -312,6 +330,9 @@ public class Game {
       if (player.hand.isBust()) {
         playSplitHand();
       }
+
+      // NOTE: Observer
+      controller.notifyHand();
 
       return true;
     }
@@ -342,6 +363,9 @@ public class Game {
 
       playDealerHand();
 
+      // NOTE: Observer
+      controller.notifyHand();
+
       return true;
     } else { // double on main hand
       // check if can double
@@ -361,6 +385,9 @@ public class Game {
 
       playSplitHand();
 
+      // NOTE: Observer
+      controller.notifyHand();
+
       return true;
     }
   }
@@ -371,6 +398,9 @@ public class Game {
     if (splitPlaying) {
       playDealerHand();
 
+      // NOTE: Observer
+      controller.notifyHand();
+
       return true;
     } else {
       // check if can stand
@@ -380,6 +410,9 @@ public class Game {
       }
 
       playSplitHand();
+
+      // NOTE: Observer
+      controller.notifyHand();
 
       return true;
     }
@@ -398,6 +431,9 @@ public class Game {
       splitSurrendered = true;
       playDealerHand();
 
+      // NOTE: Observer
+      controller.notifyHand();
+
       return true;
     } else {
       // check if can surrender
@@ -408,6 +444,9 @@ public class Game {
 
       surrendered = true;
       playSplitHand();
+
+      // NOTE: Observer
+      controller.notifyHand();
 
       return true;
     }
@@ -440,6 +479,9 @@ public class Game {
       playDealerHand();
     }
 
+    // NOTE: Observer
+    controller.notifyHand();
+
     return true;
   }
 
@@ -463,11 +505,53 @@ public class Game {
     return player.decrementBet(chip);
   }
 
+  // returns the player's balance
+  // NOTE: Observer
   public double getBalance() {
     return player.balance;
   }
 
+  // returns the player's current bet
+  // NOTE: Observer
   public int getBet() {
     return player.bet;
+  }
+
+  // NOTE: Observer
+  public int getDealerPoints() {
+    return dealer.hand.points;
+  }
+
+  // NOTE: Observer
+  public int getPlayerPoints(boolean isSplit) {
+    return isSplit ? player.splitHand.points : player.hand.points;
+  }
+
+  // NOTE: Observer
+  public List<Integer> getDealerCards() {
+    var list = new ArrayList<Integer>();
+
+    for (Card card : dealer.hand.cards) {
+      list.add(card.toInt());
+    }
+
+    return list;
+  }
+
+  // NOTE: Observer
+  public List<Integer> getPlayerCards(boolean isSplit) {
+    var list = new ArrayList<Integer>();
+
+    if (!isSplit) {
+      for (Card card : player.hand.cards) {
+        list.add(card.toInt());
+      }
+    } else {
+      for (Card card : player.splitHand.cards) {
+        list.add(card.toInt());
+      }
+    }
+
+    return list;
   }
 }

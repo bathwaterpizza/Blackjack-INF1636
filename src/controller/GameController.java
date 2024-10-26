@@ -48,9 +48,10 @@ public class GameController {
 
   // NOTE: Observer
   public void notifyHand() {
-    view.setDealerHand(model.getDealerHand());
+    view.setDealerCards(model.getDealerCards());
   }
 
+  // methods to update the model
   public void requestExit() {
     model.choiceExit();
   }
