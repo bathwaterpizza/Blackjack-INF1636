@@ -251,16 +251,16 @@ public class Game {
     betPlaced = true;
     roundOver = false;
 
-    // dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
-    // deck.getCard());
+    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
+        deck.getCard());
 
     // for testing
-    Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
-    Card playerTestCard2 = new Card(Suit.HEARTS, Rank.TEN);
-    Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
-    Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
-    dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
-        dealerTestCard2);
+    // Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
+    // Card playerTestCard2 = new Card(Suit.HEARTS, Rank.TEN);
+    // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
+    // Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
+    // dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
+    // dealerTestCard2);
 
     return true;
   }
