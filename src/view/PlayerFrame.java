@@ -17,6 +17,8 @@ class PlayerFrame extends JFrame {
 
   // whether this frame is for the split hand or not
   private boolean split;
+  // whether this hand is playing or not, for the arrow indicator
+  private boolean playing = false;
 
   // frame components
   private JLabel betLabel;
@@ -74,6 +76,22 @@ class PlayerFrame extends JFrame {
     }
   }
 
+  // draw a yellow arrow to indicate the hand that is playing
+  private void drawRightArrow(Graphics g) {
+    Graphics2D g2d = (Graphics2D) g;
+
+    g2d.setColor(Color.BLUE);
+    int arrowBaseX = 45; // Adjusted to be more to the left
+    int arrowBaseY = 70; // Adjusted to be lower in the frame
+    int arrowSize = 40;
+
+    // three points of the triangle
+    int[] xPoints = { arrowBaseX, arrowBaseX + arrowSize, arrowBaseX };
+    int[] yPoints = { arrowBaseY - arrowSize / 2, arrowBaseY, arrowBaseY + arrowSize / 2 };
+
+    g2d.fillPolygon(xPoints, yPoints, 3);
+  }
+
   // render everything
   @Override
   public void paint(Graphics g) {
@@ -85,6 +103,10 @@ class PlayerFrame extends JFrame {
 
     // draw hand
     drawStackedCards(g);
+
+    // draw playing indicator arrow
+    if (playing)
+      drawRightArrow(g);
   }
 
   // update balance text
@@ -93,14 +115,20 @@ class PlayerFrame extends JFrame {
     repaint();
   }
 
-  // update dealer hand
+  // update hand cards
   void setCards(List<Integer> cards) {
     handCards = cards;
     repaint();
   }
 
+  // update hand points
   void setPoints(int value) {
     pointsLabel.setText(String.format("VALUE: %d", value));
+    repaint();
+  }
+
+  void setPlaying(boolean isPlaying) {
+    playing = isPlaying;
     repaint();
   }
 

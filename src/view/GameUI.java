@@ -136,6 +136,7 @@ public class GameUI {
     dealerFrame.openWindow();
   }
 
+  // opens the player window
   public void openPlayerWindow(boolean isSplit) {
     if (isSplit) {
       if (splitPlayerFrame != null)
@@ -152,6 +153,7 @@ public class GameUI {
     }
   }
 
+  // closes the player window
   public void closePlayerWindow(boolean isSplit) {
     if (isSplit) {
       if (splitPlayerFrame == null)
@@ -225,6 +227,23 @@ public class GameUI {
         return;
 
       playerFrame.setPoints(value);
+    }
+  }
+
+  // set which hand is playing
+  public void setPlayingHand(boolean isSplitPlaying) {
+    if (isSplitPlaying) {
+      if (playerFrame != null)
+        playerFrame.setPlaying(false);
+
+      if (splitPlayerFrame != null)
+        splitPlayerFrame.setPlaying(true);
+    } else {
+      if (playerFrame != null)
+        playerFrame.setPlaying(true);
+
+      if (splitPlayerFrame != null)
+        splitPlayerFrame.setPlaying(false);
     }
   }
 }

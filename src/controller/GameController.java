@@ -64,6 +64,7 @@ public class GameController {
     // split
     view.setPlayerCards(true, model.getPlayerCards(true));
     view.setPlayerPoints(true, model.getPlayerPoints(true));
+    view.setPlayingHand(model.getSplitPlaying());
   }
 
   // NOTE: Observer
