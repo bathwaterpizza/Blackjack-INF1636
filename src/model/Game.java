@@ -61,9 +61,6 @@ public class Game {
       roundOver = true;
 
       payout();
-
-      // NOTE: Observer
-      GameController.getAPI().notifyRoundOver(false, "You tied! Both Blackjacks!");
     } else if (player.hand.isBlackjack()) {
       // player blackjack, player wins
       won = true;
@@ -71,9 +68,6 @@ public class Game {
       roundOver = true;
 
       payout();
-
-      // NOTE: Observer
-      GameController.getAPI().notifyRoundOver(false, "You won! Blackjack!");
     } else if (dealer.hand.isBlackjack()) {
       // dealer blackjack, player loses
       won = false;
@@ -81,9 +75,6 @@ public class Game {
       roundOver = true;
 
       payout();
-
-      // NOTE: Observer
-      GameController.getAPI().notifyRoundOver(false, "You lost!");
     }
   }
 
@@ -261,8 +252,6 @@ public class Game {
     roundOver = false;
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
-    // NOTE: Observer
-    GameController.getAPI().notifyHandUpdate();
 
     return true;
   }
@@ -288,8 +277,6 @@ public class Game {
     assert dealerCard2 != null;
 
     dealInitialHand(playerCard1, playerCard2, dealerCard1, dealerCard2);
-    // NOTE: Observer
-    GameController.getAPI().notifyHandUpdate();
 
     return true;
   }
@@ -613,5 +600,20 @@ public class Game {
     }
 
     return list;
+  }
+
+  // NOTE: Observer
+  public void checkBlackjacks() {
+    // check if either the player or the dealer won on initial hand
+    if (player.hand.isBlackjack() && dealer.hand.isBlackjack()) {
+      // both blackjacks, tie
+      GameController.getAPI().notifyRoundOver(false, "You tied! Both Blackjacks!");
+    } else if (player.hand.isBlackjack()) {
+      // player blackjack, player wins
+      GameController.getAPI().notifyRoundOver(false, "You won! Blackjack!");
+    } else if (dealer.hand.isBlackjack()) {
+      // dealer blackjack, player loses
+      GameController.getAPI().notifyRoundOver(false, "You lost! Dealer Blackjack!");
+    }
   }
 }

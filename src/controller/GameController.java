@@ -125,6 +125,9 @@ public class GameController {
     view.openPlayerWindow(false);
     notifyMoneyUpdate();
     notifyHandUpdate();
+
+    // check if there was a blackjack to display dialog accordingly
+    model.checkBlackjacks();
   }
 
   public void requestHit() {
