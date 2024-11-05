@@ -24,6 +24,7 @@ public class Game implements IGameObservable {
   boolean won = false;
   boolean tied = false;
   boolean surrendered = false;
+  RoundResult result = null;
 
   // split hand state properties
   boolean split = false;
@@ -31,6 +32,7 @@ public class Game implements IGameObservable {
   boolean splitWon = false;
   boolean splitTied = false;
   boolean splitSurrendered = false;
+  RoundResult splitResult = null;
 
   // observer list
   private List<IGameObserver> observers = new ArrayList<IGameObserver>();
@@ -96,7 +98,7 @@ public class Game implements IGameObservable {
 
   public void notifyRoundOver() {
     for (IGameObserver observer : observers) {
-      // TODO: implement
+      observer.updateRoundResult(this, result, splitResult);
     }
   }
 
@@ -364,6 +366,7 @@ public class Game implements IGameObservable {
     won = false;
     tied = false;
     surrendered = false;
+    result = null;
 
     if (player.bet > 0) {
       // refund unfinished bet to balance
@@ -379,6 +382,7 @@ public class Game implements IGameObservable {
       splitWon = false;
       splitTied = false;
       splitSurrendered = false;
+      splitResult = null;
 
       player.splitBet = 0;
       player.splitHand.clear();

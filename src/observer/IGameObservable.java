@@ -5,15 +5,15 @@ public interface IGameObservable {
   // add an observer to be notified
   public void add(IGameObserver observer);
 
-  // remove an observer
+  // remove an observer from the list to be notified
   public void remove(IGameObserver observer);
 
-  // update hand on the view
+  // send a request to update the hands in the view
   public void notifyHandUpdate();
 
-  // update bet and balance on the view
+  // send a request to update the bet and bance values in the view
   public void notifyMoneyUpdate();
 
-  // display a dialog box with the round result
+  // send a request to display the round result for each hand
   public void notifyRoundOver();
 }
