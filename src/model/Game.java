@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 import controller.*;
+import observer.*;
 
 // public class that contains the model API
-public class Game {
+public class Game implements IGameObservable {
   // minimum bet to play a hand
   private static final int MIN_BET = 50;
   // singleton instance
@@ -31,6 +32,9 @@ public class Game {
   boolean splitTied = false;
   boolean splitSurrendered = false;
 
+  // observer list
+  private List<IGameObserver> observers = new ArrayList<IGameObserver>();
+
   // singleton pattern
   private Game() {
   }
@@ -41,6 +45,33 @@ public class Game {
     }
 
     return instance;
+  }
+
+  // observable interface methods
+  public void add(IGameObserver observer) {
+    observers.add(observer);
+  }
+
+  public void remove(IGameObserver observer) {
+    observers.remove(observer);
+  }
+
+  public void notifyHandUpdate() {
+    for (IGameObserver observer : observers) {
+      // todo
+    }
+  }
+
+  public void notifyMoneyUpdate() {
+    for (IGameObserver observer : observers) {
+      // todo
+    }
+  }
+
+  public void notifyRoundOver() {
+    for (IGameObserver observer : observers) {
+      // todo
+    }
   }
 
   // internal function to deal the first hand for the player and the dealer
