@@ -57,20 +57,46 @@ public class Game implements IGameObservable {
   }
 
   public void notifyHandUpdate() {
+    GameState state = new GameState(
+        getDealerCards(),
+        getDealerPoints(),
+        getPlayerCards(false),
+        getPlayerCards(true),
+        getPlayerPoints(false),
+        getPlayerPoints(true),
+        getSplitPlaying(),
+        getBalance(),
+        getBet(false) + getBet(true),
+        getBet(false),
+        getBet(true));
+
     for (IGameObserver observer : observers) {
-      // todo
+      observer.updateHand(this, state);
     }
   }
 
   public void notifyMoneyUpdate() {
+    GameState state = new GameState(
+        getDealerCards(),
+        getDealerPoints(),
+        getPlayerCards(false),
+        getPlayerCards(true),
+        getPlayerPoints(false),
+        getPlayerPoints(true),
+        getSplitPlaying(),
+        getBalance(),
+        getBet(false) + getBet(true),
+        getBet(false),
+        getBet(true));
+
     for (IGameObserver observer : observers) {
-      // todo
+      observer.updateMoney(this, state);
     }
   }
 
   public void notifyRoundOver() {
     for (IGameObserver observer : observers) {
-      // todo
+      // TODO: implement
     }
   }
 

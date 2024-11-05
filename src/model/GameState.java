@@ -11,9 +11,8 @@ public record GameState(
     int playerPoints,
     int playerSplitPoints,
     boolean splitPlaying,
-    int balance,
+    double balance,
     int totalBet,
     int bet,
-    int splitBet,
-    String message) {
+    int splitBet) {
 }

@@ -1,6 +1,22 @@
 package model;
 
-// contains all the possible outcomes for a round, and their corresponding message
+// contains all the possible outcomes for a round, and their corresponding messages
 public enum RoundResult {
-  // TODO: add the possible outcomes and a dialog message for each
+  WIN("You won!"),
+  LOSS("You lost!"),
+  TIE("It's a tie!"),
+  WIN_BLACKJACK("You won! Blackjack!"),
+  LOSS_BLACKJACK("You lost! Dealer Blackjack!"),
+  TIE_BLACKJACK("It's a tie! Both Blackjacks!");
+
+  private final String message;
+
+  RoundResult(String message) {
+    this.message = message;
+  }
+
+  @Override
+  public String toString() {
+    return message;
+  }
 }
