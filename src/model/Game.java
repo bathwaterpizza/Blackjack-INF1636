@@ -201,7 +201,7 @@ public class Game implements IGameObservable {
     } else {
       // dealer hits until 17
       while (dealer.hand.points < 17) {
-        dealer.hit(instance.deck.getCard());
+        dealer.hit(deck.getCard());
       }
     }
 

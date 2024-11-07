@@ -1,6 +1,7 @@
 package model;
 
-// contains all the possible outcomes for a round, and their corresponding messages
+// contains all the possible outcomes for a round, and their corresponding messages.
+// each hand will have an associated result once the round is over
 public enum RoundResult {
   WIN("You won!"),
   LOSS("You lost!"),

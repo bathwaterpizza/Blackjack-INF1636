@@ -9,9 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Chip;
+import model.RoundResult;
+import observer.*;
 
 // public class that contains the view API and assets
-public class GameUI {
+public class GameUI implements IGameObserver {
   // singleton instance
   private static GameUI instance = null;
 
