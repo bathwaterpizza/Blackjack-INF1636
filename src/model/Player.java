@@ -166,12 +166,12 @@ class Player {
     if (isSplit) {
       assert splitBet > 0;
 
-      balance += splitBet / 2;
+      balance += splitBet / 2.0;
       splitBet = 0;
     } else {
       assert bet > 0;
 
-      balance += bet / 2;
+      balance += bet / 2.0;
       bet = 0;
     }
   }
