@@ -203,17 +203,18 @@ public class Game implements IGameObservable {
       // it's an instant player loss and the dealer doesn't play
 
       won = false;
-      if (split)
+      result = RoundResult.LOSS;
+      if (split) {
         splitWon = false;
+        splitResult = RoundResult.LOSS;
+      }
 
       roundOver = true;
       payout();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyRoundOver(false, "You lost!");
-      if (split) {
-        GameController.getAPI().notifyRoundOver(true, "You lost!");
-      }
+      // update UI
+      notifyHandUpdate();
+      notifyRoundOver();
 
       return;
     } else {
@@ -221,6 +222,9 @@ public class Game implements IGameObservable {
       while (dealer.hand.points < 17) {
         dealer.hit(deck.getCard());
       }
+
+      // update UI
+      notifyHandUpdate();
     }
 
     // dealer versus main hand
@@ -228,34 +232,24 @@ public class Game implements IGameObservable {
       if (player.hand.isBust()) {
         // player bust, dealer wins
         won = false;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(false, "You lost!");
+        result = RoundResult.LOSS;
       } else if (dealer.hand.isBust()) {
         // dealer bust, player wins
         won = true;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(false, "You won!");
+        result = RoundResult.WIN;
       } else if (dealer.hand.points > player.hand.points) {
         // dealer has more points, dealer wins
         won = false;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(false, "You lost!");
+        result = RoundResult.LOSS;
       } else if (dealer.hand.points == player.hand.points) {
         // player and dealer have the same points, tie
         won = false;
         tied = true;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(false, "You tied!");
+        result = RoundResult.TIE;
       } else {
         // player has more points, player wins
         won = true;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(false, "You won!");
+        result = RoundResult.WIN;
       }
     }
 
@@ -265,39 +259,32 @@ public class Game implements IGameObservable {
       if (player.splitHand.isBust()) {
         // player bust, dealer wins
         splitWon = false;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(true, "You lost!");
+        splitResult = RoundResult.LOSS;
       } else if (dealer.hand.isBust()) {
         // dealer bust, player wins
         splitWon = true;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(true, "You won!");
+        splitResult = RoundResult.WIN;
       } else if (dealer.hand.points > player.splitHand.points) {
         // dealer has more points, dealer wins
         splitWon = false;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(true, "You lost!");
+        splitResult = RoundResult.LOSS;
       } else if (dealer.hand.points == player.splitHand.points) {
         // player and dealer have the same points, tie
         splitWon = false;
         splitTied = true;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(true, "You tied!");
+        splitResult = RoundResult.TIE;
       } else {
         // player has more points, player wins
         splitWon = true;
-
-        // NOTE: Observer
-        GameController.getAPI().notifyRoundOver(true, "You won!");
+        splitResult = RoundResult.WIN;
       }
     }
 
     roundOver = true;
     payout();
+
+    // update UI
+    notifyRoundOver();
   }
 
   // called once main hand is done playing,
@@ -645,34 +632,28 @@ public class Game implements IGameObservable {
   }
 
   // returns whether the split hand is playing or not
-  // NOTE: Observer
   private boolean getSplitPlaying() {
     return splitPlaying;
   }
 
   // returns the player's balance
-  // NOTE: Observer
   private double getBalance() {
     return player.balance;
   }
 
   // returns the player's current bet
-  // NOTE: Observer
   private int getBet(boolean isSplit) {
     return isSplit ? player.splitBet : player.bet;
   }
 
-  // NOTE: Observer
   private int getDealerPoints() {
     return dealer.hand.points;
   }
 
-  // NOTE: Observer
   private int getPlayerPoints(boolean isSplit) {
     return isSplit ? player.splitHand.points : player.hand.points;
   }
 
-  // NOTE: Observer
   private List<Integer> getDealerCards() {
     var list = new ArrayList<Integer>();
 
@@ -683,7 +664,6 @@ public class Game implements IGameObservable {
     return list;
   }
 
-  // NOTE: Observer
   private List<Integer> getPlayerCards(boolean isSplit) {
     var list = new ArrayList<Integer>();
 

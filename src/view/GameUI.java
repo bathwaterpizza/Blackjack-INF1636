@@ -72,7 +72,9 @@ public class GameUI implements IGameObserver {
 
   public void updateRoundResult(IGameObservable observable, RoundResult result, RoundResult splitResult) {
     messageHand(false, result.toString());
-    messageHand(true, splitResult.toString());
+
+    if (splitResult != null)
+      messageHand(true, splitResult.toString());
   }
 
   public void updateWindows(IGameObservable observable, boolean playerWindowOpen, boolean playerSplitWindowOpen) {
