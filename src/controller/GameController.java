@@ -15,6 +15,9 @@ public class GameController {
 
   // singleton pattern
   private GameController() {
+    // register the view as an observer of the model
+    model.addObserver(view);
+
     // initialize game
     view.openMenuWindow();
   }

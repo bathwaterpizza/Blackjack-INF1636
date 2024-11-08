@@ -3,10 +3,10 @@ package observer;
 // Interface for the class that will be observed
 public interface IGameObservable {
   // add an observer to be notified
-  public void add(IGameObserver observer);
+  public void addObserver(IGameObserver observer);
 
   // remove an observer from the list to be notified
-  public void remove(IGameObserver observer);
+  public void remObserver(IGameObserver observer);
 
   // send a request to update the hands in the view
   public void notifyHandUpdate();

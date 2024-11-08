@@ -50,11 +50,11 @@ public class Game implements IGameObservable {
   }
 
   // observable interface methods
-  public void add(IGameObserver observer) {
+  public void addObserver(IGameObserver observer) {
     observers.add(observer);
   }
 
-  public void remove(IGameObserver observer) {
+  public void remObserver(IGameObserver observer) {
     observers.remove(observer);
   }
 
