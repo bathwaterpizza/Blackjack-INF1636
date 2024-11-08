@@ -316,6 +316,7 @@ public class Game implements IGameObservable {
 
     // open player main hand window
     notifyWindowUpdate();
+    notifyMoneyUpdate();
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
         deck.getCard());
