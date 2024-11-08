@@ -16,4 +16,7 @@ public interface IGameObservable {
 
   // send a request to display the round result for each hand
   public void notifyRoundOver();
+
+  // send a request to open or close UI frames
+  public void notifyWindowUpdate();
 }

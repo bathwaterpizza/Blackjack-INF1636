@@ -102,6 +102,17 @@ public class Game implements IGameObservable {
     }
   }
 
+  public void notifyWindowUpdate() {
+    for (IGameObserver observer : observers) {
+      // player main hand window should display as long as the bet is placed,
+      // note that the bet is still placed when the round is over but hasn't been
+      // cleared yet.
+
+      // player split hand window should display as long as there is a split
+      observer.updateWindows(this, betPlaced, split);
+    }
+  }
+
   // internal function to deal the first hand for the player and the dealer
   private void dealInitialHand(Card playerCard1, Card playerCard2, Card dealerCard1, Card dealerCard2) {
     // 2 cards for the player
@@ -310,6 +321,9 @@ public class Game implements IGameObservable {
     betPlaced = true;
     roundOver = false;
 
+    // open player main hand window
+    notifyWindowUpdate();
+
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
         deck.getCard());
 
@@ -338,6 +352,9 @@ public class Game implements IGameObservable {
     }
 
     betPlaced = true;
+
+    // open player main hand window
+    notifyWindowUpdate();
 
     assert playerCard1 != null;
     assert playerCard2 != null;
@@ -397,8 +414,10 @@ public class Game implements IGameObservable {
       System.exit(0);
     }
 
-    // NOTE: Observer
-    GameController.getAPI().notifyHandUpdate();
+    // update UI
+    notifyWindowUpdate();
+    notifyHandUpdate();
+    notifyMoneyUpdate();
 
     return true;
   }
@@ -577,6 +596,9 @@ public class Game implements IGameObservable {
     }
 
     split = true;
+
+    // open player split hand window
+    notifyWindowUpdate();
 
     // when splitting from aces, only one card can be drawn
     if (player.hand.cards.get(0).rank == Rank.ACE) {

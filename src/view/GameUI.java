@@ -75,6 +75,20 @@ public class GameUI implements IGameObserver {
     messageHand(true, splitResult.toString());
   }
 
+  public void updateWindows(IGameObservable observable, boolean playerWindowOpen, boolean playerSplitWindowOpen) {
+    if (playerWindowOpen) {
+      openPlayerWindow(false);
+    } else {
+      closePlayerWindow(false);
+    }
+
+    if (playerSplitWindowOpen) {
+      openPlayerWindow(true);
+    } else {
+      closePlayerWindow(true);
+    }
+  }
+
   // loads all the game images into memory
   private void loadAssets() {
     try {

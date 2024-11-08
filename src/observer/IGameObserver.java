@@ -14,4 +14,7 @@ public interface IGameObserver {
 
   // displays a dialog box with the round result for each hand
   public void updateRoundResult(IGameObservable observable, RoundResult result, RoundResult splitResult);
+
+  // opens or closes the given UI frames
+  public void updateWindows(IGameObservable observable, boolean playerWindowOpen, boolean playerSplitWindowOpen);
 }
