@@ -3,7 +3,6 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
-import controller.*;
 import observer.*;
 
 // public class that contains the model API
