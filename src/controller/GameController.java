@@ -36,10 +36,6 @@ public class GameController {
     view.closeMenuWindow();
     view.openDealerWindow();
     model.choiceClear();
-
-    // initial value for the labels
-    view.setBalance(model.getBalance());
-    view.setTotalBet(0);
   }
 
   // methods to update the view

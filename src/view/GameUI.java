@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+// importing enums and records from model, but no classes
 import model.Chip;
 import model.RoundResult;
 import model.GameState;
+
 import observer.*;
 
 // public class that contains the view API and assets
@@ -220,16 +222,20 @@ public class GameUI implements IGameObserver {
     }
   }
 
+  /*
+   * UI internal setter methods
+   * these methods are called by the observer interface methods
+   */
   // set money labels displayed
-  public void setBalance(double value) {
+  private void setBalance(double value) {
     dealerFrame.setBalance(value);
   }
 
-  public void setTotalBet(int value) {
+  private void setTotalBet(int value) {
     dealerFrame.setBet(value);
   }
 
-  public void setHandBet(boolean isSplit, int value) {
+  private void setHandBet(boolean isSplit, int value) {
     if (isSplit) {
       if (splitPlayerFrame == null)
         return;
@@ -243,16 +249,16 @@ public class GameUI implements IGameObserver {
     }
   }
 
-  // set stacked cards displayed
-  public void setDealerCards(List<Integer> cards) {
+  // set stacked cards displayed, and the hand value
+  private void setDealerCards(List<Integer> cards) {
     dealerFrame.setCards(cards);
   }
 
-  public void setDealerPoints(int value) {
+  private void setDealerPoints(int value) {
     dealerFrame.setPoints(value);
   }
 
-  public void setPlayerCards(boolean isSplit, List<Integer> cards) {
+  private void setPlayerCards(boolean isSplit, List<Integer> cards) {
     if (isSplit) {
       if (splitPlayerFrame == null)
         return;
@@ -266,7 +272,7 @@ public class GameUI implements IGameObserver {
     }
   }
 
-  public void setPlayerPoints(boolean isSplit, int value) {
+  private void setPlayerPoints(boolean isSplit, int value) {
     if (isSplit) {
       if (splitPlayerFrame == null)
         return;
@@ -281,7 +287,7 @@ public class GameUI implements IGameObserver {
   }
 
   // set which hand is playing
-  public void setPlayingHand(boolean isSplitPlaying) {
+  private void setPlayingHand(boolean isSplitPlaying) {
     if (isSplitPlaying) {
       if (playerFrame != null)
         playerFrame.setPlaying(false);
