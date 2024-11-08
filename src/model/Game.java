@@ -646,34 +646,34 @@ public class Game implements IGameObservable {
 
   // returns whether the split hand is playing or not
   // NOTE: Observer
-  public boolean getSplitPlaying() {
+  private boolean getSplitPlaying() {
     return splitPlaying;
   }
 
   // returns the player's balance
   // NOTE: Observer
-  public double getBalance() {
+  private double getBalance() {
     return player.balance;
   }
 
   // returns the player's current bet
   // NOTE: Observer
-  public int getBet(boolean isSplit) {
+  private int getBet(boolean isSplit) {
     return isSplit ? player.splitBet : player.bet;
   }
 
   // NOTE: Observer
-  public int getDealerPoints() {
+  private int getDealerPoints() {
     return dealer.hand.points;
   }
 
   // NOTE: Observer
-  public int getPlayerPoints(boolean isSplit) {
+  private int getPlayerPoints(boolean isSplit) {
     return isSplit ? player.splitHand.points : player.hand.points;
   }
 
   // NOTE: Observer
-  public List<Integer> getDealerCards() {
+  private List<Integer> getDealerCards() {
     var list = new ArrayList<Integer>();
 
     for (Card card : dealer.hand.cards) {
@@ -684,7 +684,7 @@ public class Game implements IGameObservable {
   }
 
   // NOTE: Observer
-  public List<Integer> getPlayerCards(boolean isSplit) {
+  private List<Integer> getPlayerCards(boolean isSplit) {
     var list = new ArrayList<Integer>();
 
     if (isSplit) {
