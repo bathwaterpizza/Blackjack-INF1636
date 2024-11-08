@@ -123,28 +123,36 @@ public class Game implements IGameObservable {
     dealer.hand.addCard(dealerCard1);
     dealer.hand.addCard(dealerCard2);
 
+    notifyHandUpdate();
+
     // check if either the player or the dealer won on initial hand
     if (player.hand.isBlackjack() && dealer.hand.isBlackjack()) {
       // both blackjacks, tie
       won = false;
       tied = true;
       roundOver = true;
+      result = RoundResult.TIE_BLACKJACK;
 
       payout();
+      notifyRoundOver();
     } else if (player.hand.isBlackjack()) {
       // player blackjack, player wins
       won = true;
       tied = false;
       roundOver = true;
+      result = RoundResult.WIN_BLACKJACK;
 
       payout();
+      notifyRoundOver();
     } else if (dealer.hand.isBlackjack()) {
       // dealer blackjack, player loses
       won = false;
       tied = false;
       roundOver = true;
+      result = RoundResult.LOSS_BLACKJACK;
 
       payout();
+      notifyRoundOver();
     }
   }
 
@@ -181,8 +189,7 @@ public class Game implements IGameObservable {
       }
     }
 
-    // NOTE: Observer
-    GameController.getAPI().notifyMoneyUpdate();
+    notifyMoneyUpdate();
   }
 
   // plays for the dealer after all players' hands stand
@@ -434,8 +441,7 @@ public class Game implements IGameObservable {
         playDealerHand();
       }
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
+      notifyHandUpdate();
 
       return true;
     } else { // hit on main hand
@@ -452,8 +458,8 @@ public class Game implements IGameObservable {
         playSplitHand();
       }
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
+      // update UI
+      notifyHandUpdate();
 
       return true;
     }
@@ -484,9 +490,9 @@ public class Game implements IGameObservable {
 
       playDealerHand();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
-      GameController.getAPI().notifyMoneyUpdate();
+      // update UI
+      notifyHandUpdate();
+      notifyMoneyUpdate();
 
       return true;
     } else { // double on main hand
@@ -507,9 +513,8 @@ public class Game implements IGameObservable {
 
       playSplitHand();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
-      GameController.getAPI().notifyMoneyUpdate();
+      notifyHandUpdate();
+      notifyMoneyUpdate();
 
       return true;
     }
@@ -521,8 +526,7 @@ public class Game implements IGameObservable {
     if (splitPlaying) {
       playDealerHand();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
+      notifyHandUpdate();
 
       return true;
     } else {
@@ -534,15 +538,16 @@ public class Game implements IGameObservable {
 
       playSplitHand();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
+      notifyHandUpdate();
 
       return true;
     }
   }
 
-  // called when the player presses surrender,
-  // returns whether it was successful
+  // Called when the player presses surrender,
+  // returns whether it was successful.
+  // Note that if there is a split bet, then the half bet will only be refunded
+  // after both hands finish playing.
   public boolean choiceSurrender() {
     if (splitPlaying) {
       // check if can surrender
@@ -554,8 +559,7 @@ public class Game implements IGameObservable {
       splitSurrendered = true;
       playDealerHand();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
+      notifyHandUpdate();
 
       return true;
     } else {
@@ -568,8 +572,7 @@ public class Game implements IGameObservable {
       surrendered = true;
       playSplitHand();
 
-      // NOTE: Observer
-      GameController.getAPI().notifyHandUpdate();
+      notifyHandUpdate();
 
       return true;
     }
@@ -605,9 +608,8 @@ public class Game implements IGameObservable {
       playDealerHand();
     }
 
-    // NOTE: Observer
-    GameController.getAPI().notifyHandUpdate();
-    GameController.getAPI().notifyMoneyUpdate();
+    notifyHandUpdate();
+    notifyMoneyUpdate();
 
     return true;
   }
@@ -621,8 +623,7 @@ public class Game implements IGameObservable {
 
     boolean success = player.incrementBet(chip);
     if (success) {
-      // NOTE: Observer
-      GameController.getAPI().notifyMoneyUpdate();
+      notifyMoneyUpdate();
     }
 
     return success;
@@ -637,8 +638,7 @@ public class Game implements IGameObservable {
 
     boolean success = player.decrementBet(chip);
     if (success) {
-      // NOTE: Observer
-      GameController.getAPI().notifyMoneyUpdate();
+      notifyMoneyUpdate();
     }
 
     return success;
@@ -698,20 +698,5 @@ public class Game implements IGameObservable {
     }
 
     return list;
-  }
-
-  // NOTE: Observer
-  public void checkBlackjacks() {
-    // check if either the player or the dealer won on initial hand
-    if (player.hand.isBlackjack() && dealer.hand.isBlackjack()) {
-      // both blackjacks, tie
-      GameController.getAPI().notifyRoundOver(false, "You tied! Both Blackjacks!");
-    } else if (player.hand.isBlackjack()) {
-      // player blackjack, player wins
-      GameController.getAPI().notifyRoundOver(false, "You won! Blackjack!");
-    } else if (dealer.hand.isBlackjack()) {
-      // dealer blackjack, player loses
-      GameController.getAPI().notifyRoundOver(false, "You lost! Dealer Blackjack!");
-    }
   }
 }
