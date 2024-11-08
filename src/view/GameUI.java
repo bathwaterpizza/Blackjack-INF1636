@@ -10,6 +10,7 @@ import java.util.List;
 
 import model.Chip;
 import model.RoundResult;
+import model.GameState;
 import observer.*;
 
 // public class that contains the view API and assets
@@ -41,6 +42,37 @@ public class GameUI implements IGameObserver {
     }
 
     return instance;
+  }
+
+  // observer interface methods
+  public void updateHand(IGameObservable observable, GameState state) {
+    // dealer window
+    setDealerCards(state.dealerCards());
+    setDealerPoints(state.dealerPoints());
+
+    // player windows
+    setPlayerCards(false, state.playerCards());
+    setPlayerPoints(false, state.playerPoints());
+    // split
+    setPlayerCards(true, state.playerSplitCards());
+    setPlayerPoints(true, state.playerSplitPoints());
+    setPlayingHand(state.splitPlaying());
+  }
+
+  public void updateMoney(IGameObservable observable, GameState state) {
+    // dealer window
+    setBalance(state.balance());
+    setTotalBet(state.totalBet());
+
+    // player windows
+    setHandBet(false, state.bet());
+    // split
+    setHandBet(true, state.splitBet());
+  }
+
+  public void updateRoundResult(IGameObservable observable, RoundResult result, RoundResult splitResult) {
+    messageHand(false, result.toString());
+    messageHand(true, splitResult.toString());
   }
 
   // loads all the game images into memory
