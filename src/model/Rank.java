@@ -1,17 +1,18 @@
 package model;
 
+// represents the card ranks, used in the Card class
 public enum Rank {
-  ACE, // Represents the Ace rank
-  TWO, // Represents the Two rank
-  THREE, // Represents the Three rank
-  FOUR, // Represents the Four rank
-  FIVE, // Represents the Five rank
-  SIX, // Represents the Six rank
-  SEVEN, // Represents the Seven rank
-  EIGHT, // Represents the Eight rank
-  NINE, // Represents the Nine rank
-  TEN, // Represents the Ten rank
-  JACK, // Represents the Jack rank
-  QUEEN, // Represents the Queen rank
-  KING // Represents the King rank
+  ACE, // worth 1 or 11 points depending on the total hand value
+  TWO,
+  THREE,
+  FOUR,
+  FIVE,
+  SIX,
+  SEVEN,
+  EIGHT,
+  NINE,
+  TEN,
+  JACK,
+  QUEEN,
+  KING
 }

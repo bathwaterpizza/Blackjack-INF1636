@@ -18,7 +18,7 @@ public class GameController {
     // register the view as an observer of the model
     model.addObserver(view);
 
-    // initialize game
+    // initialize game UI
     view.openMenuWindow();
   }
 
@@ -38,8 +38,8 @@ public class GameController {
     model.choiceClear();
   }
 
-  // methods to update the model,
-  // and display error messages upon failure
+  // methods to update the model, representing a game choice from the player.
+  // these will display an error message upon failure.
   public void requestExit() {
     model.choiceExit();
   }

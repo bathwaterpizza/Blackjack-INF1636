@@ -2,10 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+// represents a hand of cards in the game, from players or the dealer
 class Hand {
   ArrayList<Card> cards = new ArrayList<>();
   int points = 0;
 
+  // calculate the total value of the hand,
+  // considering aces as 11 if the total is less than 21
   private void updatePoints() {
     int sum = 0;
     boolean hasAce = false;
@@ -25,15 +28,18 @@ class Hand {
     points = sum;
   }
 
+  // add a card and udpate the hand value
   void addCard(Card c) {
     cards.add(c);
     updatePoints();
   }
 
+  // check if the hand is a blackjack
   boolean isBlackjack() {
     return points == 21 && cards.size() == 2;
   }
 
+  // check if the hand is a bust (over 21 value)
   boolean isBust() {
     return points > 21;
   }
@@ -47,6 +53,7 @@ class Hand {
     return false;
   }
 
+  // empty the hand
   void clear() {
     cards.clear();
     points = 0;

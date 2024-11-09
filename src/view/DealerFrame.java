@@ -6,8 +6,9 @@ import java.awt.event.*;
 import java.util.List;
 
 import controller.*;
-import model.Chip;
+import model.Chip; // enum Chip
 
+// represents the dealer's window in the UI
 class DealerFrame extends JFrame implements MouseListener {
   private static final int FRAME_WIDTH = 704;
   private static final int FRAME_HEIGHT = 532;
@@ -112,98 +113,99 @@ class DealerFrame extends JFrame implements MouseListener {
   }
 
   // check if the mouse is within the area of a game choice button
-  private boolean isInsideButton(int mouseX, int mouseY, int btnX, int btnY) {
+  private boolean isInsideButton(MouseEvent event, int btnX, int btnY) {
+    int mouseX = event.getX(), mouseY = event.getY();
+
     return (mouseX >= btnX) && (mouseX <= (btnX + btnWidth)) &&
         (mouseY >= btnY) && (mouseY <= (btnY + btnHeight));
   }
 
   // check if the mouse is within the area of a chip button
-  private boolean isInsideChip(int mouseX, int mouseY, int chipX, int chipY) {
+  private boolean isInsideChip(MouseEvent event, int chipX, int chipY) {
+    int mouseX = event.getX(), mouseY = event.getY();
+
     return (mouseX >= chipX) && (mouseX <= (chipX + chipWidth)) &&
         (mouseY >= chipY) && (mouseY <= (chipY + chipHeight));
   }
 
   // called on mouse click to verify button events
   @Override
-  public void mouseClicked(MouseEvent e) {
-    int mouseX = e.getX();
-    int mouseY = e.getY();
-
-    if (isInsideButton(mouseX, mouseY, btnExitX, btnExitY)) {
+  public void mouseClicked(MouseEvent event) {
+    if (isInsideButton(event, btnExitX, btnExitY)) {
       // Exit button clicked
       controller.requestExit();
-    } else if (isInsideButton(mouseX, mouseY, btnDoubleX, btnDoubleY)) {
+    } else if (isInsideButton(event, btnDoubleX, btnDoubleY)) {
       // Double button clicked
       controller.requestDouble();
-    } else if (isInsideButton(mouseX, mouseY, btnSplitX, btnSplitY)) {
+    } else if (isInsideButton(event, btnSplitX, btnSplitY)) {
       // Split button clicked
       controller.requestSplit();
-    } else if (isInsideButton(mouseX, mouseY, btnClearX, btnClearY)) {
+    } else if (isInsideButton(event, btnClearX, btnClearY)) {
       // Clear button clicked
       controller.requestClear();
-    } else if (isInsideButton(mouseX, mouseY, btnDealX, btnDealY)) {
+    } else if (isInsideButton(event, btnDealX, btnDealY)) {
       // Deal button clicked
       controller.requestDeal();
-    } else if (isInsideButton(mouseX, mouseY, btnHitX, btnHitY)) {
+    } else if (isInsideButton(event, btnHitX, btnHitY)) {
       // Hit button clicked
       controller.requestHit();
-    } else if (isInsideButton(mouseX, mouseY, btnStandX, btnStandY)) {
+    } else if (isInsideButton(event, btnStandX, btnStandY)) {
       // Stand button clicked
       controller.requestStand();
-    } else if (isInsideButton(mouseX, mouseY, btnSurrenderX, btnSurrenderY)) {
+    } else if (isInsideButton(event, btnSurrenderX, btnSurrenderY)) {
       // Surrender button clicked
       controller.requestSurrender();
-    } else if (isInsideChip(mouseX, mouseY, chip1X, chip1Y)) {
+    } else if (isInsideChip(event, chip1X, chip1Y)) {
       // Chip 1 clicked
-      if (SwingUtilities.isLeftMouseButton(e)) {
+      if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
         controller.requestRaiseBet(Chip.BLACK);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
+      } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
         controller.requestLowerBet(Chip.BLACK);
       }
-    } else if (isInsideChip(mouseX, mouseY, chip5X, chip5Y)) {
+    } else if (isInsideChip(event, chip5X, chip5Y)) {
       // Chip 5 clicked
-      if (SwingUtilities.isLeftMouseButton(e)) {
+      if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
         controller.requestRaiseBet(Chip.PINK);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
+      } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
         controller.requestLowerBet(Chip.PINK);
       }
-    } else if (isInsideChip(mouseX, mouseY, chip10X, chip10Y)) {
+    } else if (isInsideChip(event, chip10X, chip10Y)) {
       // Chip 10 clicked
-      if (SwingUtilities.isLeftMouseButton(e)) {
+      if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
         controller.requestRaiseBet(Chip.BLUE);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
+      } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
         controller.requestLowerBet(Chip.BLUE);
       }
-    } else if (isInsideChip(mouseX, mouseY, chip20X, chip20Y)) {
+    } else if (isInsideChip(event, chip20X, chip20Y)) {
       // Chip 20 clicked
-      if (SwingUtilities.isLeftMouseButton(e)) {
+      if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
         controller.requestRaiseBet(Chip.RED);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
+      } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
         controller.requestLowerBet(Chip.RED);
       }
-    } else if (isInsideChip(mouseX, mouseY, chip50X, chip50Y)) {
+    } else if (isInsideChip(event, chip50X, chip50Y)) {
       // Chip 50 clicked
-      if (SwingUtilities.isLeftMouseButton(e)) {
+      if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
         controller.requestRaiseBet(Chip.GREEN);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
+      } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
         controller.requestLowerBet(Chip.GREEN);
       }
-    } else if (isInsideChip(mouseX, mouseY, chip100X, chip100Y)) {
+    } else if (isInsideChip(event, chip100X, chip100Y)) {
       // Chip 100 clicked
-      if (SwingUtilities.isLeftMouseButton(e)) {
+      if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
         controller.requestRaiseBet(Chip.GOLD);
-      } else if (SwingUtilities.isRightMouseButton(e)) {
+      } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
         controller.requestLowerBet(Chip.GOLD);
       }
@@ -302,6 +304,7 @@ class DealerFrame extends JFrame implements MouseListener {
     repaint();
   }
 
+  // update dealer hand value
   void setPoints(int value) {
     pointsLabel.setText(String.format("VALUE: %d", value));
     repaint();

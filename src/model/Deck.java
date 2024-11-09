@@ -10,13 +10,15 @@ class EmptyDeckException extends RuntimeException {
   }
 }
 
+// represents the deck of available cards for drawing in the game,
+// refills and shuffles automatically after 10% of the deck is used
 class Deck {
   private static final int DRAW_LIMIT = 41;
   private static final int TOTAL_CARDS = 416;
 
   private Stack<Card> deck;
 
-  // shouldShuffle: true to shuffle on creation
+  // shouldShuffle: true to shuffle on creation, used for testing.
   Deck(boolean shouldShuffle) {
     // create a deck with eight sets of 52 cards
     createNewDeck();

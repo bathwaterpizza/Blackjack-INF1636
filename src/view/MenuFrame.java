@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import controller.*;
 
-// creates the main game menu
+// represents the main game menu
 class MenuFrame extends JFrame {
   MenuFrame() {
     // frame setup

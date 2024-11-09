@@ -1,7 +1,7 @@
 package observer;
 
-import model.GameState;
-import model.RoundResult;
+import model.GameState; // record
+import model.RoundResult; // enum
 
 // Interface for the class that will be observing
 public interface IGameObserver {

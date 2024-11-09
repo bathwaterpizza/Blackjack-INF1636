@@ -1,5 +1,6 @@
 package model;
 
+// represents a card in the game, either from the deck or from a hand
 class Card {
   Suit suit;
   Rank rank;

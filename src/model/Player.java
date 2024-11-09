@@ -1,5 +1,7 @@
 package model;
 
+// represents the player in the game,
+// contains the player's hands as well as money values (bets and balance)
 class Player {
   private static final double START_BALANCE = 2400.0;
 
