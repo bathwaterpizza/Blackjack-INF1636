@@ -318,16 +318,16 @@ public class Game implements IGameObservable {
     notifyWindowUpdate();
     notifyMoneyUpdate();
 
-    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
-        deck.getCard());
+    // dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
+    // deck.getCard());
 
     // for testing
-    // Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
-    // Card playerTestCard2 = new Card(Suit.HEARTS, Rank.TEN);
-    // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
-    // Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
-    // dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
-    // dealerTestCard2);
+    Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
+    Card playerTestCard2 = new Card(Suit.HEARTS, Rank.TEN);
+    Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
+    Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
+    dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
+        dealerTestCard2);
 
     return true;
   }
@@ -537,21 +537,27 @@ public class Game implements IGameObservable {
   // after both hands finish playing.
   public boolean choiceSurrender() {
     if (splitPlaying) {
-      // check if can surrender
-      if (player.splitHand.size() > 2) {
-        System.out.println("Can't split surrender now.");
-        return false;
-      }
+      // FIXED: rules do not allow surrendering after a split
+      return false;
 
-      splitSurrendered = true;
-      playDealerHand();
-
-      notifyHandUpdate();
-
-      return true;
+      /*
+       * // check if can surrender
+       * if (player.splitHand.size() > 2) {
+       * System.out.println("Can't split surrender now.");
+       * return false;
+       * }
+       * 
+       * splitSurrendered = true;
+       * playDealerHand();
+       * 
+       * notifyHandUpdate();
+       * 
+       * return true;
+       */
     } else {
       // check if can surrender
-      if (roundOver || !betPlaced || player.hand.size() > 2) {
+      // FIXED: rules do not allow surrendering after a split
+      if (roundOver || !betPlaced || player.hand.size() > 2 || split) {
         System.out.println("Can't surrender now.");
         return false;
       }
