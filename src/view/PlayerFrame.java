@@ -4,16 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import controller.*;
-
 // represents an instance of the dealer's frame
 class PlayerFrame extends JFrame {
   private static final int FRAME_WIDTH = 250;
   private static final int FRAME_HEIGHT = 450;
-
-  // instances
-  GameUI view = GameUI.getAPI();
-  GameController controller = GameController.getAPI();
 
   // whether this frame is for the split hand or not
   private boolean split;
@@ -72,7 +66,7 @@ class PlayerFrame extends JFrame {
       int posX = cardCenterX - (cardWidth / 2);
       int posY = cardCenterY - (cardHeight / 2) + (i * cardOffset);
 
-      g.drawImage(view.cardAssets.get(handCards.get(i)), posX, posY, cardWidth, cardHeight, this);
+      g.drawImage(GameUI.getAPI().cardAssets.get(handCards.get(i)), posX, posY, cardWidth, cardHeight, this);
     }
   }
 

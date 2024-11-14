@@ -9,17 +9,13 @@ public class GameController {
   // singleton instance
   private static GameController instance = null;
 
-  // initialize model and view
-  Game model = Game.getAPI();
-  GameUI view = GameUI.getAPI();
-
   // singleton pattern
   private GameController() {
     // register the view as an observer of the model
-    model.addObserver(view);
+    Game.getAPI().addObserver(GameUI.getAPI());
 
     // initialize game UI
-    view.openMenuWindow();
+    GameUI.getAPI().openMenuWindow();
   }
 
   public static GameController getAPI() {
@@ -33,94 +29,94 @@ public class GameController {
   // called by the view when the player clicks on new game in menu
   // close menu, open dealer window and start game
   public void newGame() {
-    view.closeMenuWindow();
-    view.openDealerWindow();
-    model.choiceClear();
+    GameUI.getAPI().closeMenuWindow();
+    GameUI.getAPI().openDealerWindow();
+    Game.getAPI().choiceClear();
   }
 
   // methods to update the model, representing a game choice from the player.
   // these will display an error message upon failure.
   public void requestExit() {
-    model.choiceExit();
+    Game.getAPI().choiceExit();
   }
 
   public void requestDouble() {
-    boolean success = model.choiceDouble();
+    boolean success = Game.getAPI().choiceDouble();
 
     if (!success) {
-      view.messageGame("You can't double your bet now");
+      GameUI.getAPI().messageGame("You can't double your bet now");
       return;
     }
   }
 
   public void requestSplit() {
-    boolean success = model.choiceSplit();
+    boolean success = Game.getAPI().choiceSplit();
 
     if (!success) {
-      view.messageGame("You can't split your hand now");
+      GameUI.getAPI().messageGame("You can't split your hand now");
       return;
     }
   }
 
   public void requestClear() {
-    boolean success = model.choiceClear();
+    boolean success = Game.getAPI().choiceClear();
 
     if (!success) {
-      view.messageGame("You can't clear your bet now");
+      GameUI.getAPI().messageGame("You can't clear your bet now");
       return;
     }
   }
 
   public void requestDeal() {
-    boolean success = model.choiceDeal();
+    boolean success = Game.getAPI().choiceDeal();
 
     if (!success) {
-      view.messageGame("You can't deal now");
+      GameUI.getAPI().messageGame("You can't deal now");
       return;
     }
   }
 
   public void requestHit() {
-    boolean success = model.choiceHit();
+    boolean success = Game.getAPI().choiceHit();
 
     if (!success) {
-      view.messageGame("You can't hit now");
+      GameUI.getAPI().messageGame("You can't hit now");
       return;
     }
   }
 
   public void requestStand() {
-    boolean success = model.choiceStand();
+    boolean success = Game.getAPI().choiceStand();
 
     if (!success) {
-      view.messageGame("You can't stand now");
+      GameUI.getAPI().messageGame("You can't stand now");
       return;
     }
   }
 
   public void requestSurrender() {
-    boolean success = model.choiceSurrender();
+    boolean success = Game.getAPI().choiceSurrender();
 
     if (!success) {
-      view.messageGame("You can't surrender now");
+      GameUI.getAPI().messageGame("You can't surrender now");
       return;
     }
   }
 
   public void requestRaiseBet(Chip chip) {
-    boolean success = model.choiceIncBet(chip);
+    boolean success = Game.getAPI().choiceIncBet(chip);
 
     if (!success) {
-      view.messageGame("You can't raise your bet now");
+      GameUI.getAPI().messageGame("You can't raise your bet now");
       return;
     }
   }
 
   public void requestLowerBet(Chip chip) {
-    boolean success = model.choiceDecBet(chip);
+    boolean success = Game.getAPI().choiceDecBet(chip);
 
     if (!success) {
-      view.messageGame("You can't lower your bet now");
+      GameUI.getAPI().messageGame("You can't lower your bet now");
       return;
     }
   }

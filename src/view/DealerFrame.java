@@ -13,10 +13,6 @@ class DealerFrame extends JFrame implements MouseListener {
   private static final int FRAME_WIDTH = 704;
   private static final int FRAME_HEIGHT = 532;
 
-  // instances
-  GameUI view = GameUI.getAPI();
-  GameController controller = GameController.getAPI();
-
   // frame components
   private JLabel balanceLabel;
   private JLabel betLabel;
@@ -133,81 +129,81 @@ class DealerFrame extends JFrame implements MouseListener {
   public void mouseClicked(MouseEvent event) {
     if (isInsideButton(event, btnExitX, btnExitY)) {
       // Exit button clicked
-      controller.requestExit();
+      GameController.getAPI().requestExit();
     } else if (isInsideButton(event, btnDoubleX, btnDoubleY)) {
       // Double button clicked
-      controller.requestDouble();
+      GameController.getAPI().requestDouble();
     } else if (isInsideButton(event, btnSplitX, btnSplitY)) {
       // Split button clicked
-      controller.requestSplit();
+      GameController.getAPI().requestSplit();
     } else if (isInsideButton(event, btnClearX, btnClearY)) {
       // Clear button clicked
-      controller.requestClear();
+      GameController.getAPI().requestClear();
     } else if (isInsideButton(event, btnDealX, btnDealY)) {
       // Deal button clicked
-      controller.requestDeal();
+      GameController.getAPI().requestDeal();
     } else if (isInsideButton(event, btnHitX, btnHitY)) {
       // Hit button clicked
-      controller.requestHit();
+      GameController.getAPI().requestHit();
     } else if (isInsideButton(event, btnStandX, btnStandY)) {
       // Stand button clicked
-      controller.requestStand();
+      GameController.getAPI().requestStand();
     } else if (isInsideButton(event, btnSurrenderX, btnSurrenderY)) {
       // Surrender button clicked
-      controller.requestSurrender();
+      GameController.getAPI().requestSurrender();
     } else if (isInsideChip(event, chip1X, chip1Y)) {
       // Chip 1 clicked
       if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
-        controller.requestRaiseBet(Chip.BLACK);
+        GameController.getAPI().requestRaiseBet(Chip.BLACK);
       } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
-        controller.requestLowerBet(Chip.BLACK);
+        GameController.getAPI().requestLowerBet(Chip.BLACK);
       }
     } else if (isInsideChip(event, chip5X, chip5Y)) {
       // Chip 5 clicked
       if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
-        controller.requestRaiseBet(Chip.PINK);
+        GameController.getAPI().requestRaiseBet(Chip.PINK);
       } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
-        controller.requestLowerBet(Chip.PINK);
+        GameController.getAPI().requestLowerBet(Chip.PINK);
       }
     } else if (isInsideChip(event, chip10X, chip10Y)) {
       // Chip 10 clicked
       if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
-        controller.requestRaiseBet(Chip.BLUE);
+        GameController.getAPI().requestRaiseBet(Chip.BLUE);
       } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
-        controller.requestLowerBet(Chip.BLUE);
+        GameController.getAPI().requestLowerBet(Chip.BLUE);
       }
     } else if (isInsideChip(event, chip20X, chip20Y)) {
       // Chip 20 clicked
       if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
-        controller.requestRaiseBet(Chip.RED);
+        GameController.getAPI().requestRaiseBet(Chip.RED);
       } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
-        controller.requestLowerBet(Chip.RED);
+        GameController.getAPI().requestLowerBet(Chip.RED);
       }
     } else if (isInsideChip(event, chip50X, chip50Y)) {
       // Chip 50 clicked
       if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
-        controller.requestRaiseBet(Chip.GREEN);
+        GameController.getAPI().requestRaiseBet(Chip.GREEN);
       } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
-        controller.requestLowerBet(Chip.GREEN);
+        GameController.getAPI().requestLowerBet(Chip.GREEN);
       }
     } else if (isInsideChip(event, chip100X, chip100Y)) {
       // Chip 100 clicked
       if (SwingUtilities.isLeftMouseButton(event)) {
         // Increment bet
-        controller.requestRaiseBet(Chip.GOLD);
+        GameController.getAPI().requestRaiseBet(Chip.GOLD);
       } else if (SwingUtilities.isRightMouseButton(event)) {
         // Decrement bet
-        controller.requestLowerBet(Chip.GOLD);
+        GameController.getAPI().requestLowerBet(Chip.GOLD);
       }
     }
   }
@@ -238,7 +234,7 @@ class DealerFrame extends JFrame implements MouseListener {
       int posX = cardCenterX - (cardWidth / 2);
       int posY = cardCenterY - (cardHeight / 2) + (i * cardOffset);
 
-      g.drawImage(view.cardAssets.get(dealerCards.get(i)), posX, posY, cardWidth, cardHeight, this);
+      g.drawImage(GameUI.getAPI().cardAssets.get(dealerCards.get(i)), posX, posY, cardWidth, cardHeight, this);
     }
   }
 
@@ -248,7 +244,7 @@ class DealerFrame extends JFrame implements MouseListener {
     super.paint(g);
 
     // paint table
-    g.drawImage(view.tableAsset, 0, 0, getWidth(), getHeight(), this);
+    g.drawImage(GameUI.getAPI().tableAsset, 0, 0, getWidth(), getHeight(), this);
 
     // paint labels
     balanceLabel.repaint();
@@ -256,12 +252,12 @@ class DealerFrame extends JFrame implements MouseListener {
     pointsLabel.repaint();
 
     // draw chip images
-    g.drawImage(view.chipAssets.get(Chip.BLACK), chip1X, chip1Y, chipWidth, chipHeight, this);
-    g.drawImage(view.chipAssets.get(Chip.PINK), chip5X, chip5Y, chipWidth, chipHeight, this);
-    g.drawImage(view.chipAssets.get(Chip.BLUE), chip10X, chip10Y, chipWidth, chipHeight, this);
-    g.drawImage(view.chipAssets.get(Chip.RED), chip20X, chip20Y, chipWidth, chipHeight, this);
-    g.drawImage(view.chipAssets.get(Chip.GREEN), chip50X, chip50Y, chipWidth, chipHeight, this);
-    g.drawImage(view.chipAssets.get(Chip.GOLD), chip100X, chip100Y, chipWidth, chipHeight, this);
+    g.drawImage(GameUI.getAPI().chipAssets.get(Chip.BLACK), chip1X, chip1Y, chipWidth, chipHeight, this);
+    g.drawImage(GameUI.getAPI().chipAssets.get(Chip.PINK), chip5X, chip5Y, chipWidth, chipHeight, this);
+    g.drawImage(GameUI.getAPI().chipAssets.get(Chip.BLUE), chip10X, chip10Y, chipWidth, chipHeight, this);
+    g.drawImage(GameUI.getAPI().chipAssets.get(Chip.RED), chip20X, chip20Y, chipWidth, chipHeight, this);
+    g.drawImage(GameUI.getAPI().chipAssets.get(Chip.GREEN), chip50X, chip50Y, chipWidth, chipHeight, this);
+    g.drawImage(GameUI.getAPI().chipAssets.get(Chip.GOLD), chip100X, chip100Y, chipWidth, chipHeight, this);
 
     // draw hand
     drawStackedCards(g);
