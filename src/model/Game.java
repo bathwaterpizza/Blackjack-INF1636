@@ -689,16 +689,22 @@ public class Game implements IGameObservable, Serializable {
   }
 
   // save game to a file
-  public void saveGame(String filePath) throws IOException {
+  public static void saveGame(String filePath) {
     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
       out.writeObject(instance);
+    } catch (IOException e) {
+      System.out.println("Error: could not save game");
+      System.exit(1);
     }
   }
 
   // load game from a file
-  public static void loadGame(String filePath) throws IOException, ClassNotFoundException {
+  public static void loadGame(String filePath) {
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
       instance = (Game) in.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+      System.out.println("Error: could not load game");
+      System.exit(1);
     }
   }
 }
