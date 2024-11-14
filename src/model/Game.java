@@ -1,6 +1,6 @@
 package model;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ public class Game implements IGameObservable, Serializable {
   boolean splitSurrendered = false;
   RoundResult splitResult = null;
 
-  // observer list
+  // observer list, not serializable
   private transient List<IGameObserver> observers = new ArrayList<IGameObserver>();
 
   // singleton pattern
@@ -686,5 +686,19 @@ public class Game implements IGameObservable, Serializable {
     }
 
     return list;
+  }
+
+  // save game to a file
+  public void saveGame(String filePath) throws IOException {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
+      out.writeObject(instance);
+    }
+  }
+
+  // load game from a file
+  public static void loadGame(String filePath) throws IOException, ClassNotFoundException {
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
+      instance = (Game) in.readObject();
+    }
   }
 }

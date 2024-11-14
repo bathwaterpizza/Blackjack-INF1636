@@ -9,6 +9,6 @@ public class Main {
     // ConsoleGameTest.run();
 
     // Controller constructor will initialize the game
-    GameController controller = GameController.getAPI();
+    GameController.getAPI();
   }
 }
