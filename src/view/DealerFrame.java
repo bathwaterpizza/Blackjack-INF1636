@@ -17,6 +17,7 @@ class DealerFrame extends JFrame implements MouseListener {
   private JLabel balanceLabel;
   private JLabel betLabel;
   private JLabel pointsLabel;
+  private JButton saveGameButton;
 
   // button size and bounds
   private int btnWidth = 96;
@@ -46,6 +47,9 @@ class DealerFrame extends JFrame implements MouseListener {
   // surrender
   private int btnSurrenderX = 591;
   private int btnSurrenderY = 489;
+  // save game
+  private int btnSaveGameX = 14;
+  private int btnSaveGameY = 336;
 
   // chip size and bounds
   private int chipWidth = 60;
@@ -103,6 +107,19 @@ class DealerFrame extends JFrame implements MouseListener {
     add(balanceLabel);
     add(betLabel);
     add(pointsLabel);
+
+    // init save game button
+    saveGameButton = new JButton("SAVE");
+    saveGameButton.setBounds(btnSaveGameX, btnSaveGameY, btnWidth, btnHeight);
+    saveGameButton.setFocusable(false);
+    saveGameButton.setFont(new Font("Arial", Font.BOLD, 18));
+    saveGameButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // save game here
+      }
+    });
+    add(saveGameButton);
 
     // register mouse listener
     addMouseListener(this);
@@ -250,6 +267,9 @@ class DealerFrame extends JFrame implements MouseListener {
     balanceLabel.repaint();
     betLabel.repaint();
     pointsLabel.repaint();
+    
+    // paint buttons
+    saveGameButton.repaint();
 
     // draw chip images
     g.drawImage(GameUI.getAPI().chipAssets.get(Chip.BLACK), chip1X, chip1Y, chipWidth, chipHeight, this);
