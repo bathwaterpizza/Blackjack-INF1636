@@ -1,12 +1,15 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 import observer.*;
 
 // public class that contains the model API
-public class Game implements IGameObservable {
+public class Game implements IGameObservable, Serializable {
+  // fixed ID for serialization
+  private static final long serialVersionUID = 1L;
   // minimum bet to play a hand
   private static final int MIN_BET = 50;
   // singleton instance
@@ -34,7 +37,7 @@ public class Game implements IGameObservable {
   RoundResult splitResult = null;
 
   // observer list
-  private List<IGameObserver> observers = new ArrayList<IGameObserver>();
+  private transient List<IGameObserver> observers = new ArrayList<IGameObserver>();
 
   // singleton pattern
   private Game() {

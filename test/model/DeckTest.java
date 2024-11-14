@@ -72,22 +72,6 @@ public class DeckTest {
   }
 
   /**
-   * Test to verify that an exception is thrown when attempting to draw a card
-   * from an empty deck.
-   */
-  @Test
-  public void testDeckIsEmpty() {
-    Deck deck = new Deck(false);
-    try {
-      for (int i = 0; i < 418; i++) {
-        deck.getCard();
-      }
-    } catch (EmptyDeckException e) {
-      assertEquals("Deck is empty", e.getMessage());
-    }
-  }
-
-  /**
    * Test to ensure that two decks of different sizes are correctly identified as
    * having different sizes.
    */

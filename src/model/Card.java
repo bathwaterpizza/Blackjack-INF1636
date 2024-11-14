@@ -1,7 +1,9 @@
 package model;
 
+import java.io.Serializable;
+
 // represents a card in the game, either from the deck or from a hand
-class Card {
+class Card implements Serializable {
   Suit suit;
   Rank rank;
 
@@ -72,7 +74,7 @@ class Card {
   // static method to create a Card from an integer
   static Card fromInt(int cardNum) {
     if (cardNum < 0 || cardNum > 51) {
-      System.out.println("Invalid card number in fromInt.");
+      System.out.println("Error: Invalid card number in fromInt.");
       return null;
     }
 

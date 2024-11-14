@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // represents a hand of cards in the game, from players or the dealer
-class Hand {
+class Hand implements Serializable {
   ArrayList<Card> cards = new ArrayList<>();
   int points = 0;
 

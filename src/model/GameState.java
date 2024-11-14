@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
-// this record is used to share the game state with its observers
+// this record is used to share the game state with its observers.
+// note that it is NOT used for saving/loading the game
 public record GameState(
     List<Integer> dealerCards,
     int dealerPoints,
@@ -14,5 +16,5 @@ public record GameState(
     double balance,
     int totalBet,
     int bet,
-    int splitBet) {
+    int splitBet) implements Serializable {
 }

@@ -1,8 +1,10 @@
 package model;
 
+import java.io.Serializable;
+
 // represents the player in the game,
 // contains the player's hands as well as money values (bets and balance)
-class Player {
+class Player implements Serializable {
   private static final double START_BALANCE = 2400.0;
 
   // player properties

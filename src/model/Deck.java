@@ -1,18 +1,12 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Stack;
 
-// thrown when the deck is empty, should never happen
-class EmptyDeckException extends RuntimeException {
-  public EmptyDeckException(String message) {
-    super(message);
-  }
-}
-
 // represents the deck of available cards for drawing in the game,
 // refills and shuffles automatically after 10% of the deck is used
-class Deck {
+class Deck implements Serializable {
   private static final int DRAW_LIMIT = 41;
   private static final int TOTAL_CARDS = 416;
 
@@ -52,7 +46,8 @@ class Deck {
   // returns the card at the top of the deck, also removing it from the deck
   Card getCard() {
     if (deck.isEmpty()) {
-      throw new EmptyDeckException("Deck is empty");
+      System.out.println("Error: getCard from empty deck");
+      return null;
     }
 
     return deck.pop();
