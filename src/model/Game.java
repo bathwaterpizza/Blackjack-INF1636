@@ -327,7 +327,7 @@ public class Game implements IGameObservable {
     // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
     // Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
     // dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
-        dealerTestCard2);
+    //     dealerTestCard2);
 
     return true;
   }
