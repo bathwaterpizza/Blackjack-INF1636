@@ -28,10 +28,12 @@ public class GameController {
 
   // called by the view when the player clicks on new game in menu
   // close menu, open dealer window and start game
-  public void newGame() {
+  public void startGame(boolean isLoad) {
     GameUI.getAPI().closeMenuWindow();
     GameUI.getAPI().openDealerWindow();
-    Game.getAPI().choiceClear();
+
+    if (!isLoad)
+      Game.getAPI().choiceClear();
   }
 
   // methods to update the model, representing a game choice from the player.
@@ -119,5 +121,20 @@ public class GameController {
       GameUI.getAPI().messageGame("You can't lower your bet now");
       return;
     }
+  }
+
+  // save/load methods
+  public void requestSave(String filePath) {
+    Game.saveGame(filePath);
+  }
+
+  public void requestLoad(String filePath) {
+    Game.loadGame(filePath);
+    
+    // add the view as an observer of the loaded model
+    Game.getAPI().addObserver(GameUI.getAPI());
+
+    // force model to update its observers
+    Game.getAPI().forceNotifyAll();
   }
 }

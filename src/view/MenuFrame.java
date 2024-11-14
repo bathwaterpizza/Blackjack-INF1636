@@ -36,15 +36,16 @@ class MenuFrame extends JFrame {
     newGameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // informs the controller we want to start a new game
-        GameController.getAPI().newGame();
+        // request controller to start a new game
+        GameController.getAPI().startGame(false);
       }
     });
     continueButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO: Save/Continue game feature
-        System.out.println("Continue button clicked");
+        // request controller to load a saved game file
+        GameController.getAPI().startGame(true);
+        GameController.getAPI().requestLoad("game.ser");
       }
     });
 

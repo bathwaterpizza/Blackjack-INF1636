@@ -53,10 +53,17 @@ public class Game implements IGameObservable, Serializable {
 
   // observable interface methods
   public void addObserver(IGameObserver observer) {
+    if (observers == null) {
+      observers = new ArrayList<IGameObserver>();
+    }
+
     observers.add(observer);
   }
 
   public void remObserver(IGameObserver observer) {
+    if (observers == null)
+      return;
+
     observers.remove(observer);
   }
 
@@ -112,6 +119,26 @@ public class Game implements IGameObservable, Serializable {
 
       // player split hand window should display as long as there is a split
       observer.updateWindows(this, betPlaced, split);
+    }
+  }
+
+  // save game to a file
+  public static void saveGame(String filePath) {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
+      out.writeObject(instance);
+    } catch (IOException e) {
+      System.out.println("Error: could not save game");
+      System.exit(1);
+    }
+  }
+
+  // load game from a file
+  public static void loadGame(String filePath) {
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
+      instance = (Game) in.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+      System.out.println("Error: could not load game");
+      System.exit(1);
     }
   }
 
@@ -299,6 +326,14 @@ public class Game implements IGameObservable, Serializable {
       // no split hand, dealer plays
       playDealerHand();
     }
+  }
+
+  // notify all observers of everything.
+  // called when a new model is loaded
+  public void forceNotifyAll() {
+    notifyWindowUpdate();
+    notifyHandUpdate();
+    notifyMoneyUpdate();
   }
 
   // called when the player presses deal
@@ -686,25 +721,5 @@ public class Game implements IGameObservable, Serializable {
     }
 
     return list;
-  }
-
-  // save game to a file
-  public static void saveGame(String filePath) {
-    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
-      out.writeObject(instance);
-    } catch (IOException e) {
-      System.out.println("Error: could not save game");
-      System.exit(1);
-    }
-  }
-
-  // load game from a file
-  public static void loadGame(String filePath) {
-    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
-      instance = (Game) in.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-      System.out.println("Error: could not load game");
-      System.exit(1);
-    }
   }
 }
