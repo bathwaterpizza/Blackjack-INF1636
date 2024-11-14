@@ -116,7 +116,7 @@ class DealerFrame extends JFrame implements MouseListener {
     saveGameButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        GameController.getAPI().requestSave("game.ser");
+        GameController.getAPI().requestSave();
         GameUI.getAPI().messageGame("Game saved successfully");
       }
     });

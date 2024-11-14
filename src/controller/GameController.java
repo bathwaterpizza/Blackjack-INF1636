@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+
 import view.*;
 import model.*;
 
@@ -124,12 +126,12 @@ public class GameController {
   }
 
   // save/load methods
-  public void requestSave(String filePath) {
-    Game.saveGame(filePath);
+  public void requestSave() {
+    Game.saveGame();
   }
 
-  public void requestLoad(String filePath) {
-    Game.loadGame(filePath);
+  public void requestLoad(File file) {
+    Game.loadGame(file);
     
     // add the view as an observer of the loaded model
     Game.getAPI().addObserver(GameUI.getAPI());

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import controller.*;
 
@@ -43,9 +44,8 @@ class MenuFrame extends JFrame {
     continueButton.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // request controller to load a saved game file
-        GameController.getAPI().startGame(true);
-        GameController.getAPI().requestLoad("game.ser");
+        // choose a file and load the saved game
+        chooseSaveFile();
       }
     });
 
@@ -53,6 +53,21 @@ class MenuFrame extends JFrame {
     panel.add(continueButton);
 
     getContentPane().add(panel, BorderLayout.CENTER);
+  }
+
+  // opens file chooser and requests a load
+  private void chooseSaveFile() {
+    JFileChooser chooser = new JFileChooser();
+    chooser.setDialogTitle("Select save file");
+    chooser.setCurrentDirectory(new File("savefiles"));
+
+    int userOption = chooser.showOpenDialog(this);
+    if (userOption == JFileChooser.APPROVE_OPTION) {
+      File file = chooser.getSelectedFile();
+
+      GameController.getAPI().startGame(true);
+      GameController.getAPI().requestLoad(file);
+    }
   }
 
   // Make the frame visible

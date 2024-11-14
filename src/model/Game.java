@@ -3,6 +3,8 @@ package model;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import observer.*;
 
@@ -123,7 +125,18 @@ public class Game implements IGameObservable, Serializable {
   }
 
   // save game to a file
-  public static void saveGame(String filePath) {
+  public static void saveGame() {
+    // dir and savefile path using current datetime
+    String datetimeStr = new SimpleDateFormat("dd-MM-yy_HH-mm").format(new Date());
+    String saveDir = "savefiles";
+    String filePath = saveDir + "/save_" + datetimeStr + ".ser";
+
+    // check if save dir exists
+    File directory = new File(saveDir);
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
+
     try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(filePath))) {
       out.writeObject(instance);
     } catch (IOException e) {
@@ -133,8 +146,8 @@ public class Game implements IGameObservable, Serializable {
   }
 
   // load game from a file
-  public static void loadGame(String filePath) {
-    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(filePath))) {
+  public static void loadGame(File file) {
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
       instance = (Game) in.readObject();
     } catch (IOException | ClassNotFoundException e) {
       System.out.println("Error: could not load game");
