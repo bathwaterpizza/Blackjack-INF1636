@@ -287,7 +287,7 @@ public class Game implements IGameObservable {
   }
 
   // called once main hand is done playing,
-  // checks wheher to play the split hand or the dealer hand
+  // checks whether to play the split hand or the dealer hand
   private void playSplitHand() {
     if (split) {
       // main hand finished, split hand plays
@@ -318,8 +318,7 @@ public class Game implements IGameObservable {
     notifyWindowUpdate();
     notifyMoneyUpdate();
 
-    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
-    deck.getCard());
+    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
 
     // for testing
     // Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
