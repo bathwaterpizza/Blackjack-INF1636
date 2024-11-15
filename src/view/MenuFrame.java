@@ -57,9 +57,17 @@ class MenuFrame extends JFrame {
 
   // opens file chooser and requests a load
   private void chooseSaveFile() {
+    String saveDir = "savefiles";
+
+    // check if save dir exists
+    File directory = new File(saveDir);
+    if (!directory.exists()) {
+      directory.mkdirs();
+    }
+
     JFileChooser chooser = new JFileChooser();
     chooser.setDialogTitle("Select save file");
-    chooser.setCurrentDirectory(new File("savefiles"));
+    chooser.setCurrentDirectory(directory);
 
     int userOption = chooser.showOpenDialog(this);
     if (userOption == JFileChooser.APPROVE_OPTION) {

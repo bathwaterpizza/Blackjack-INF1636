@@ -125,7 +125,7 @@ public class Game implements IGameObservable, Serializable {
   }
 
   // save game to a file
-  public static void saveGame() {
+  public static void save() {
     // dir and savefile path using current datetime
     String datetimeStr = new SimpleDateFormat("dd-MM-yy_HH-mm").format(new Date());
     String saveDir = "savefiles";
@@ -146,7 +146,7 @@ public class Game implements IGameObservable, Serializable {
   }
 
   // load game from a file
-  public static void loadGame(File file) {
+  public static void load(File file) {
     try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
       instance = (Game) in.readObject();
     } catch (IOException | ClassNotFoundException e) {

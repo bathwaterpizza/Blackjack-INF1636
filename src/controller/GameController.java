@@ -127,12 +127,12 @@ public class GameController {
 
   // save/load methods
   public void requestSave() {
-    Game.saveGame();
+    Game.save();
   }
 
   public void requestLoad(File file) {
-    Game.loadGame(file);
-    
+    Game.load(file);
+
     // add the view as an observer of the loaded model
     Game.getAPI().addObserver(GameUI.getAPI());
 
