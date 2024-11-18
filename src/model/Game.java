@@ -369,14 +369,27 @@ public class Game implements IGameObservable, Serializable {
     notifyWindowUpdate();
     notifyMoneyUpdate();
 
-    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
+    dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(),
+        deck.getCard());
 
-    // force splittable hand
-    // Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
-    // Card playerTestCard2 = new Card(Suit.HEARTS, Rank.TEN);
+    // splittable hand
+    // Card playerTestCard1 = new Card(Suit.SPADES, Rank.EIGHT);
+    // Card playerTestCard2 = new Card(Suit.HEARTS, Rank.EIGHT);
     // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
     // Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
-    //
+
+    // player blackjack
+    // Card playerTestCard1 = new Card(Suit.CLUBS, Rank.ACE);
+    // Card playerTestCard2 = new Card(Suit.DIAMONDS, Rank.TEN);
+    // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
+    // Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
+
+    // dealer blackhack
+    // Card playerTestCard1 = new Card(Suit.SPADES, Rank.FIVE);
+    // Card playerTestCard2 = new Card(Suit.HEARTS, Rank.SEVEN);
+    // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.TEN);
+    // Card dealerTestCard2 = new Card(Suit.SPADES, Rank.ACE);
+
     // dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
     // dealerTestCard2);
 
