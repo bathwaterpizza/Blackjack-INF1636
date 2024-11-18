@@ -371,11 +371,12 @@ public class Game implements IGameObservable, Serializable {
 
     dealInitialHand(deck.getCard(), deck.getCard(), deck.getCard(), deck.getCard());
 
-    // for testing
+    // force splittable hand
     // Card playerTestCard1 = new Card(Suit.SPADES, Rank.QUEEN);
     // Card playerTestCard2 = new Card(Suit.HEARTS, Rank.TEN);
     // Card dealerTestCard1 = new Card(Suit.CLUBS, Rank.FIVE);
     // Card dealerTestCard2 = new Card(Suit.HEARTS, Rank.SIX);
+    //
     // dealInitialHand(playerTestCard1, playerTestCard2, dealerTestCard1,
     // dealerTestCard2);
 
@@ -399,6 +400,7 @@ public class Game implements IGameObservable, Serializable {
 
     // open player main hand window
     notifyWindowUpdate();
+    notifyMoneyUpdate();
 
     assert playerCard1 != null;
     assert playerCard2 != null;

@@ -69,7 +69,7 @@ public class PlayerTest {
     player.incrementBet(Chip.GREEN);
     player.receiveTiePayout(false);
     double balanceAfter = player.balance;
-    assertEquals("The player had his bet returned to the balance", balanceBefore, balanceAfter);
+    assertEquals("The player had his bet returned to the balance", balanceBefore, balanceAfter, .0001);
   }
 
   @Test
@@ -79,7 +79,7 @@ public class PlayerTest {
     int betValue = Chip.GREEN.toInt();
     player.receiveWinPayout(false);
     double balanceAfter = player.balance;
-    assertEquals("The player had his bet doubled", 2400 - betValue + (2 * betValue), balanceAfter);
+    assertEquals("The player had his bet doubled", 2400 - betValue + (2 * betValue), balanceAfter, .0001);
 
   }
 
@@ -93,7 +93,7 @@ public class PlayerTest {
     double balanceAfter = player.balance;
 
     assertEquals("The player had his bet returned to the balance", balanceBefore - betValue + (betValue / 2),
-        balanceAfter);
+        balanceAfter, .0001);
 
   }
 
