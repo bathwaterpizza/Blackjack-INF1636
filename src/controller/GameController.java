@@ -30,12 +30,11 @@ public class GameController {
 
   // called by the view when the player clicks on new game in menu
   // close menu, open dealer window and start game
-  public void startGame(boolean isLoad) {
+  public void startGame() {
     GameUI.getAPI().closeMenuWindow();
     GameUI.getAPI().openDealerWindow();
 
-    if (!isLoad)
-      Game.getAPI().choiceClear();
+    Game.getAPI().choiceClear();
   }
 
   // methods to update the model, representing a game choice from the player.

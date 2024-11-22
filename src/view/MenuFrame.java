@@ -38,7 +38,7 @@ class MenuFrame extends JFrame {
       @Override
       public void actionPerformed(ActionEvent e) {
         // request controller to start a new game
-        GameController.getAPI().startGame(false);
+        GameController.getAPI().startGame();
       }
     });
     continueButton.addActionListener(new ActionListener() {
@@ -73,7 +73,7 @@ class MenuFrame extends JFrame {
     if (userOption == JFileChooser.APPROVE_OPTION) {
       File file = chooser.getSelectedFile();
 
-      GameController.getAPI().startGame(true);
+      GameController.getAPI().startGame();
       GameController.getAPI().requestLoad(file);
     }
   }
